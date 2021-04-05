@@ -1,0 +1,183 @@
+
+.IndexPage{
+    background-color: #161618;
+    height:auto;
+    width: 100%;
+}
+.MainNavBar{
+    width: 100%;
+    display: flex;
+    background-color: rgb(36,36,36);
+}
+.MainNavBar nav{
+    height: 45px;
+    width: 90%;
+    margin: auto;
+}
+.backgroundImage{
+    
+    width:100% ;
+    
+    min-width: 980px;
+    width: 100%;
+    height: 240px;
+    background-image: url("https://i.pinimg.com/originals/7d/8a/c6/7d8ac61fb5e157ed7c1f3a5c019bd36f.jpg");
+    background-color: #003169;
+    background-size: cover;
+    /* background-size: 100% 100%; */
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
+    border-bottom: 5px solid #003169;
+}
+.mainWrapper{
+    height:auto;
+    width: 90%;
+    position: relative;
+    bottom: 36px;
+    margin: auto;
+    background-color: #212121;
+    padding: 0;
+}
+.toplinecss{
+    width: 99.5%;
+    border-top: 5px solid #003169;
+    border-left: 5px solid #003169;
+    border-right: 5px solid #003169;
+    height: 31px;
+    color: white;
+    font-size: 20px;
+}
+
+.secondWrapper{
+    width: clac(80%-10px);
+    height:auto;
+    padding:0 10px 0 10px;
+    display: flex;
+    justify-content: space-between;
+
+}
+.secondFeed{
+    width: 25%;
+
+}
+.thirdWrapper{
+    height:auto;
+    width: 70%;
+}
+.ContentBox{
+    
+    width: 100%;
+    
+    margin-bottom: 20px;
+
+}
+.ContentBoxHeader{
+    height: 40px;
+    width: 100%;
+    background-color:#003169 ;
+    text-align: left;
+    color: white;
+    display: flex;
+    align-items: center;
+    
+}
+.ContentBoxHeader h3{
+    font-size: 13px;
+    margin-left: 10px;
+}
+.ContentBoxBody{
+    text-align: left;
+    font-size: 15px;
+    color: white;
+    color: #afafaf;
+    font-family: "Roboto",sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    height: 100%;
+    
+}
+
+.chatBox{
+    height: 350px;
+    width: 100%;
+    margin-bottom: 70px;
+    background-color:  rgb(36,36,36);
+}
+.secondNav{
+    margin: 20px 0 20px 0;
+    color: #fff;
+    font-size: 13px;  
+    
+}
+.backgroundImage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.secondNav ul{
+    padding: 3px 0;
+    margin-left: 0;
+    margin-top: 1px;
+    margin-bottom: -20px;
+    list-style-type: none;
+    text-align: left;
+    line-height: 1.2;
+    font-size: 13px;
+}
+.secondNav a{
+    text-decoration: none;
+    position: relative;
+    padding: 7px 10px;
+    color: #fff;
+    border-radius: 3px;
+    background: #252525;
+    list-style: none;
+    font-size: 13  !important;
+}
+.secondNav li{
+    display: inline-block;
+    margin-right: 3px;
+    padding: 9px 2px;
+    background: #151515;
+    border: 1px solid #282828;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+}
+.secondNav a:focus{
+    background: #353535;
+}
+.ContentBoxBody li{
+list-style: none;
+padding: 0;
+height: 50px;
+border-bottom: 1px solid #151515;
+width: 100%;
+border-bottom: 1px solid #303030;
+}
+.ContentBoxBody  li a{
+position: relative;
+top: 20%;}
+.ContentBoxBody ul{
+    list-style: none;
+    width: calc(100%-20px);
+    padding: 0px 10px 0 10px;
+  
+    }
+
+.ContentBoxBody li span:last-child{
+    position: relative;
+    float:right;
+    }
+    .ContentBoxBody p:first-of-type{
+        color: #fff;
+        margin: 0;
+    padding: 0;
+    }
+.ContentBoxBody li p:last-child{
+    margin: 0;
+    padding: 0;
+    margin-left:  40px;
+ padding-bottom: 10px;
+        }
+   

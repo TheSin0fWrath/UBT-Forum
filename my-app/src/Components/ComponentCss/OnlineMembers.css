@@ -1,0 +1,36 @@
+
+.OnlineMembersBox{
+    height: auto;
+    width:80%;
+    background-color: rgb(27, 26, 26);
+    margin-bottom: 50px;
+    position: relative;
+    color: white;
+    margin-top:30px;
+
+}
+.OnlineMembers span{color: #1154a1;
+    margin-right: 30px;
+    margin-left: 20px;
+}
+.OnlineMembers{
+    color: #a0a0a0;;
+    font-weight: 300;
+    font-size: 20px;
+    text-align: left;
+    margin-top: 150px;
+}
+.OnlineMembersBox li{
+    font-size: 13px;
+    list-style: none;
+    display: inline;
+     
+
+}
+.OnlineMembersBox a{
+    text-decoration: none;
+    color: rgb(161, 161, 161);
+    color:#CCCCCC;
+text-align: center;
+    text-shadow: 1px 1px 1px #000;
+}
