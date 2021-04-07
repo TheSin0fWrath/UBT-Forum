@@ -13,8 +13,26 @@
   text-align: left !important;
 }
 
+.CBox td:nth-last-of-type(6) {
+  width: 30px;
+}
+
+.CBox td:nth-last-of-type(5) {
+  width: 10%;
+}
+
+.CBox td:nth-last-of-type(4) {
+  width: 69%;
+}
+.CBox td:nth-last-of-type(3) {
+  width: 4%;
+}
+.CBox td:nth-last-of-type(2) {
+  width: 7%;
+}
 .CBox .ChatTable {
   height: 100%;
+  overflow-y: auto;
 }
 
 .CBox .CboxGrey td {
@@ -32,7 +50,7 @@
   padding: 5px 0px 5px 5px;
 }
 
-.CBox input:last-of-type {
+.CBox input:nth-of-type(2) {
   float: right;
   width: 9%;
   color: white;
@@ -40,4 +58,33 @@
   background-color: #1b1b1b;
   padding: 6px 0px 6px 0px;
 }
+.hide{
+  display: none;
+}
+.updateMessageForm{
+  position: absolute;
+  top:350px;
+  left: 400px;
+  width: 300px;
+  height: 100px;
+  background-color: #161618;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.updateMessageForm input {
+width: 90% ;
+color:white;
+background-color:#302f2f !important;
+
+}
+.updateMessageForm button {
+  padding: 10px 10px 10px 10px;
+ border: none;
+  color:white;
+  background-color:#302f2f !important;
+  
+  }
+
 /*# sourceMappingURL=ChatBox.css.map */

@@ -12,8 +12,18 @@
         text-align: left !important;  
        
     }
+    td:nth-last-of-type(5){
+        width: 30px;
+    }
+    td:nth-last-of-type(4){
+        width: 10%;
+    }
+    td:nth-last-of-type(3){
+        width: 80%;
+    }
     .ChatTable{
         height: 100%;
+        overflow-y: auto;
     }
     
     .CboxGrey td{

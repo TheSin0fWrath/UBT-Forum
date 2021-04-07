@@ -1,53 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ComponentCss/ChatBox.css";
-
+import {updateChat,sendMessage,deleteMessage} from "./Crud/Crud"
+import UseFormInput from "./Crud/UseFormInput"
+import DateDiff from "./Crud/DateDiff";
 function Chat() {
-  const [Message, setMessage] = useState("");
+  const Message =UseFormInput("");
+  const [post,setPosts]=useState([]);
 
- 
+async function send(){
+  await sendMessage("user",Message.value)
+}
+
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect( async () => {
+       const  interval = await setInterval(async ()=>{ await setPosts(await updateChat())},2000);
+      return () => {
+        clearInterval(interval);
+      };
+    }, [])
+function clacdate(date){
+  return DateDiff(date)
+}
+
+  const mes =post.map(d =>  (    
+  <tr className={d.id % 2 === 0 ? '' : 'CboxGrey'}>
+    <td>@</td>
+    <td key={d.username}>{d.username}</td>
+    <td key={d.text}>{d.text}</td>
+    < td key={"update"}>Edit</td>
+    <td onClick={async ()=> await deleteMessage(d.id)} style ={{cursor:"pointer"}}key ={"delete"}>Delete</td>
+   
+    <td key={d.time}>{ clacdate(d.time)}</td>
+  </tr>
+ ) );
+
 
   return (
     <div className="CBox">
       <div className="ChatTable">
         <table>
           <tbody>
-            <tr>
-              <td width="10px">@</td>
-              <td width="10%">SeadAhmeti</td>
-              <td width="80%">Message</td>
-              <td>Delete</td>
-              <td>21:09</td>
-            </tr>
-            <tr className="CboxGrey">
-              <td>@</td>
-              <td>SeadAhmeti</td>
-              <td>Message</td>
-              <td>Delete</td>
-              <td>21:03</td>
-            </tr>
-            
+           
+            {mes }
           </tbody>
         </table>
       </div>
       <form>
-        <input
-          type="text"
-          onChange={(x) => setMessage(x.target.value)}
-          placeholder="Message..."
+        <input   {...Message}type="text"placeholder="Message..."
         />
-        <input type="button" value="Send" />
+        <input type="button" onClick={send} value="send" />
+      </form>
+      <form id="updateform" className="hide">
+        <input type="text"/>
+          <button >Update</button>
       </form>
     </div>
   );
 }
 export default Chat;
 
-//message.map(d => (
-  //     <tr className={d.id % 2 === 0 ? '' : 'CboxGrey'}>
-  //       <td>@</td>
-  //       <td key={d.name}>{d.name.toString()}</td>
-  //       <td key={d.message}>{d.message.toString()}</td>
-  //       <td>Delete</td>
-  //       <td key={d.time}>{d.time.toString()}</td>
-  //     </tr>
-  //    ) );

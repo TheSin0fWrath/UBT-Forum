@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dell\\Desktop\\Projects\\project\\as\\backend\\backend.csproj": {}
+    "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dell\\Desktop\\Projects\\project\\as\\backend\\backend.csproj": {
+    "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dell\\Desktop\\Projects\\project\\as\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\Dell\\Desktop\\Projects\\project\\as\\backend\\backend.csproj",
+        "projectPath": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
         "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dell\\Desktop\\Projects\\project\\as\\backend\\obj\\",
+        "outputPath": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",

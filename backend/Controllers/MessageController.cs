@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using backend.Model;
 using backend.Services;
@@ -26,6 +27,12 @@ namespace backend.Controllers
         public  async Task<IActionResult> getMessages( )
         {
             return Ok(await _message.getMessage());
+        }
+        [HttpDelete("{id}")]
+         public  async Task<IActionResult> deleteMessage(int id)
+        {
+          
+            return Ok(await _message.DeleteMessage(id));
         }
     }
 }

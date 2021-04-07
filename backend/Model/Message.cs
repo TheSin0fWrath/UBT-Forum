@@ -9,9 +9,9 @@ namespace backend.Model
         public string Username  { get; set; }
         public string Text { get; set; }
         
-        public DateTime Time { get; set; }
-        
-        
+        public string Time { get; set; }
+
+        public User User { get; set; }
         
         
         

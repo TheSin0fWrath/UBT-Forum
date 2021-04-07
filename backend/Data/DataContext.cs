@@ -9,8 +9,11 @@ namespace backend.Data
         {
             
         }
+  
         public DbSet<Message> ChatBox { get; set; }
+        public DbSet<User>  Users{ get; set; }
         
         
+
     }
 }
