@@ -10,8 +10,10 @@ namespace backend.Model
         public string Text { get; set; }
         
         public string Time { get; set; }
-
-        public User User { get; set; }
+        public int UserId { get; set; }
+        
+        
+         public User User { get; set; }
         
         
         

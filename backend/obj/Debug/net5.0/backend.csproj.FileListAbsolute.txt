@@ -132,3 +132,4 @@ C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.dll
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\ref\backend.dll
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.pdb
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.genruntimeconfig.cache
+C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
