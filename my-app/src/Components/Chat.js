@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./ComponentCss/ChatBox.css";
-import {updateChat,sendMessage,deleteMessage} from "./Crud/Crud"
-import UseFormInput from "./Crud/UseFormInput"
-import DateDiff from "./Crud/DateDiff";
+import {updateChat,sendMessage,deleteMessage} from "../hooks/Crud"
+import UseFormInput from "../hooks/UseFormInput"
+import DateDiff from "../hooks/DateDiff";
 function Chat() {
   const Message =UseFormInput("");
   const [post,setPosts]=useState([]);

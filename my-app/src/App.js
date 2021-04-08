@@ -2,12 +2,18 @@
 import './App.css';
 import HomePage from './HomePage.js';
 import {Link, Route, Switch}  from "react-router-dom"
-import EmptyPage from "../src/Components/EmptyPage"
+import Announcments from "./Pages/Announcments"
+import LoginPage from "./Pages/LoginPage"
 
 function App() {
+
   return (
     <div className="App">
-       <HomePage/>
+      <Switch>
+      <Route path="/login"> <LoginPage /> </Route>
+       <Route path="/announcments"> <Announcments /> </Route>
+       <Route path="/"> <HomePage/>  </Route>
+       </Switch>
     </div>
   )
 }

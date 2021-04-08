@@ -24,9 +24,6 @@ export default function Arkitektur(){
            <Forum icon="i" name="Viti II" desc="Look here for announcements regarding Ubt."threads="22" posts="22" lastPost="This post"/>
            <Forum icon="i" name="Viti III" desc="Look here for announcements regarding Ubt."threads="22" posts="22" lastPost="This post"/>
 
-           {/* <tr className="subCategory">
-           <td className="subCategory" colspan="10">Tools</td>
-           </tr> */}
         
                 </tbody>    
                  </table>

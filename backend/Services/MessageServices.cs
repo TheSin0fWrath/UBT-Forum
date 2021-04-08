@@ -20,12 +20,12 @@ namespace backend.Services
         {
             ServiceResponse<Message> response = new ServiceResponse<Message>();
         try{
-           response.Data=nMessage;
+        
           
             await _db.ChatBox.AddAsync(nMessage);
             
             response.Message="ChatUpdated";
-            response.Data=nMessage;
+            
             Message deletem=await _db.ChatBox.OrderBy(b =>b.Id).FirstAsync();
             var count =await  _db.ChatBox.CountAsync();
             if(count >= 20){

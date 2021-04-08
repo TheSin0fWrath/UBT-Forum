@@ -1,5 +1,5 @@
 import React from 'react';
-import "../src/HomePage.css"
+// import "../src/HomePage.css"
 import CSE from './Subjects/CSE'
 import Arkitektur from './Subjects/Arkitektur'
 import {Link, Route}  from "react-router-dom";
@@ -14,8 +14,10 @@ import OnlineMembers from './Components/OnlineMembers'
 import Chat from "./Components/Chat";
 
 function HomePage(){
-function SelectNav(){
-}
+
+  
+   if (window?.location.pathname === `/`)
+  require(`../src/HomePage.css`)
 return(
 <div className="IndexPage" >
    <div className="MainNavBar">
