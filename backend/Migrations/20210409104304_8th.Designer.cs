@@ -10,8 +10,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210407160700_initiallv1")]
-    partial class initiallv1
+    [Migration("20210409104304_8th")]
+    partial class _8th
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,8 +60,8 @@ namespace backend.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnType("varbinary(max)");
@@ -77,6 +77,55 @@ namespace backend.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("backend.Model.UserInfo", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Conntact")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Credits")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DateOfJoining")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Drejtimi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gjenerat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Posts")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProfilePic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReportedPosts")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Reputation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Threads")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WarningLevel")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UsersInfos");
+                });
+
             modelBuilder.Entity("backend.Model.Message", b =>
                 {
                     b.HasOne("backend.Model.User", "User")
@@ -88,9 +137,22 @@ namespace backend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("backend.Model.UserInfo", b =>
+                {
+                    b.HasOne("backend.Model.User", "User")
+                        .WithOne("UserInfo")
+                        .HasForeignKey("backend.Model.UserInfo", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("backend.Model.User", b =>
                 {
                     b.Navigation("Mesages");
+
+                    b.Navigation("UserInfo");
                 });
 #pragma warning restore 612, 618
         }

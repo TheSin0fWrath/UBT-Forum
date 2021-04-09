@@ -19,8 +19,8 @@ namespace backend.Controllers
         }
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserRegisterDto request){
-            ServiceResponse<int> response= await _authRepo.Register(
-                new User {Username= request.Username}, request.Password
+            ServiceResponse<UserInfo> response= await _authRepo.Register(
+                new User {Username= request.Username}, request
                 
             );
             if(!response.Success){
@@ -34,7 +34,6 @@ namespace backend.Controllers
             ServiceResponse<string> response= await _authRepo.Login( request.Username, request.Password);
             if(!response.Success){
                 return BadRequest(response);
-
             };
             return Ok(response);
         }

@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using backend.Model;
+using backend.Model.Dto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -35,22 +36,27 @@ namespace backend.Data
             return response;
         }
 
-        public async Task<ServiceResponse<int>> Register(User newUser, string password)
+        public async Task<ServiceResponse<UserInfo>> Register(User newUser, UserRegisterDto user)
         {
-            ServiceResponse<int> response = new ServiceResponse<int>();
-            CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
+            UserInfo userInfo= new UserInfo();
+            ServiceResponse<UserInfo> response = new ServiceResponse<UserInfo>();
+            CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
             if (await UserExists(newUser.Username))
             {
                 response.Message = "User Already Exists. Pls Chose Another Username";
                 response.Success = false;
                 return response;
             }
+            UserInfo newUserInfo= new UserInfo();
+            newUserInfo.Drejtimi= user.Drejtimi;
+            newUserInfo.Username=user.Username;
+            newUserInfo.Gjenerat=user.Gjenerat;
+            newUserInfo.DateOfJoining=user.DateOfJoining;
             newUser.PasswordHash = passwordHash;
             newUser.PasswordSalt = passwordSalt;
-
-            await _context.Users.AddAsync(newUser);
-            await _context.SaveChangesAsync();
-
+            newUser.UserInfo =newUserInfo;
+            _context.Users.Add(newUser); 
+            _context.SaveChanges();
             return response;
 
         }
@@ -108,5 +114,6 @@ namespace backend.Data
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+       
     }
 }

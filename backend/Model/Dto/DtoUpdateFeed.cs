@@ -11,5 +11,6 @@ namespace backend.Model.Dto
         public string User { get; set; }
         
         
+        
     }
 }
