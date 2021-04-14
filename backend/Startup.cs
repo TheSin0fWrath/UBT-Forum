@@ -42,6 +42,7 @@ namespace backend
                 .AllowAnyHeader());
     });
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IUserFeed, UserFeed>();
             services.AddScoped<IMessageServices, MessageServices>();
             services.AddDbContext<DataContext>(x =>x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddControllers();

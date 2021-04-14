@@ -47,7 +47,7 @@ console.log(window.localStorage.getItem("token"))
 
   const options ={
       method : "DELETE",
-      headers:{"content-type":"application/json"}
+      headers:{"content-type":"application/json","Authorization":`Bearer ${window.localStorage.getItem("token")}`}
   }
       await fetch(`http://localhost:5000/api/v1/chatBox/${id}`, options).then(response => response.json()).then(data => {
           dbData.message =data.message;

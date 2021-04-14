@@ -41,17 +41,23 @@ namespace backend.Services
             return response;
         }
 
-        public async Task<ServiceResponse<Message>> DeleteMessage(int id)
+        public async Task<ServiceResponse<Message>> DeleteMessage(int id,int userid)
         {
              ServiceResponse<Message> response = new ServiceResponse<Message>();
             try{
             Message deleteme=await _db.ChatBox.FirstOrDefaultAsync(x =>x.Id==id);
+            if (deleteme.UserId != userid){
+                response.Message="Not Your Message To Delete";
+                response.Success=false;
+                return response;
+            }
              _db.ChatBox.Remove(deleteme);
              await _db.SaveChangesAsync();
             response.Message="chatdeleted";
              }catch(Exception e){
                 response.Message=e.Message;
                 response.Success=false;
+                return response;
             }
             return response;
         }

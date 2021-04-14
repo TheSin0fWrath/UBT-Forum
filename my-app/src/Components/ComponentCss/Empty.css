@@ -14,8 +14,15 @@
     height: 45px;
     width: 90%;
     margin: auto;
+    display: flex;
+
+    justify-content:flex-end;
+    align-items: center;
 }
 .backgroundImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 240px;
     background-image: url("https://i.pinimg.com/originals/7d/8a/c6/7d8ac61fb5e157ed7c1f3a5c019bd36f.jpg");

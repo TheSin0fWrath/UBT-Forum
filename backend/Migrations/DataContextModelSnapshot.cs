@@ -68,6 +68,7 @@ namespace backend.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -92,7 +93,7 @@ namespace backend.Migrations
                     b.Property<string>("Drejtimi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gjenerat")
+                    b.Property<string>("Gjenerata")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Likes")

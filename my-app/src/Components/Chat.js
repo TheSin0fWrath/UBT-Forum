@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./ComponentCss/ChatBox.css";
-import {updateChat,sendMessage,deleteMessage} from "../hooks/Crud"
+import {updateChat,sendMessage,deleteMessage} from "../hooks/ChatCrud"
 import UseFormInput from "../hooks/UseFormInput"
 import DateDiff from "../hooks/DateDiff";
 function Chat() {
   const Message =UseFormInput("");
   const [post,setPosts]=useState([]);
+  const [sendmessage,setSend] =useState("SEND")
 
 async function send(){
   await sendMessage("user",Message.value)
@@ -28,7 +29,7 @@ function clacdate(date){
     <td>@</td>
     <td key={d.username}>{d.username}</td>
     <td key={d.text}>{d.text}</td>
-    < td key={"update"}>Edit</td>
+    < td key={"update"} >Edit</td>
     <td onClick={async ()=> await deleteMessage(d.id)} style ={{cursor:"pointer"}}key ={"delete"}>Delete</td>
    
     <td key={d.time}>{ clacdate(d.time)}</td>
@@ -49,12 +50,9 @@ function clacdate(date){
       <form>
         <input   {...Message}type="text"placeholder="Message..."
         />
-        <input type="button" onClick={send} value="send" />
+        <input type="button" onClick={send} value={sendmessage} />
       </form>
-      <form id="updateform" className="hide">
-        <input type="text"/>
-          <button >Update</button>
-      </form>
+      
     </div>
   );
 }

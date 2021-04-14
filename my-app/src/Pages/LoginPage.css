@@ -1,89 +1,119 @@
-.Register {
-    width: 500px;
+.UserProfile .header{
+    width: 100%;
+    height: 200px;
+       background-color: #003169;
+    background-image: url("../Images/secondSunSet.jpg");
+    background-blend-mode: darken;
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex;
-    flex-flow:column;
     align-items: center;
-    justify-content: space-between;
 }
-.Register form{
-    height: 500px;
-    width:  300px;
+.header .userPic{
+    margin-left: 150px; 
+    
+    width: 300px;
+    height: 150px;
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+    justify-content:space-evenly; 
+}
+
+.header .userpicin p:first-of-type{
+   font-size: 20px;
+   color: white;
+   font-weight: 500;
+}
+.header .userpicin p:last-of-type{
+    padding: 5px 15px 5px 15px;
+    background: #15bb47;
+    border-radius: 2px;
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+ }
+
+.userstats{
+    width: 100%;
+    margin-top: 20px;
     display: flex;
     flex-flow: row wrap;
+    justify-content: space-around;
     align-items: flex-start;
-    justify-content:flex-start;
-    color: white;
 }
-.Register form label{
+.userstats .information{
+    width: 30%;
+
+    height: 400px;
+}
+.userstats .ContentBoxBody,.userstats .ContentBoxHeader{
+    padding: 0;
+    margin: 0;
+}
+.userstats .ContentBoxBody{
+    background: #252525;
+}
+.userstats .stats{
+    width: 60%;
+
+    height: 500px;
+}
+.showBox{
+    width: 30%;
+    height: 85px;
+    margin-left: 55px;
+    margin-bottom: 20px;
+    float: left;
+    background:#202020;
+}
+.showBox p{
     margin: 0;
     padding: 0;
 }
-.Register select{
-margin-right: 15%;
-margin-left: 10%;
+.showBox p:first-of-type{
+    font-size: 25px;
+    margin-top: 15px;
+    color:#1f65b6 ;
+    font-weight: 600;
+}
+.userstats table td{
+    color: #afafaf  !important;
+    background: #252525;
+    border-top: 1px solid #1b1b1b;
+    border-bottom: 1px solid #1b1b1b;
+    padding:20px 10px 20px 10px;
+    font-size: 15px;
 }
 
-.Register form input{
-    flex-basis: 100%;
-  height: 30px;
-  margin: 0;
-  padding: 0;
-}
-.Login form{
-    height: 500px;
-    width: 500px;
+.userstats .statsTable{
     display: flex;
-    flex-flow: column ;
+    flex-flow:row;
+    justify-content: space-between;
     align-items: center;
-    justify-content:flex-start;
-    color: white;
-    font-weight: 500px;
-    
-   
+    background: #252525;
 }
-.Login form label:first-of-type{
-margin-top: 90px;
-margin-bottom: 20px;
+.userstats tbody:last-of-type{
+    border-right: 1px solid #151515;
 }
-.Login form label:last-of-type{
-   margin-top: 50px;
-   margin-bottom: 20px;
-    }
-.Loginpage input{
-border:none;
-border: 1px solid rgba(0,0,0,.5);
-background-color: rgba(0,0,0,.2);;
-padding: 20px 20p 20px 20px;
-height: 23px;
-color: white;
-font-size: 14px;
-margin-bottom: 20px;
+.ContentBox .last{
+    margin-top: 20px;
 }
-.LoginWrap{
-    padding: 40px 0 40px 0;
-    width: 100%;
-    height: 100%;
-    flex-flow: row wrap;
+.ContentBoxBody.last{
     display: flex;
-    align-items: center;
     justify-content: space-around;
-}
-.LoginWrap  input[type=submit]{
-    border: 1px solid rgba(0,0,0,.5);
-    background-color: #505050;
-    font-size: 20px;
-    height: 35px;
+    align-items: center;
+    font-size: 25px;
     color: white;
+    margin: 0;
+    height: 100px;
+    margin-bottom: 90px;
 }
-
-.Register input[type=submit]{
-   margin-left: 30%;
-   margin-right: 30%;
-}
-.LoginWrap p{
-    color: red;
-}
-.Register p:last-of-type{
-    margin-left: 20%;
-    text-align: center;
+.ContentBoxBody.last p{
+    font-size: 25px;
+    color: white;
+    padding: 5px 15px 5px 15px;
+    background: #15bb47;
+    border-radius: 2px;
+ 
 }

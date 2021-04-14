@@ -17,30 +17,12 @@ namespace backend.Model
         public int  WarningLevel { get; set; }=0;
         public int Credits { get; set; }=0;
         public int ReportedPosts { get; set; }=0;
-      
-        public string Gjenerat { get; set; }
-
+        public string Gjenerata { get; set; }
         public string Drejtimi { get; set; }
         public string DateOfJoining { get; set; }
         public string Conntact { get; set; }
         public string ProfilePic { get; set; }
-      
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+   
         
         
     

@@ -14,7 +14,8 @@ export default function LoginPage() {
     repassword: "",
     email: "",
     drejtimi: "",
-    viti: "",
+    gjenerata: "",
+    dateofjoining:""
   });
 
 
@@ -26,6 +27,9 @@ export default function LoginPage() {
     }
     const response =await LoginCrud(login);
     setloginerror(response.message)
+    if(response.success==true){
+   
+    }
     
   }
   
@@ -36,7 +40,7 @@ export default function LoginPage() {
       register.password == "" ||
       register.email == "" ||
       register.drejtimi == "Slect" ||
-      register.viti == "Select"
+      register.gjenerata == "Select"
     ) {
       setloginerror("Please Fill Both Of The Fields");
     } 
@@ -46,20 +50,21 @@ export default function LoginPage() {
     else if (!register.email.toLowerCase().includes("@ubt-uni.net")) {
       setreerror("You Must Use A UBT Email");
     }
-    else if (register.drejtimi==""||register.viti==""){
-      setreerror("Please Chose Vitin and Drejtimi");
+    else if (register.drejtimi==""||register.gjenerata==""){
+      setreerror("Please Chose Gjenerata and Drejtimi");
 
     }
     else{
-    console.log(register)
+    register.dateofjoining= new Date().toISOString().slice(0,10);  
    const response= await RegisterCrud(register);
    setreerror(response.message)
+   console.log(response.message)
     }
   }
 
   return (
     <div class="Loginpage">
-      <EmptyPage title="Announcments" desc="this desc" path="/Login">
+      <EmptyPage  path="/Login">
         <div className="LoginWrap">
           <div className="Login">
             <div className="ContentBox">
@@ -132,7 +137,7 @@ export default function LoginPage() {
                 name="drejtimi"
                 id=""
                 required
-                value="null"
+               
                 onChange={(x) =>
                   setregister({ ...register, drejtimi: x.target.value })
                 }
@@ -143,16 +148,16 @@ export default function LoginPage() {
                 <option value="Juridik">Juridik</option>
               </select>
               <select
-                name="Viti"
+                name="Gjenerata"
                 id=""
-                value="null"
+              
                 onChange={(x) =>
-                  setregister({ ...register, viti: x.target.value })
+                  setregister({ ...register, gjenerata: x.target.value })
                 }
               >
-                <option value="null" selected>
+                <option value="null" >
                   {" "}
-                  Viti
+                  Gjenerata
                 </option>
                 <option value="19/20">19/20</option>
                 <option value="18/19">18/19</option>

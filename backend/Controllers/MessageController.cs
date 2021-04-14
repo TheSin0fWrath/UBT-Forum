@@ -42,8 +42,8 @@ namespace backend.Controllers
         [HttpDelete("{id}")]
          public  async Task<IActionResult> deleteMessage(int id)
         {
-          
-            return Ok(await _message.DeleteMessage(id));
+            int userid = int.Parse(User.Claims.FirstOrDefault( x=>x.Type == ClaimTypes.NameIdentifier).Value);
+            return Ok(await _message.DeleteMessage(id,userid));
         }
     }
 }

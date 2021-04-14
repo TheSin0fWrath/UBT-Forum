@@ -1,15 +1,15 @@
 import React, { Children } from 'react';
 import UbtLog from '../Images/UbtLogo.png'
 import importcss from "../hooks/importcss";
+import profileIcon from '@iconify-icons/vs/profile';
+import { Icon, InlineIcon } from '@iconify/react';
 
-
-
-export default function EmptyPage  ({title,desc,path,children}){
-   importcss(`${path}`,`Threads.css`);
+export default function EmptyPage  ({path,children}){
+   importcss(`${path}`,`Empty.css`);
 return(
 <div className="IndexPage">
    <div className="MainNavBar">
-      <nav> </nav>
+   <nav> <InlineIcon icon={profileIcon} width="50px" height="90%" color="grey"/></nav>
    </div>
    <div className="backgroundImage">
    <a href="/"> <img src={UbtLog} height="150px" width="150px"/></a>

@@ -10,8 +10,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210408214316_Initial")]
-    partial class Initial
+    [Migration("20210412183906_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,10 +69,8 @@ namespace backend.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("UserInfoFk")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -82,10 +80,8 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.UserInfo", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Conntact")
                         .HasColumnType("nvarchar(max)");
@@ -97,11 +93,9 @@ namespace backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Drejtimi")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gjenerat")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Likes")
@@ -109,6 +103,9 @@ namespace backend.Migrations
 
                     b.Property<int>("Posts")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProfilePic")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ReportedPosts")
                         .HasColumnType("int");
@@ -119,15 +116,13 @@ namespace backend.Migrations
                     b.Property<int>("Threads")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WarningLevel")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("UserId");
 
                     b.ToTable("UsersInfos");
                 });
@@ -146,8 +141,8 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.UserInfo", b =>
                 {
                     b.HasOne("backend.Model.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("UserInfo")
+                        .HasForeignKey("backend.Model.UserInfo", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -157,6 +152,8 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.User", b =>
                 {
                     b.Navigation("Mesages");
+
+                    b.Navigation("UserInfo");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,22 +2,22 @@
 
 namespace backend.Migrations
 {
-    public partial class _2th : Migration
+    public partial class initilv1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "ProfilePic",
+            migrationBuilder.RenameColumn(
+                name: "Gjenerat",
                 table: "UsersInfos",
-                type: "nvarchar(max)",
-                nullable: true);
+                newName: "Gjenerata");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "ProfilePic",
-                table: "UsersInfos");
+            migrationBuilder.RenameColumn(
+                name: "Gjenerata",
+                table: "UsersInfos",
+                newName: "Gjenerat");
         }
     }
 }

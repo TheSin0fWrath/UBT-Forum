@@ -25,45 +25,95 @@ namespace backend.Data
         public async Task<ServiceResponse<string>> Login(string username, string password)
         {
             ServiceResponse<string> response = new ServiceResponse<string>();
-            User user = await _context.Users.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));
+            try{
+                if(username==null || password==null){
+                    response.Success=false;
+                    response.Message="You must use a password and username";
+                    return response;
+                }
+                if(username.Length >=30){
+                    response.Success=false;
+                    response.Message="Opss Username to long";
+                    return response;
+                }
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower() ));
+            // if(!user.IsActive){
+            //     response.Success = false;
+            //     response.Message = "User Has Been Banned Or Timed Out";
+            //     return response;
+            // }
+            
             if (user == null)
             {
                 response.Success = false;
                 response.Message = "Username Or Password Is Invalid";
                 return response;
-            };
+            }
+             else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                response.Success = false;
+                response.Message = "Wrong Password";
+            }
             response.Data = CreateToken(user);
+            }catch(Exception e){
+                response.Data=null;
+                response.Success=false;
+                response.Message=e.Message;
+                return response;
+            }
             return response;
         }
 
-        public async Task<ServiceResponse<UserInfo>> Register(User newUser, UserRegisterDto user)
+        public async Task<ServiceResponse<UserInfo>> Register(UserRegisterDto newuser)
         {
             UserInfo userInfo= new UserInfo();
             ServiceResponse<UserInfo> response = new ServiceResponse<UserInfo>();
-            CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            if (await UserExists(newUser.Username))
+            try{
+                if(newuser.Username.Length >=30){
+                response.Message = "Username to long pls chose another one";
+                response.Success = false;
+                return response;
+                }
+                 if(newuser.Drejtimi ==null || newuser.Username==null || newuser.Gjenerata==null||newuser.Password==null||newuser.Email==null){
+                response.Message = "Please fill out all thr forms before registring ";
+                response.Success = false;
+                return response;
+                }
+            CreatePasswordHash(newuser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            if (await UserExists(newuser.Username,newuser.Email))
             {
                 response.Message = "User Already Exists. Pls Chose Another Username";
                 response.Success = false;
                 return response;
             }
             UserInfo newUserInfo= new UserInfo();
-            newUserInfo.Drejtimi= user.Drejtimi;
+            User user= new User();
+            newUserInfo.Drejtimi= newuser.Drejtimi;
+            newUserInfo.Username=newuser.Username;
             newUserInfo.Username=user.Username;
-            newUserInfo.Gjenerat=user.Gjenerat;
-            newUserInfo.DateOfJoining=user.DateOfJoining;
-            newUser.PasswordHash = passwordHash;
-            newUser.PasswordSalt = passwordSalt;
-            newUser.UserInfo =newUserInfo;
-            _context.Users.Add(newUser); 
+            newUserInfo.Gjenerata=newuser.Gjenerata;
+            newUserInfo.DateOfJoining=newuser.DateOfJoining;
+            newUserInfo.Conntact=newuser.Email;
+            
+            user.DateOfJoining= newuser.DateOfJoining;
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+            user.Username= newuser.Username;
+            user.UserInfo =newUserInfo;
+            _context.Users.Add(user); 
             _context.SaveChanges();
+            }catch(Exception e){
+                response.Success=false;
+                response.Message= e.Message;
+            }
+            response.Message="Your Account Has Been Created You Can Now Log In";
             return response;
 
         }
 
-        public async Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username,string email)
         {
-            if (await _context.Users.AnyAsync(x => x.Username.ToLower() == username.ToLower()))
+            if (await _context.Users.AnyAsync(x => x.Username.ToLower() == username.ToLower()) || await _context.Users.AnyAsync(x => x.Email.ToLower() == email.ToLower()))
             {
                 return true;
             }

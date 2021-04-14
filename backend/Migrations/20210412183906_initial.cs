@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backend.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,13 +13,12 @@ namespace backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfJoining = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    UserInfoFk = table.Column<int>(type: "int", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,8 +51,8 @@ namespace backend.Migrations
                 name: "UsersInfos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Reputation = table.Column<int>(type: "int", nullable: false),
                     Posts = table.Column<int>(type: "int", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
@@ -61,15 +60,15 @@ namespace backend.Migrations
                     WarningLevel = table.Column<int>(type: "int", nullable: false),
                     Credits = table.Column<int>(type: "int", nullable: false),
                     ReportedPosts = table.Column<int>(type: "int", nullable: false),
-                    Gjenerat = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Drejtimi = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gjenerat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Drejtimi = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfJoining = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Conntact = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    ProfilePic = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UsersInfos", x => x.Id);
+                    table.PrimaryKey("PK_UsersInfos", x => x.UserId);
                     table.ForeignKey(
                         name: "FK_UsersInfos_Users_UserId",
                         column: x => x.UserId,
@@ -81,11 +80,6 @@ namespace backend.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ChatBox_UserId",
                 table: "ChatBox",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UsersInfos_UserId",
-                table: "UsersInfos",
                 column: "UserId");
         }
 

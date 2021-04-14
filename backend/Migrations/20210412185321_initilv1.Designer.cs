@@ -10,8 +10,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210409103429_77h")]
-    partial class _77h
+    [Migration("20210412185321_initilv1")]
+    partial class initilv1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,10 +69,8 @@ namespace backend.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("UserInfoFk")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -97,7 +95,7 @@ namespace backend.Migrations
                     b.Property<string>("Drejtimi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gjenerat")
+                    b.Property<string>("Gjenerata")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Likes")

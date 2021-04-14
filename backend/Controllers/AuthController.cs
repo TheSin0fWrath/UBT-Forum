@@ -19,10 +19,7 @@ namespace backend.Controllers
         }
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserRegisterDto request){
-            ServiceResponse<UserInfo> response= await _authRepo.Register(
-                new User {Username= request.Username}, request
-                
-            );
+            ServiceResponse<UserInfo> response= await _authRepo.Register(request);
             if(!response.Success){
                 return BadRequest(response);
 

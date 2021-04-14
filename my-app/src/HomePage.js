@@ -12,6 +12,7 @@ import likeIcon from '@iconify-icons/topcoat/like';
 import starFill from '@iconify-icons/bi/star-fill';
 import OnlineMembers from './Components/OnlineMembers'
 import Chat from "./Components/Chat";
+import profileIcon from '@iconify-icons/vs/profile';
 
 function HomePage(){
 
@@ -21,7 +22,7 @@ function HomePage(){
 return(
 <div className="IndexPage" >
    <div className="MainNavBar">
-      <nav> </nav>
+      <nav> <a href="/user"> <InlineIcon icon={profileIcon} width="50px" height="90%" color="grey"/></a></nav>
    </div>
    <div className="backgroundImage">
       <a href="/"> <img src={UbtLog} height="150px" width="150px"/></a>
