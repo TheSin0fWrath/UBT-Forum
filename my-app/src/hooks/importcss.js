@@ -2,7 +2,8 @@
 export default function importcss(path,style){
    
    path= path.toLowerCase();
+   const windowpa=window?.location.pathname.toLocaleLowerCase();
    
-    if (window?.location.pathname.includes( `${path}`) )
+    if (windowpa.includes( `${path}`) )
    require(`../Components/ComponentCss/${style}`)
 }

@@ -1,7 +1,7 @@
 import EmptyPage from "../Components/EmptyPage";
 import Forum from "../Components/Forum";
 import React, { useState } from "react";
-import "./LoginPage.css";
+import "./Login.css";
 import {LoginCrud,RegisterCrud} from "./cruds/LoginCrud"
 
 export default function LoginPage() {

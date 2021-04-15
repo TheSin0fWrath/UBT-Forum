@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EmptyPage from "../Components/EmptyPage"
 import getUser from "./cruds/UerInfoCrud"
-
+import "./Profile.css"
 export default  function UserProfile(){
 
     const userid=window.location.pathname.split("/").pop();
@@ -10,8 +10,14 @@ export default  function UserProfile(){
     async function getData (){
        const response= await getUser(userid);
         setData(await response.data)
+        if (response.data==null){
+            return(
+                <EmptyPage></EmptyPage>
+            );
+        }
     }
     getData();
+
 
     return(
         <div className="UserProfile">

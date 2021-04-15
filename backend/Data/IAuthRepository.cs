@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using backend.Model;
 using backend.Model.Dto;
 
+
 namespace backend.Data
 {
     public interface IAuthRepository
