@@ -90,11 +90,12 @@ namespace backend.Data
             User user= new User();
             newUserInfo.Drejtimi= newuser.Drejtimi;
             newUserInfo.Username=newuser.Username;
-            newUserInfo.Username=user.Username;
+            newUserInfo.Username=newuser.Username;
             newUserInfo.Gjenerata=newuser.Gjenerata;
             newUserInfo.DateOfJoining=newuser.DateOfJoining;
             newUserInfo.Conntact=newuser.Email;
             
+            user.Email = newuser.Email;
             user.DateOfJoining= newuser.DateOfJoining;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;

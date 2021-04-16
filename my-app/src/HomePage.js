@@ -22,7 +22,7 @@ function HomePage(){
 return(
 <div className="IndexPage" >
    <div className="MainNavBar">
-      <nav> <a href="/user"> <InlineIcon icon={profileIcon} width="50px" height="90%" color="grey"/></a></nav>
+      <nav> <a href="/login">SignUp</a></nav>
    </div>
    <div className="backgroundImage">
       <a href="/"> <img src={UbtLog} height="150px" width="150px"/></a>
