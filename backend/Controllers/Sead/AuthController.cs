@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using backend.Data;
-using backend.Model;
-using backend.Model.Dto;
+using  backend.Model.Sead;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers

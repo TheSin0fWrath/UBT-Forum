@@ -9,7 +9,7 @@ export default function EmptyPage  ({path,children}){
 return(
 <div className="IndexPage">
    <div className="MainNavBar">
-   <nav> <InlineIcon icon={profileIcon} width="50px" height="90%" color="grey"/></nav>
+   <nav> <a href="/login">SignUp</a></nav>
    </div>
    <div className="backgroundImage">
    <a href="/"> <img src={UbtLog} height="150px" width="150px"/></a>

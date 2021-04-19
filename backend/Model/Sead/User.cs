@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.Model
+namespace backend.Model.Sead
 {
     public class User
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace backend.Model
+namespace backend.Model.Sead
 {
     public class Message
     {

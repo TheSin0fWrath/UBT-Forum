@@ -1,4 +1,4 @@
-namespace backend.Model.Dto
+namespace backend.Model.Sead
 {
     public class DtoUpdateFeed
     {

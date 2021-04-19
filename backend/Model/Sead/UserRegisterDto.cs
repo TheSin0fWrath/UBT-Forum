@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.Model.Dto
+namespace backend.Model.Sead
 {
     public class UserRegisterDto
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using backend.Model;
+using  backend.Model.Sead;
 
 namespace backend.Services
 {

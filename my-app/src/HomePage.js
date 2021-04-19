@@ -1,7 +1,7 @@
 import React from 'react';
 // import "../src/HomePage.css"
-import CSE from './Subjects/CSE'
-import Arkitektur from './Subjects/Arkitektur'
+
+import Home from './Subjects/Home'
 import {Link, Route}  from "react-router-dom";
 import UbtLog from '../src/Images/UbtLogo.png'
 import { Icon, InlineIcon } from '@iconify/react';
@@ -13,11 +13,12 @@ import starFill from '@iconify-icons/bi/star-fill';
 import OnlineMembers from './Components/OnlineMembers'
 import Chat from "./Components/Chat";
 import profileIcon from '@iconify-icons/vs/profile';
+import "./HomePage.css"
 
 function HomePage(){
 
   
-   if (window?.location.pathname === `/`)
+   if (window?.location.pathname=== `/`)
   require(`../src/HomePage.css`)
 return(
 <div className="IndexPage" >
@@ -52,24 +53,16 @@ return(
                <nav className="secondNav">
                   <ul>
                      <li>
-                        <Link to="CSE" >
+                        <Link to="/" >
                         <InlineIcon icon={home} height="16px" width="16px"/>
                         &nbsp;Home</Link>
                      </li>
-                     <li>
-                        <Link to="Arkitektur" id="Selected"  >
-                        <InlineIcon icon={laptopicon} height="16px" width="16px"/>
-                        &nbsp;CSE</Link>
-                     </li>
-                     <li>
-                        <Link to="CSE" >
-                        <InlineIcon icon={baselineArchitecture} height="16px" width="16px"/>
-                        &nbsp;Arkitektur</Link>
-                     </li>
+   
+                        
                   </ul>
                </nav>
-               <Route exact path="/" component={CSE}/>
-               <Route exact path="/arkitektur" component={Arkitektur}/>
+               <Route exact path="/" component={Home}/>
+           
             </div>
          </div>
          <div className="secondFeed">

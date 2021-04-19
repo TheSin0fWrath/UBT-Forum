@@ -19,6 +19,10 @@
     justify-content:flex-end;
     align-items: center;
 }
+.MainNavBar nav a{
+    color: white;
+    text-decoration: none;
+}
 .backgroundImage{
     display: flex;
     justify-content: center;

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Data;
-using backend.Model;
-using backend.Model.Dto;
+using  backend.Model.Sead;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
