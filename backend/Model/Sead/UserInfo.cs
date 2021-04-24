@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using backend.Model.Home;
 
 namespace backend.Model.Sead
 {
@@ -22,9 +24,12 @@ namespace backend.Model.Sead
         public string DateOfJoining { get; set; }
         public string Conntact { get; set; }
         public string ProfilePic { get; set; }
-   
+        public List<VitiPar> CseVP { get; set; }
+        public List<VParReplay> CseVPR { get; set; }
         
         
-    
+        
+        
+        
     }
 }
