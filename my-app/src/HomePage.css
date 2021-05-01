@@ -13,6 +13,11 @@
     color: white;
     text-decoration: none;
 }
+.MainNavBar nav p{
+    color: white;
+    margin-right: 20px;
+    font-size:16px;
+}
 .MainNavBar nav{
     height: 45px;
     width: 90%;

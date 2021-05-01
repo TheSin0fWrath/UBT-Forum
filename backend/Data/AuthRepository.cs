@@ -52,6 +52,7 @@ namespace backend.Data
             {
                 response.Success = false;
                 response.Message = "Wrong Password";
+                return response;
             }
             response.Data = CreateToken(user);
             }catch(Exception e){
@@ -164,6 +165,29 @@ namespace backend.Data
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-       
+
+        public async Task<ServiceResponse<string>> changePassword(updatePasswordDto password,int id)
+        {
+            ServiceResponse<string> response = new ServiceResponse<string>();
+           try{
+            User user = await _context.Users.FirstOrDefaultAsync(x=>x.Id==id);
+             if (!VerifyPasswordHash(password.CurrentPassword, user.PasswordHash, user.PasswordSalt))
+            {
+                response.Success = false;
+                response.Message = "Wrong Password";
+                return response;
+            }
+             CreatePasswordHash(password.Password, out byte[] passwordHash, out byte[] passwordSalt);
+             user.PasswordHash =passwordHash;
+             user.PasswordSalt = passwordSalt;
+             _context.Update(user);
+             await _context.SaveChangesAsync();
+             response.Message="Password Updated";
+             }catch(Exception e){
+                 response.Message=e.Message;
+                 response.Success=false;
+             }
+            return response;
+        }
     }
 }

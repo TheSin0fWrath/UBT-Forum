@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // import "../src/HomePage.css"
 
 import Home from './Subjects/Home'
@@ -14,16 +14,29 @@ import OnlineMembers from './Components/OnlineMembers'
 import Chat from "./Components/Chat";
 import profileIcon from '@iconify-icons/vs/profile';
 import "./HomePage.css"
+import { UserContext } from './hooks/UserContext';
+import getUser from "../src/Pages/cruds/UerInfoCrud"
 
 function HomePage(){
-
+   const {user,setUser} = useContext(UserContext)
+   const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"" });
+    
+   useEffect(async()=>{
+      const response= await getUser(8)
+       setData(await response.data);
+       console.log(await data);
+     
+   },[])
   
    if (window?.location.pathname=== `/`)
   require(`../src/HomePage.css`)
+
+
 return(
 <div className="IndexPage" >
    <div className="MainNavBar">
-      <nav> <a href="/login">SignUp</a></nav>
+     
+      {user?(<nav> <p onClick={async ()=>{window.localStorage.removeItem("token");window.location.reload()}}>SignOut</p> <a href={`/user/${user.nameid}`}>MyProfile</a></nav>):(  <nav> <a href="/login">SignUp</a></nav>)}
    </div>
    <div className="backgroundImage">
       <a href="/"> <img src={UbtLog} height="150px" width="150px"/></a>
@@ -47,7 +60,7 @@ return(
                <div className="ContentBoxBody">
                   <p>Welcome to UBT. Please read forum rules & keep chatbox English at all times. Remember to run downloaded files in a Virtual Machine or Sandboxie.Do not trust anyone!</p>
                   <div className="chatBox">
-                      <Chat/>
+                      <Chat user={user}/>
                   </div>
                </div>
                <nav className="secondNav">
@@ -66,10 +79,10 @@ return(
             </div>
          </div>
          <div className="secondFeed">
-            <div className="userstats">
+            {user?(<div className="userstats">
                <div className="ContentBox">
                   <div className="ContentBoxHeader">
-                     <h3>Welcome Back Sead </h3>
+                     <h3>Welcome Back {user.name} </h3>
                   </div>
                   <div className="ContentBoxBody">
                      <ul>
@@ -78,7 +91,7 @@ return(
                               <span>
                                  <InlineIcon icon={likeIcon} />
                               </span>
-                              &nbsp;&nbsp;&nbsp;Likes <span>5</span>
+                              &nbsp;&nbsp;&nbsp;Likes <span>{data.likes}</span>
                            </a>
                         </li>
                         <li>
@@ -86,7 +99,7 @@ return(
                               <span>
                                  <InlineIcon icon={starFill} />
                               </span>
-                              &nbsp;&nbsp;&nbsp;Reputation <span>5</span>
+                              &nbsp;&nbsp;&nbsp;Reputation <span>{data.reputation}</span>
                            </a>
                         </li>
                         <li>
@@ -94,7 +107,7 @@ return(
                               <span>
                                  <InlineIcon icon={likeIcon} />
                               </span>
-                              &nbsp;&nbsp;&nbsp;Likes <span>5</span>
+                              &nbsp;&nbsp;&nbsp;Likes <span>{data.likes}</span>
                            </a>
                         </li>
                         <li>
@@ -102,13 +115,13 @@ return(
                               <span>
                                  <InlineIcon icon={likeIcon} />
                               </span>
-                              &nbsp;&nbsp;&nbsp;Likes <span>5</span>
+                              &nbsp;&nbsp;&nbsp;Likes <span>{data.likes}</span>
                            </a>
                         </li>
                      </ul>
                   </div>
                </div>
-            </div>
+            </div>):(null)}
             <div className="announcments">
                <div className="ContentBoxHeader">
                   <h3>Announcements </h3>
