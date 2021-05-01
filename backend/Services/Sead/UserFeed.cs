@@ -21,6 +21,7 @@ namespace backend.Services
      
         UserInfo user =await  _context.UsersInfos.FirstOrDefaultAsync(x=> x.UserId ==id);
         response.Data=user;
+         _context.Update(user);
         if (user==null){
             response.Data=null;
             response.Success=false;

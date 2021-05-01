@@ -4,6 +4,8 @@ export default function timeDiffCalc( dateFuture) {
     
     let diffInMilliSeconds = Math.abs(dateFuture- dateNow) / 1000;
  
+    const days = Math.floor(diffInMilliSeconds / 86400) % 30;
+    diffInMilliSeconds -= days * 86400;
 
     // calculate hours
     const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
@@ -16,8 +18,12 @@ export default function timeDiffCalc( dateFuture) {
 
 
     let difference = '';
+    if (days>0){
+        difference +=  `${days}d ago `;
+        return difference;
+    }
    
-if (hours>0){
+else if (hours>0){
     difference +=  `${hours}h ago `;
     return difference;
 }

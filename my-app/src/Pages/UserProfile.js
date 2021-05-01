@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import EmptyPage from "../Components/EmptyPage"
 import getUser from "./cruds/UerInfoCrud"
 import "./Profile.css"
-export default  function UserProfile(){
+import { UserContext } from '../hooks/UserContext';
 
+export default  function UserProfile(){
+    const {user,setUser} = useContext(UserContext)
     const userid=window.location.pathname.split("/").pop();
     const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"" });
     
-    async function getData (){
-       const response= await getUser(userid);
-        setData(await response.data)
-      
-    }
-    getData();
+  
+   useEffect(async ()=>{const response= await getUser(userid);
+    setData(await response.data)},[])
+  
 
 
     return(
         <div className="UserProfile">
-           <EmptyPage  path="/user">
+           <EmptyPage user={user} path="/user">
                <div className="header">
                    <div className="userPic">
                    <img src="https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/user-profile.png" width="150px" height="150px"/>
@@ -26,6 +26,7 @@ export default  function UserProfile(){
                    <p>Student</p>
                    </div>
                    </div>
+                   {userid==user.nameid && <button onClick={()=>{window.location.pathname=`editprofile`}}>Edit Profile</button>}
                </div>
                <div className="userstats">
                    <div className="information">

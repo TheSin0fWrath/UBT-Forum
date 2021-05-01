@@ -12,23 +12,26 @@
   border-bottom: 1px solid black;
   text-align: left !important;
 }
-
-.CBox td:nth-last-of-type(6) {
-  width: 30px;
+.CBox a{
+  font-size: 11px;
 }
 
 .CBox td:nth-last-of-type(5) {
-  width: 10%;
+  width: 5px;
 }
 
 .CBox td:nth-last-of-type(4) {
-  width: 69%;
+  width: 10%;
 }
+
 .CBox td:nth-last-of-type(3) {
-  width: 4%;
+  width: 76%;
 }
 .CBox td:nth-last-of-type(2) {
-  width: 7%;
+  width: 5x;
+}
+.CBox td:nth-last-of-type(1) {
+  width: 60px;
 }
 .CBox .ChatTable {
   height: 100%;

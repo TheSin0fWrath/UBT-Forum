@@ -7,7 +7,7 @@ namespace backend.Model.Home
         public int  Id { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
-        public int Likes { get; set; }
+        public int Likes { get; set; }=0;
         public string Date { get; set; } 
         public int ThreadId { get; set; }
         public VitiPar Thread { get; set; }

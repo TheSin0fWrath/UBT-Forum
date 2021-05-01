@@ -9,6 +9,7 @@ namespace backend.Data
         Task<ServiceResponse<UserInfo>> Register(UserRegisterDto user);
         Task<ServiceResponse<string>> Login(string username,string password);
         Task<bool> UserExists(string username,string email);
+        Task<ServiceResponse<string>> changePassword(updatePasswordDto password,int id);
 
     }
 }

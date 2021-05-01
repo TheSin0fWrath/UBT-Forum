@@ -1,6 +1,9 @@
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using backend.Data;
 using  backend.Model.Sead;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -32,6 +35,17 @@ namespace backend.Controllers
                 return BadRequest(response);
             };
             return Ok(response);
+        }
+        [Authorize]
+        [HttpGet("checklogin")]
+        public async Task<IActionResult> checkLogin(){
+            return Ok("Success");
+        }
+        [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> updatePassword(updatePasswordDto pass){
+            int id = int.Parse(User.Claims.FirstOrDefault( x=>x.Type == ClaimTypes.NameIdentifier).Value);
+            return Ok(await _authRepo.changePassword(pass,id));
         }
      
     }
