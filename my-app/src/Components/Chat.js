@@ -32,7 +32,6 @@ function clacdate(date){
     <td key={d.text}>{d.text}</td>
     {d.userId==user.nameid && <td onClick={async ()=> await deleteMessage(d.id)} style ={{cursor:"pointer"}}key ={"delete"}>Delete</td>}
     {d.userId!=user.nameid && <td></td>}
-   
     <td key={d.time}>{ clacdate(d.time)}</td>
   </tr>
  ) );

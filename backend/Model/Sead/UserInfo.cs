@@ -8,7 +8,10 @@ namespace backend.Model.Sead
     public class UserInfo
     {
         [Required]
-        [Key]
+    
+        public int Id { get; set; }
+        
+        
          public int UserId { get; set; }
         public User User { get; set; }
         public string Username { get; set; }
@@ -24,12 +27,10 @@ namespace backend.Model.Sead
         public string DateOfJoining { get; set; }
         public string Conntact { get; set; }
         public string ProfilePic { get; set; }
-        public List<VitiPar> CseVP { get; set; }
-        public List<VParReplay> CseVPR { get; set; }
-        
-        
-        
-        
+         [NotMapped]
+        public   List<VitiPar> CseVP { get; set; }
+        [NotMapped]
+        public  List<VParReplay> CseVPR { get; set; } 
         
     }
 }

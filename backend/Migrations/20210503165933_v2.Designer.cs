@@ -10,8 +10,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210419164619_initilv3")]
-    partial class initilv3
+    [Migration("20210503165933_v2")]
+    partial class v2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,15 +21,12 @@ namespace backend.Migrations
                 .HasAnnotation("ProductVersion", "6.0.0-preview.2.21154.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("backend.Model.Home.Announcments", b =>
+            modelBuilder.Entity("backend.Model.Home.VParReplay", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Date")
                         .HasColumnType("nvarchar(max)");
@@ -37,36 +34,30 @@ namespace backend.Migrations
                     b.Property<int>("Likes")
                         .HasColumnType("int");
 
-                    b.Property<string>("Titulli")
+                    b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("ThreadId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserInfoUserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ThreadId");
+
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserInfoUserId");
-
-                    b.ToTable("Announcments");
+                    b.ToTable("CSEVPR");
                 });
 
-            modelBuilder.Entity("backend.Model.Home.AnnouncmentsReplays", b =>
+            modelBuilder.Entity("backend.Model.Home.VitiPar", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AnnouncmentsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Date")
                         .HasColumnType("nvarchar(max)");
@@ -74,25 +65,20 @@ namespace backend.Migrations
                     b.Property<int>("Likes")
                         .HasColumnType("int");
 
-                    b.Property<int>("MyProperty")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Titulli")
+                    b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TopicId")
-                        .HasColumnType("int");
+                    b.Property<string>("Ttile")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnnouncmentsId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("AnnouncmentsReplays");
+                    b.ToTable("CSEVP");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.Message", b =>
@@ -154,8 +140,10 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.Sead.UserInfo", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Conntact")
                         .HasColumnType("nvarchar(max)");
@@ -190,45 +178,45 @@ namespace backend.Migrations
                     b.Property<int>("Threads")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WarningLevel")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("UsersInfos");
                 });
 
-            modelBuilder.Entity("backend.Model.Home.Announcments", b =>
+            modelBuilder.Entity("backend.Model.Home.VParReplay", b =>
                 {
-                    b.HasOne("backend.Model.Sead.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("backend.Model.Home.VitiPar", "Thread")
+                        .WithMany("VReplay")
+                        .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Model.Sead.UserInfo", null)
-                        .WithMany("Announcments")
-                        .HasForeignKey("UserInfoUserId");
+                    b.HasOne("backend.Model.Sead.UserInfo", "User")
+                        .WithMany("CseVPR")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Thread");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("backend.Model.Home.AnnouncmentsReplays", b =>
+            modelBuilder.Entity("backend.Model.Home.VitiPar", b =>
                 {
-                    b.HasOne("backend.Model.Home.Announcments", "Announcments")
-                        .WithMany("Replays")
-                        .HasForeignKey("AnnouncmentsId");
-
                     b.HasOne("backend.Model.Sead.UserInfo", "User")
-                        .WithMany("Replays")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Announcments");
+                        .WithMany("CseVP")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -255,9 +243,9 @@ namespace backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("backend.Model.Home.Announcments", b =>
+            modelBuilder.Entity("backend.Model.Home.VitiPar", b =>
                 {
-                    b.Navigation("Replays");
+                    b.Navigation("VReplay");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.User", b =>
@@ -269,9 +257,9 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.Sead.UserInfo", b =>
                 {
-                    b.Navigation("Announcments");
+                    b.Navigation("CseVP");
 
-                    b.Navigation("Replays");
+                    b.Navigation("CseVPR");
                 });
 #pragma warning restore 612, 618
         }

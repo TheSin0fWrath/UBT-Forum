@@ -38,10 +38,7 @@ namespace backend.Migrations
                     b.Property<int>("ThreadId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -72,7 +69,7 @@ namespace backend.Migrations
                     b.Property<string>("Ttile")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -141,8 +138,10 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.Sead.UserInfo", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Conntact")
                         .HasColumnType("nvarchar(max)");
@@ -177,13 +176,19 @@ namespace backend.Migrations
                     b.Property<int>("Threads")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WarningLevel")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("UsersInfos");
                 });
@@ -191,16 +196,14 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.Home.VParReplay", b =>
                 {
                     b.HasOne("backend.Model.Home.VitiPar", "Thread")
-                        .WithMany()
+                        .WithMany("VReplay")
                         .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("backend.Model.Sead.UserInfo", "User")
                         .WithMany("CseVPR")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Thread");
 
@@ -211,9 +214,7 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Model.Sead.UserInfo", "User")
                         .WithMany("CseVP")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -238,6 +239,11 @@ namespace backend.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("backend.Model.Home.VitiPar", b =>
+                {
+                    b.Navigation("VReplay");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.User", b =>
