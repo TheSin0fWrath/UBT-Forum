@@ -10,8 +10,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210424194730_v5")]
-    partial class v5
+    [Migration("20210503155736_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,19 +40,19 @@ namespace backend.Migrations
                     b.Property<int>("ThreadId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UsersUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ThreadId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsersUserId");
 
-                    b.ToTable("CSEVPR");
+                    b.ToTable("VParReplay");
                 });
 
             modelBuilder.Entity("backend.Model.Home.VitiPar", b =>
@@ -77,11 +77,14 @@ namespace backend.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsersUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsersUserId");
 
-                    b.ToTable("CSEVP");
+                    b.ToTable("VitiPar");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.Message", b =>
@@ -193,31 +196,27 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.Home.VParReplay", b =>
                 {
                     b.HasOne("backend.Model.Home.VitiPar", "Thread")
-                        .WithMany()
+                        .WithMany("VReplay")
                         .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Model.Sead.UserInfo", "User")
+                    b.HasOne("backend.Model.Sead.UserInfo", "Users")
                         .WithMany("CseVPR")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsersUserId");
 
                     b.Navigation("Thread");
 
-                    b.Navigation("User");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("backend.Model.Home.VitiPar", b =>
                 {
-                    b.HasOne("backend.Model.Sead.UserInfo", "User")
+                    b.HasOne("backend.Model.Sead.UserInfo", "Users")
                         .WithMany("CseVP")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsersUserId");
 
-                    b.Navigation("User");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.Message", b =>
@@ -240,6 +239,11 @@ namespace backend.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("backend.Model.Home.VitiPar", b =>
+                {
+                    b.Navigation("VReplay");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.User", b =>

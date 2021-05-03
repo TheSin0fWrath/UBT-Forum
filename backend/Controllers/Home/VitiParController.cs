@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using backend.Data;
 using backend.Model.Home;
 using backend.Model.Sead;
@@ -17,9 +18,11 @@ namespace backend.Controllers.Home
     public class VitiParController : ControllerBase
     {
         private readonly DataContext _db;
-        public VitiParController(DataContext db)
+        private readonly IMapper _mapper;
+        public VitiParController(DataContext db, IMapper mapper)
         {
-           _db = db;
+            _mapper = mapper;
+            _db = db;
 
         }
 
@@ -27,107 +30,186 @@ namespace backend.Controllers.Home
         [HttpPost]
         public async Task<IActionResult> addTopic(VitiPar vp)
         {
-            int userid = int.Parse(User.Claims.FirstOrDefault( x=>x.Type == ClaimTypes.NameIdentifier).Value);
+            int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
             ServiceResponse<int> response = new ServiceResponse<int>();
-            try{
-            vp.UserId=userid;
-            await _db.CSEVP.AddAsync(vp);
-            await _db.SaveChangesAsync();
-            response.Message="Topic Posted";
-            response.Data=vp.Id;
-            
-          }catch(Exception e){
-              response.Message=e.Message;
-              response.Success=false;
-              return BadRequest(response);
-          }
+            try
+            {
+                vp.UserId = userid;
+                await _db.CSEVP.AddAsync(vp);
+                await _db.SaveChangesAsync();
+                response.Message = "Topic Posted";
+                response.Data = vp.Id;
+
+            }
+            catch (Exception e)
+            {
+                response.Message = e.Message;
+                response.Success = false;
+                return BadRequest(response);
+            }
             return Ok(response);
         }
         [HttpGet]
         public async Task<IActionResult> getTopics()
         {
-            ServiceResponse<List<VitiPar>> response =new ServiceResponse<List<VitiPar>>();
-            try{
-            List<VitiPar> vp = await _db.CSEVP.ToListAsync();
-             response.Data=vp;
-             }catch(Exception e){
-                 response.Success=false;
-                 response.Message=e.Message;
+            ServiceResponse<List<VitiPar>> response = new ServiceResponse<List<VitiPar>>();
+            try
+            {
+               
+                List<VitiPar> vp = await _db.CSEVP.ToListAsync();
+                response.Data = vp;
+            }
+            catch (Exception e)
+            {
+                response.Success = false;
+                response.Message = e.Message;
                 return BadRequest(response);
-             }
+            }
             return Ok(response);
         }
         [HttpGet("{id}")]
+
       
-        public async Task<IActionResult> getonetopic(int id)
-        {
-            ServiceResponse<List<List<object>>> response =new  ServiceResponse<List<List<object>>>();
-            List<List<object>> responseData =new List<List<object>>();
-            try{
-            List<object> templist= new List<object>();
-             VitiPar vp = await _db.CSEVP.FirstOrDefaultAsync(x=>x.Id==id);
-             UserInfo userT= await _db.UsersInfos.FirstOrDefaultAsync(x=>x.UserId==vp.UserId);
-             responseData.Add(new List<object>{vp,userT});
-             List<VParReplay> replays = await _db.CSEVPR.Where(x=>x.ThreadId==vp.Id).ToListAsync();
-             templist.AddRange(replays);
-             foreach(VParReplay element in templist){
-                 UserInfo user= await _db.UsersInfos.FirstOrDefaultAsync(x=>x.UserId==element.UserId);
-                 responseData.Add(new List<object>{element,user});
-            
-             }
-             response.Data=responseData;
-             }catch(Exception e){
-                 response.Success=false;
-                 response.Message=e.Message;
-                return BadRequest(response);
-             }
-            return Ok(response);
-        }
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> deleteTopic(int id){
-            int userid = int.Parse(User.Claims.FirstOrDefault(x=>x.Type == ClaimTypes.NameIdentifier).Value);
-            ServiceResponse<VitiPar> response =new ServiceResponse<VitiPar>();
-            try{
-            VitiPar vp=await _db.CSEVP.FirstOrDefaultAsync(x =>x.Id ==id);
-            if(vp.UserId != userid){
-                response.Message="Is not your topic to delete";
-                response.Success=false;
-                return Unauthorized(response);
+        public async Task<IActionResult> deleteTopic(int id)
+        {
+            int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            ServiceResponse<VitiPar> response = new ServiceResponse<VitiPar>();
+            try
+            {
+                VitiPar vp = await _db.CSEVP.FirstOrDefaultAsync(x => x.Id == id);
+                if (vp.UserId != userid)
+                {
+                    response.Message = "Is not your topic to delete";
+                    response.Success = false;
+                    return Unauthorized(response);
+                }
+                _db.CSEVP.Remove(vp);
+                await _db.SaveChangesAsync();
+                response.Message = "Topic has been deleted";
             }
-             _db.CSEVP.Remove(vp);
-            await _db.SaveChangesAsync();
-            response.Message="Topic has been deleted";
-            }catch(Exception e){
-                response.Message=e.Message;
-                response.Success=false;
+            catch (Exception e)
+            {
+                response.Message = e.Message;
+                response.Success = false;
                 return BadRequest(response);
             }
             return Ok();
         }
         [Authorize]
         [HttpPut]
-        public async Task<IActionResult> updateTopic(VitiPar updatedvp){
-            int userid = int.Parse(User.Claims.FirstOrDefault(x=>x.Type == ClaimTypes.NameIdentifier).Value);
-            ServiceResponse<VitiPar> response =new ServiceResponse<VitiPar>();
-            try{
-            VitiPar vp=await _db.CSEVP.FirstOrDefaultAsync(x =>x.Id ==updatedvp.Id);
-            if(vp.UserId != userid){
-                response.Message="Is not your topic to Update";
-                response.Success=false;
-                return Unauthorized(response);
+        public async Task<IActionResult> updateTopic(VitiPar updatedvp)
+        {
+            int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            ServiceResponse<VitiPar> response = new ServiceResponse<VitiPar>();
+            try
+            {
+                VitiPar vp = await _db.CSEVP.FirstOrDefaultAsync(x => x.Id == updatedvp.Id);
+                if (vp.UserId != userid)
+                {
+                    response.Message = "Is not your topic to Update";
+                    response.Success = false;
+                    return Unauthorized(response);
+                }
+                vp.Text = updatedvp.Text;
+                _db.CSEVP.Update(vp);
+                await _db.SaveChangesAsync();
+                response.Message = "Topic has been updated";
             }
-            vp.Text= updatedvp.Text;
-             _db.CSEVP.Update(vp);
-            await _db.SaveChangesAsync();
-            response.Message="Topic has been updated";
-            }catch(Exception e){
-                response.Message=e.Message;
-                response.Success=false;
+            catch (Exception e)
+            {
+                response.Message = e.Message;
+                response.Success = false;
                 return BadRequest(response);
             }
             return Ok(response);
         }
+
+        //vitipar replayes
+        [Authorize]
+        [HttpPost("replay")]
+        public async  Task<IActionResult> addReplay(VParReplay vr){
+            int id = int.Parse(User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.NameIdentifier).Value);
+            ServiceResponse<string> response = new ServiceResponse<string>();
+            try{
+            vr.UserId=id;
+            await _db.CSEVPR.AddAsync(vr);
+            await _db.SaveChangesAsync();
+            response.Message="Replay Added";
+            }catch(Exception e){
+                response.Success=false;
+                response.Message=e.Message;
+            }
+            
+            return Ok(response);
+        }
+        [Authorize]
+        [HttpPut("replay")]
+        public async Task<IActionResult> updateReplay(VParReplay updatedvr){
+            int id = int.Parse(User.Claims.FirstOrDefault(x=> x.Type ==ClaimTypes.NameIdentifier).Value);
+            ServiceResponse<string> response = new ServiceResponse<string>();
+            try{
+                VParReplay vr = await _db.CSEVPR.FirstOrDefaultAsync(x => x.Id == updatedvr.Id);
+                if (vr.UserId != id)
+                {
+                    response.Message = "Is not your replay to Update";
+                    response.Success = false;
+                    return Unauthorized(response);
+                }
+                vr.Text = updatedvr.Text;
+                _db.CSEVPR.Update(vr);
+                await _db.SaveChangesAsync();
+                response.Message = "Replay has been updated";
+            } catch(Exception e){
+                response.Success=false;
+                response.Message=e.Message;
+            }
+            return Ok(response);
+        }
+        [Authorize]
+        [HttpDelete("replay/{id}")]
+        public async Task<IActionResult> deleteReplay(int id)
+        {
+            int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            ServiceResponse<VParReplay> response = new ServiceResponse<VParReplay>();
+            try
+            {
+                VParReplay vr = await _db.CSEVPR.FirstOrDefaultAsync(x => x.Id == id);
+                if (vr.UserId != userid)
+                {
+                    response.Message = "Is not your replay to delete";
+                    response.Success = false;
+                    return Unauthorized(response);
+                }
+                _db.CSEVPR.Remove(vr);
+                await _db.SaveChangesAsync();
+                response.Message = "Replay has been deleted";
+            }
+            catch (Exception e)
+            {
+                response.Message = e.Message;
+                response.Success = false;
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+        [Authorize]
+        [HttpGet("topic/{id}")]
+        public async Task<IActionResult> getoneTopic(int id){
+            ServiceResponse<Object> response = new ServiceResponse<object>();
+            try{
+            VitiPar data =  await _db.CSEVP.Include(x=>x.User).Include(x =>x.VReplay).Where(x=>x.Id==id)
+            .FirstOrDefaultAsync();
+            response.Data=data;
+            }catch(Exception e){
+                response.Message= e.Message;
+                response.Success=false;
+            }
+            return Ok(response);
+
+        }
+       
 
     }
 }

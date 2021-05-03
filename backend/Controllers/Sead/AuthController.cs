@@ -38,7 +38,7 @@ namespace backend.Controllers
         }
         [Authorize]
         [HttpGet("checklogin")]
-        public async Task<IActionResult> checkLogin(){
+        public  IActionResult checkLogin(){
             return Ok("Success");
         }
         [Authorize]
