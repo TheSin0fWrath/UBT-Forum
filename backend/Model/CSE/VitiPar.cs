@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using backend.Model.Sead;
 namespace backend.Model.CSE
 {
@@ -6,9 +7,11 @@ namespace backend.Model.CSE
         public int Id { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
-        public int Likes { get; set; }=0;
+        public int Likes { get; set; } = 0;
         public string Date { get; set; }
         public int UserId { get; set; }
         public UserInfo User { get; set; }
+
+        public virtual List<VparReplay> Replays { get; set; }
     }
 }

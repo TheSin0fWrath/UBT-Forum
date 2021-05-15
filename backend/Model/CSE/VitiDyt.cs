@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using backend.Model.Sead;
 namespace backend.Model.CSE
 {
@@ -11,5 +12,6 @@ namespace backend.Model.CSE
 
         public int UserId { get; set; }
         public UserInfo User { get; set; }
+        public List<VdytReplay> Replays { get; set; }
     }
 }
