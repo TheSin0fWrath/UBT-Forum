@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace backend
 {
@@ -27,36 +28,40 @@ namespace backend
             Configuration = configuration;
         }
 
-     
-                public IConfiguration Configuration { get; }
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-           services.AddCors(options =>
-    {
-        options.AddPolicy("CorsPolicy",
-            builder => builder.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
-    });
+
+            services.AddCors(options =>
+     {
+         options.AddPolicy("CorsPolicy",
+             builder => builder.AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader());
+     });
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserFeed, UserFeed>();
             services.AddScoped<IMessageServices, MessageServices>();
-            services.AddDbContext<DataContext>(x =>x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+            services.AddMvc(option => option.EnableEndpointRouting = false)
+    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+    .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddControllers();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer( options =>
-            {
-                options.TokenValidationParameters= new TokenValidationParameters{
-                    ValidateIssuerSigningKey=true,
-                    IssuerSigningKey= new SymmetricSecurityKey(Encoding.ASCII
-                    .GetBytes(Configuration.GetSection("AppSettings:Token").Value) ),
-                    ValidateIssuer=false,
-                    ValidateAudience =false
-                };
-            });
+            .AddJwtBearer(options =>
+           {
+               options.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuerSigningKey = true,
+                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                   .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                   ValidateIssuer = false,
+                   ValidateAudience = false
+               };
+           });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "backend", Version = "v1" });

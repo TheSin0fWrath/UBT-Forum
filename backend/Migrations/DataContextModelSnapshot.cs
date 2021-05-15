@@ -388,7 +388,7 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.CSE.VtretReplay", b =>
                 {
                     b.HasOne("backend.Model.CSE.VitiTret", "Thread")
-                        .WithMany()
+                        .WithMany("Replays")
                         .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -424,6 +424,11 @@ namespace backend.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("backend.Model.CSE.VitiTret", b =>
+                {
+                    b.Navigation("Replays");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.User", b =>
