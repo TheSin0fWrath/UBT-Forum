@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using backend.Model.Juridik;
 
 namespace backend.Model.Sead
 {
@@ -22,6 +24,12 @@ namespace backend.Model.Sead
         public string DateOfJoining { get; set; }
         public string Conntact { get; set; }
         public string ProfilePic { get; set; }
+        public List<VitiPar> JuridikVP { get; set; }
+        public List<VParReplay> JuridikVPR { get; set; }
+        public List<VitiDyt> JuridikVD { get; set; }
+        public List<VDytReplay> JuridikVDR { get; set; }
+        public List<VitiTret> JuridikVT { get; set; }
+        public List<VTretReplay> JuridikVTR { get; set; }
    
         
         
