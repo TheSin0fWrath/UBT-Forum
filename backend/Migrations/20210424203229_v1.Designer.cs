@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data;
 
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210424203229_v1")]
+    partial class v1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,45 +243,34 @@ namespace backend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Descritpion")
+                    b.Property<string>("DateOfJoining")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("backend.Model.Sead.RoleUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RoleUser");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.UserInfo", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Conntact")
                         .HasColumnType("nvarchar(max)");
@@ -293,23 +284,11 @@ namespace backend.Migrations
                     b.Property<string>("Drejtimi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Gjenerata")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Likes")
                         .HasColumnType("int");
-
-                    b.Property<byte[]>("PasswordHash")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("Posts")
                         .HasColumnType("int");
@@ -320,28 +299,27 @@ namespace backend.Migrations
                     b.Property<int>("ReportedPosts")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Reputation")
                         .HasColumnType("int");
 
                     b.Property<int>("Threads")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WarningLevel")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("UsersInfos");
                 });
 
             modelBuilder.Entity("backend.Model.Juridik.VDytReplay", b =>
                 {
                     b.HasOne("backend.Model.Juridik.VitiDyt", "Thread")
-                        .WithMany("VReplay")
+                        .WithMany()
                         .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -360,7 +338,7 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.Juridik.VParReplay", b =>
                 {
                     b.HasOne("backend.Model.Juridik.VitiPar", "Thread")
-                        .WithMany("VReplay")
+                        .WithMany()
                         .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -379,7 +357,7 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.Juridik.VTretReplay", b =>
                 {
                     b.HasOne("backend.Model.Juridik.VitiTret", "Thread")
-                        .WithMany("VReplay")
+                        .WithMany()
                         .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -447,31 +425,14 @@ namespace backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
-
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("backend.Model.Juridik.VitiDyt", b =>
-                {
-                    b.Navigation("VReplay");
-                });
-
-            modelBuilder.Entity("backend.Model.Juridik.VitiPar", b =>
-                {
-                    b.Navigation("VReplay");
-                });
-
-            modelBuilder.Entity("backend.Model.Juridik.VitiTret", b =>
-                {
-                    b.Navigation("VReplay");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.User", b =>
                 {
                     b.Navigation("Mesages");
 
-                    b.Navigation("Role");
+                    b.Navigation("UserInfo");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.UserInfo", b =>
