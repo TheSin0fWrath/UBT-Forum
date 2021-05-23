@@ -1,7 +1,7 @@
 import React from "react";
-import EmptyPage from "../Components/EmptyPage"
+import EmptyPage from "../Shared/Components/EmptyPage"
 import   "./EditProfile.css"
-import ChangePassword from "../Components/ChangePassword.js"
+import ChangePassword from "./ChangePassword"
 
 export default function profileEdit(){
 

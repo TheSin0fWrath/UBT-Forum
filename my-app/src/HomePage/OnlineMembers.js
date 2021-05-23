@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Components/ComponentCss/OnlineMembers.css';
+import './OnlineMembers.css';
 
 export default function OnlineMembers(){
     const data =[{"name":"Marguerite"},

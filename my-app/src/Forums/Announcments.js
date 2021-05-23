@@ -1,5 +1,5 @@
-import Threads from "../Components/Threads";
-import Forum from "../Components/Forum";
+import Threads from "../Shared/Components/Threads";
+import Forum from "../Shared/Components/Forum";
 import React from "react";
 
 export default function Announcments() {

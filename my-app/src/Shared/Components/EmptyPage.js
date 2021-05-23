@@ -1,15 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import UbtLog from '../Images/UbtLogo.png'
 import importcss from "../hooks/importcss";
-import profileIcon from '@iconify-icons/vs/profile';
 import { UserContext } from '../hooks/UserContext';
-import { Icon, InlineIcon } from '@iconify/react';
 
 export default function EmptyPage  ({path,children}){
-   importcss(`${path}`,`Empty.css`);
-
-      
-
+   importcss(`${path}`,"Empty.css");
 return(
 <div className="IndexPage">
    <div className="MainNavBar">

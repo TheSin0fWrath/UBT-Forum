@@ -5,5 +5,5 @@ export default function importcss(path,style){
    const windowpa=window?.location.pathname.toLocaleLowerCase();
    
     if (windowpa.includes( `${path}`) )
-   require(`../Components/ComponentCss/${style}`)
+   require(`../Components/${style}`)
 }

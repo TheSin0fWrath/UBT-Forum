@@ -1,6 +1,6 @@
 import React from 'react';
-import "../Subjects/Subject.css"
-import Forum from "../Components/Forum"
+import "./Subject.css"
+import Forum from "../../Shared/Components/Forum"
 
 export default function Home(){
     return(

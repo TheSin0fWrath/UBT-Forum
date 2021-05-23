@@ -1,4 +1,4 @@
-import React, { cloneElement, createContext } from 'react';
+const {REACT_APP_AUTH}= process.env;
 
  async function LoginCrud( data){
     var message={
@@ -10,13 +10,12 @@ import React, { cloneElement, createContext } from 'react';
         username:data.username,
         password : data.password
     }
-  
 const options= {
     method:"Post",
     headers: { "content-type":"application/json"},
     body: JSON.stringify(dataa)
 }
-await fetch("http://localhost:5000/auth/login",options).then(response => response.json())
+await fetch(REACT_APP_AUTH+"login",options).then(response => response.json())
 .then(data => {
     message.message=data.message
     message.success=data.success
@@ -40,7 +39,7 @@ const options= {
     headers: { "content-type":"application/json"},
     body: JSON.stringify(credintials)
 }
-await fetch("http://localhost:5000/auth/register",options).then(response => response.json())
+await fetch(REACT_APP_AUTH+"register",options).then(response => response.json())
 .then(data => {
 response =data;
 });

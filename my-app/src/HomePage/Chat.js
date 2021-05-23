@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import "./ComponentCss/ChatBox.css";
-import {updateChat,sendMessage,deleteMessage} from "../hooks/ChatCrud"
-import UseFormInput from "../hooks/UseFormInput"
-import DateDiff from "../hooks/DateDiff";
+import "./ChatBox.css";
+import {updateChat,sendMessage,deleteMessage} from "./ChatCrud"
+import UseFormInput from "../Shared/hooks/UseFormInput"
+import DateDiff from "../Shared/hooks/DateDiff";
 
 function Chat({user}) {
   const Message =UseFormInput("");
@@ -13,6 +13,13 @@ async function send(){
   await sendMessage("user",Message.value)
 }
 
+function checkUser(i){
+  console.log("a")
+   if(user.id==i){
+    return true;
+  }
+  return false
+}
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect( async () => {
@@ -25,13 +32,13 @@ function clacdate(date){
   return DateDiff(date)
 }
 
-  const mes =post.map(d =>  (    
-  <tr className={d.id % 2 === 0 ? '' : 'CboxGrey'}>
+  const mes =post.map(d =>  (  
+  
+  <tr>
     <td>@</td>
     <td key={d.username}><a href={`/user/${d.userId}`}>{d.username}</a></td>
     <td key={d.text}>{d.text}</td>
-    {d.userId==user.nameid && <td onClick={async ()=> await deleteMessage(d.id)} style ={{cursor:"pointer"}}key ={"delete"}>Delete</td>}
-    {d.userId!=user.nameid && <td></td>}
+    {(checkUser(d.userId))?(<td onClick={async ()=> await deleteMessage(d.id)} style ={{cursor:"pointer"}}key ={"delete"}>Delete</td>): <td></td>}
     <td key={d.time}>{ clacdate(d.time)}</td>
   </tr>
  ) );
