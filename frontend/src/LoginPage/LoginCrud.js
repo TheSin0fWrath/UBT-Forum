@@ -22,7 +22,7 @@ await fetch(REACT_APP_AUTH+"login",options).then(response => response.json())
     message.data=data.data
 
 });
-if (message.success==true){
+if (message.success===true){
     localStorage.setItem('token', message.data)
     window.location.href = '/';
 
