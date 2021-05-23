@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import  "./ComponentCss/ChangePassword.css"
+import  "./ChangePassword.css"
+const {REACT_APP_AUTH}= process.env;
 
 export default function ChangePassword (){
 const [password,setPassword]=useState({password:null,rpassword:null,currentpassword:null})
@@ -22,7 +23,7 @@ async function changePassword(e){
             },
             body: JSON.stringify(password)
         };
-           fetch("http://localhost:5000/auth/",options)
+           fetch(REACT_APP_AUTH,options)
            .then(resp => resp.json())
            .then(data=>{setMessage(data.message)});
      

@@ -1,4 +1,4 @@
-
+const {REACT_APP_API}= process.env;
 
 export  async function updateChat(){
 
@@ -9,7 +9,7 @@ export  async function updateChat(){
             "content-type":"application/json"
            
         }};
-        await fetch("http://localhost:5000/api/v1/chatBox", options).then(response => response.json()).then(data => {
+        await fetch(REACT_APP_API+"chatBox", options).then(response => response.json()).then(data => {
            dataArray= (data.data)
         });   
       
@@ -32,7 +32,7 @@ console.log(window.localStorage.getItem("token"))
           "Authorization":`Bearer ${window.localStorage.getItem("token")}`
         },
       body: JSON.stringify(credintials)};
-      await fetch("http://localhost:5000/api/v1/chatBox", options).then(response => response.json()).then(data => {
+      await fetch(REACT_APP_API+"chatBox", options).then(response => response.json()).then(data => {
           dbData.message =data.message;
           dbData.success = data.success;
           dbData.data = data.data;
@@ -49,7 +49,7 @@ console.log(window.localStorage.getItem("token"))
       method : "DELETE",
       headers:{"content-type":"application/json","Authorization":`Bearer ${window.localStorage.getItem("token")}`}
   }
-      await fetch(`http://localhost:5000/api/v1/chatBox/${id}`, options).then(response => response.json()).then(data => {
+      await fetch(REACT_APP_API+`chatBox/${id}`, options).then(response => response.json()).then(data => {
           dbData.message =data.message;
           dbData.success = data.success;
           dbData.data = data.data;

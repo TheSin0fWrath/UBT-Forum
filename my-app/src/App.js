@@ -1,15 +1,15 @@
 
 import './App.css';
-import HomePage from './HomePage.js';
+import HomePage from './HomePage/HomePage';
 import {Link, Route, Switch}  from "react-router-dom"
-import Announcments from "./Pages/Announcments"
-import LoginPage from "./Pages/LoginPage"
-import UserProfile from "./Pages/UserProfile"
-import { UserContext } from './hooks/UserContext';
+import Announcments from "./Forums/Announcments"
+import LoginPage from "./LoginPage/LoginPage"
+import UserProfile from "./UserProfile/UserProfile"
+import { UserContext } from './Shared/hooks/UserContext';
 import { useMemo, useState,useEffect } from 'react';
-import {CheckLogin} from "./hooks/CheckLogin";
-import EmptyPage from "./Components/EmptyPage"
-import ProfileEdit from "./Pages/ProfileEdit"
+import {CheckLogin} from "./Shared/hooks/CheckLogin";
+import EmptyPage from "./Shared/Components/EmptyPage"
+import ProfileEdit from "./UserSettings/ProfileEdit"
 
 function App() {
   

@@ -3,34 +3,32 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import Home from './Subjects/Home'
 import {Link, Route}  from "react-router-dom";
-import UbtLog from '../src/Images/UbtLogo.png'
+import UbtLog from '../Shared/Images/UbtLogo.png'
 import { Icon, InlineIcon } from '@iconify/react';
 import home from '@iconify-icons/mdi/home';
-import laptopicon from '@iconify-icons/mdi/laptop';
-import baselineArchitecture from '@iconify-icons/ic/baseline-architecture';
 import likeIcon from '@iconify-icons/topcoat/like';
 import starFill from '@iconify-icons/bi/star-fill';
-import OnlineMembers from './Components/OnlineMembers'
-import Chat from "./Components/Chat";
-import profileIcon from '@iconify-icons/vs/profile';
+import OnlineMembers from './OnlineMembers'
+import Chat from "./Chat";
 import "./HomePage.css"
-import { UserContext } from './hooks/UserContext';
-import getUser from "../src/Pages/cruds/UerInfoCrud"
+import { UserContext } from '../Shared/hooks/UserContext';
+import getUser from "../UserProfile/UerInfoCrud"
 
 function HomePage(){
    const {user,setUser} = useContext(UserContext)
    const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"" });
-    
+
+
    useEffect(async()=>{
-      const response= await getUser(8)
+      const response= await getUser(1)
        setData(await response.data);
        console.log(await data);
      
    },[])
+
   
    if (window?.location.pathname=== `/`)
-  require(`../src/HomePage.css`)
-
+  require(`../HomePage/HomePage.css`)
 
 return(
 <div className="IndexPage" >

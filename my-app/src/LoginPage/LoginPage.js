@@ -1,8 +1,8 @@
-import EmptyPage from "../Components/EmptyPage";
-import Forum from "../Components/Forum";
+import EmptyPage from "../Shared/Components/EmptyPage";
+import Forum from "../Shared/Components/Forum";
 import React, { useState } from "react";
 import "./Login.css";
-import {LoginCrud,RegisterCrud} from "./cruds/LoginCrud"
+import {LoginCrud,RegisterCrud} from "./LoginCrud"
 
 export default function LoginPage() {
   const [loginerror, setloginerror] = useState();

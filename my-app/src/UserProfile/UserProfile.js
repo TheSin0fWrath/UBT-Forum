@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import EmptyPage from "../Components/EmptyPage"
-import getUser from "./cruds/UerInfoCrud"
+import EmptyPage from "../Shared/Components/EmptyPage"
+import getUser from "./UerInfoCrud"
 import "./Profile.css"
-import { UserContext } from '../hooks/UserContext';
+import { UserContext } from '../Shared/hooks/UserContext';
 
 export default  function UserProfile(){
     const {user,setUser} = useContext(UserContext)
