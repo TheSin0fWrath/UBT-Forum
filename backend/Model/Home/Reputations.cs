@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using backend.Model.Sead;
 
 namespace backend.Model.Home
@@ -7,9 +8,11 @@ namespace backend.Model.Home
         public int  Id { get; set; }
         public string Message { get; set; }
         public int Reputation { get; set; }
-        public int fromUserId { get; set; }
+        public int? fromUserId { get; set; }
+  
         public virtual UserInfo fromUser { get; set; }
-        public int toUserId { get; set; }
+        public int toUserId { get; set; }  
+       
         public virtual UserInfo toUser{get; set;}
     }
 }

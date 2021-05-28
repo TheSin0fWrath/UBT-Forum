@@ -10,8 +10,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210528152303_reputationASAS")]
-    partial class reputationASAS
+    [Migration("20210528180916_v3")]
+    partial class v3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,34 @@ namespace backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "6.0.0-preview.2.21154.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("backend.Model.Home.Reputations", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Reputation")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("fromUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("toUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("fromUserId");
+
+                    b.HasIndex("toUserId");
+
+                    b.ToTable("Reputations");
+                });
 
             modelBuilder.Entity("backend.Model.Sead.Message", b =>
                 {
@@ -132,6 +160,23 @@ namespace backend.Migrations
                     b.ToTable("UsersInfos");
                 });
 
+            modelBuilder.Entity("backend.Model.Home.Reputations", b =>
+                {
+                    b.HasOne("backend.Model.Sead.UserInfo", "fromUser")
+                        .WithMany("fromUser")
+                        .HasForeignKey("fromUserId");
+
+                    b.HasOne("backend.Model.Sead.UserInfo", "toUser")
+                        .WithMany("toUser")
+                        .HasForeignKey("toUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("fromUser");
+
+                    b.Navigation("toUser");
+                });
+
             modelBuilder.Entity("backend.Model.Sead.Message", b =>
                 {
                     b.HasOne("backend.Model.Sead.User", "User")
@@ -159,6 +204,13 @@ namespace backend.Migrations
                     b.Navigation("Mesages");
 
                     b.Navigation("UserInfo");
+                });
+
+            modelBuilder.Entity("backend.Model.Sead.UserInfo", b =>
+                {
+                    b.Navigation("fromUser");
+
+                    b.Navigation("toUser");
                 });
 #pragma warning restore 612, 618
         }

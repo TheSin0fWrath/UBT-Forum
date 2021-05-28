@@ -27,6 +27,11 @@ namespace backend.Model.Sead
         public string DateOfJoining { get; set; }
         public string Conntact { get; set; }
         public string ProfilePic { get; set; }
+        public virtual List<Reputations> toUser { get; set; }
+        [InverseProperty("fromUser")]
+        public virtual List<Reputations> fromUser { get; set; }
+
+        
             
         
     }
