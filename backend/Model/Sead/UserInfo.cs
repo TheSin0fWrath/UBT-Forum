@@ -10,10 +10,11 @@ namespace backend.Model.Sead
         [Required]
     
         public int Id { get; set; }
+    
         
         
          public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public string Username { get; set; }
         public int  Posts { get; set; }=0;
         public int Likes { get; set; }=0;
@@ -26,9 +27,7 @@ namespace backend.Model.Sead
         public string DateOfJoining { get; set; }
         public string Conntact { get; set; }
         public string ProfilePic { get; set; }
-        
-        public virtual List<Reputations> Reputation { get; set; }
-        
+            
         
     }
 }

@@ -34,12 +34,12 @@ async function changePassword(e){
 <div className="changePassword">
     <form onSubmit={changePassword}>
         <label>Current Password </label>
-        <input type="text" onChange={x=>setPassword({...password,currentpassword:x.target.value})} />  <br/><br/>
+        <input type="password" onChange={x=>setPassword({...password,currentpassword:x.target.value})} />  <br/><br/>
         <label>New Password  </label>
-        <input type="text" onChange={x=>setPassword({...password,password:x.target.value})} minLength="8" required/>  <br/><br/>
+        <input type="password" onChange={x=>setPassword({...password,password:x.target.value})} minLength="8" required/>  <br/><br/>
         <label>Repeat Password</label>
-        <input type="text" onChange={x=>setPassword({...password,rpassword:x.target.value})} minLength="8" required/>   <br/><br/>
-        <p>{message}</p><br></br>
+        <input type="password" onChange={x=>setPassword({...password,rpassword:x.target.value})} minLength="8" required/>   <br/><br/>
+        <p style={{color:"white"}}>{message}</p><br></br>
         <input type="Submit" value="Submit"/>
         </form>
         

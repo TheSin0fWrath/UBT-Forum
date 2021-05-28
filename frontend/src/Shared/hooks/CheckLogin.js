@@ -14,12 +14,9 @@ export async  function CheckLogin (){
     if (await dbresponse ==="OK"){
         var token =  window.localStorage.getItem("token");
         console.log(dbresponse)
-        try {
+        
           id= jwt_decode(token)
-         
-        } catch(error) {
-          // invalid token format
-        }
+       
       
    
         
