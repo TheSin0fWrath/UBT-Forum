@@ -12,7 +12,6 @@ function Chat({user}) {
 async function send(){
   await sendMessage("user",Message.value)
 }
-
 function checkUser(i){
   console.log("a")
    if(user.id==i){
