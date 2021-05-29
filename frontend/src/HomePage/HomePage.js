@@ -18,12 +18,11 @@ function HomePage(){
    const {user,setUser} = useContext(UserContext)
    const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"" });
 
+   
 
    useEffect(async()=>{
       const response= await getUser(1)
-       setData(await response.data);
-       console.log(await data);
-     
+       setData(await response.data);     
    },[])
 
   

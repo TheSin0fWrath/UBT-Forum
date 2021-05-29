@@ -73,6 +73,7 @@
     width: 25%;
 
 }
+
 .thirdWrapper{
     height:auto;
     width: 70%;
@@ -198,4 +199,15 @@ top: 20%;}
     margin-left:  40px;
  padding-bottom: 10px;
         }
-   
+        @media only screen and (max-width:900px ) {
+            .secondFeed{
+                display: none;
+            }
+            .thirdWrapper{
+                width: 100%;
+            }
+            .backgroundImage{
+                max-width: 980px;
+                min-width: 0px;
+            }
+        }  

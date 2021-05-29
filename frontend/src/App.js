@@ -10,7 +10,8 @@ import { useMemo, useState,useEffect } from 'react';
 import {CheckLogin} from "./Shared/hooks/CheckLogin";
 import EmptyPage from "./Shared/Components/EmptyPage"
 import ProfileEdit from "./UserSettings/ProfileEdit"
-
+import UserReputation from "./UserProfile/UserReputation"
+import AdminPanel from "./AdminPanel/AdminPanel"
 function App() {
   
   
@@ -31,6 +32,8 @@ function App() {
       <Route path="/login"> <LoginPage /> </Route>
        <Route path="/announcments"> <Announcments /> </Route>
        <Route path="/user"> <UserProfile/>  </Route>
+       <Route path="/reputation"><UserReputation/></Route>
+       <Route path="/adminPanel"><AdminPanel/></Route>
        <Route path="/"> <HomePage/>  </Route>
        </Switch>
        </UserContext.Provider>

@@ -11,8 +11,10 @@ border-right:1px solid black ;
 }
 .editProfile nav li a{
     display: block;
+    font-size: 18px;
     padding: 10px 8px;
     outline: 0;
+   
     color: #8d8d8d;
     text-decoration: none;
     text-shadow: 1px 1px 1px #000;
@@ -29,4 +31,7 @@ border-right:1px solid black ;
 .editProfile nav ul{
     padding: 0;
     margin-top: 40px;
+}
+.award .current{
+
 }

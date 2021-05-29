@@ -8,16 +8,16 @@ export default  function UserProfile(){
     const {user,setUser} = useContext(UserContext)
     const userid=window.location.pathname.split("/").pop();
     const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"" });
-    
+    console.log(userid)
   
    useEffect(async ()=>{const response= await getUser(userid);
     setData(await response.data)},[])
   
-
+    console.log(user)
 
     return(
         <div className="UserProfile">
-           <EmptyPage user={user} path="/user">
+           <EmptyPage  path="/user">
                <div className="header">
                    <div className="userPic">
                    <img src="https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/user-profile.png" width="150px" height="150px"/>
@@ -26,7 +26,7 @@ export default  function UserProfile(){
                    <p>Student</p>
                    </div>
                    </div>
-                   {userid==user.nameid && <button onClick={()=>{window.location.pathname=`editprofile`}}>Edit Profile</button>}
+                   {(user!=null&&userid==user.nameid) && <button onClick={()=>{window.location.pathname=`editprofile`}}>Edit Profile</button>}
                </div>
                <div className="userstats">
                    <div className="information">

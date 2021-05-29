@@ -127,3 +127,37 @@
     border-radius: 2px;
  
 }
+.reputationstats{
+    width: 99%;
+    margin: auto;
+    height: 400px;
+    background: #202020;
+}
+.reputationComments ul{
+text-align: left;
+}
+.replist{
+    width: auto;
+    color: white;
+    list-style: none;
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #303030;
+}
+.replist :first-child {
+    color: #0b6bd8;
+    font-weight: 600;
+    font-size: 18px;
+
+ }
+ .replist .posrep{
+    color: rgb(30, 179, 30);
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.replist .negrep{
+    color: rgb(255, 24, 24);
+    font-weight: 700;
+    font-size: 15px;
+}

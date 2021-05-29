@@ -1,22 +1,25 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState,useMemo,useContext } from "react";
 import "./ChatBox.css";
 import {updateChat,sendMessage,deleteMessage} from "./ChatCrud"
 import UseFormInput from "../Shared/hooks/UseFormInput"
 import DateDiff from "../Shared/hooks/DateDiff";
+import { UserContext } from '../Shared/hooks/UserContext';
 
-function Chat({user}) {
+function Chat() {
   const Message =UseFormInput("");
   const [post,setPosts]=useState([]);
   const [sendmessage,setSend] =useState("SEND")
+  const {user,setUser} = useContext(UserContext);
 
 async function send(){
   await sendMessage("user",Message.value)
 }
-
 function checkUser(i){
-  console.log("a")
-   if(user.id==i){
-    return true;
+   if(user!=null){
+     if(user.nameid==i){
+      return true;
+     }
+   
   }
   return false
 }
@@ -32,16 +35,17 @@ function clacdate(date){
   return DateDiff(date)
 }
 
-  const mes =post.map(d =>  (  
-  
-  <tr>
-    <td>@</td>
-    <td key={d.username}><a href={`/user/${d.userId}`}>{d.username}</a></td>
-    <td key={d.text}>{d.text}</td>
-    {(checkUser(d.userId))?(<td onClick={async ()=> await deleteMessage(d.id)} style ={{cursor:"pointer"}}key ={"delete"}>Delete</td>): <td></td>}
-    <td key={d.time}>{ clacdate(d.time)}</td>
-  </tr>
- ) );
+  const mes = useMemo(()=>{ return post.map(d => { 
+    var index=1;
+    return(  
+    <tr>
+      <td>@</td>
+      <td key={d.username+index++}><a href={`/user/${d.userId}`}>{d.username}</a></td>
+      <td key={d.text+index++}>{d.text}</td>
+      {(checkUser(d.userId))?(<td onClick={async ()=> await deleteMessage(d.id)} style ={{cursor:"pointer"}}key ={"delete"}>Delete</td>): <td></td>}
+      <td key={d.time+index++}>{ clacdate(d.time)}</td>
+    </tr>
+   ) })},[post]);
 
 
   return (

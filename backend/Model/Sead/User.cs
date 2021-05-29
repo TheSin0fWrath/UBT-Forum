@@ -15,8 +15,8 @@ namespace backend.Model.Sead
         
         public string DateOfJoining { get; set; }
         public bool IsActive { get; set; }=true;
-        public List<Message> Mesages { get; set; }
-        public UserInfo UserInfo { get; set;} = new UserInfo();
+        public virtual List<Message> Mesages { get; set; }
+        public virtual UserInfo UserInfo { get; set;} = new UserInfo();
 
         
         

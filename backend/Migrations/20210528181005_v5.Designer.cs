@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data;
 
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210528181005_v5")]
+    partial class v5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,7 +167,7 @@ namespace backend.Migrations
                         .HasForeignKey("fromUserId");
 
                     b.HasOne("backend.Model.Sead.UserInfo", "toUser")
-                        .WithMany("toUser")
+                        .WithMany()
                         .HasForeignKey("toUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -207,8 +209,6 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.Sead.UserInfo", b =>
                 {
                     b.Navigation("fromUser");
-
-                    b.Navigation("toUser");
                 });
 #pragma warning restore 612, 618
         }
