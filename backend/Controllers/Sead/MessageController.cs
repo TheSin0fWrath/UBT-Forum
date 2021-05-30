@@ -43,6 +43,7 @@ namespace backend.Controllers
          public  async Task<IActionResult> deleteMessage(int id)
         {
             int userid = int.Parse(User.Claims.FirstOrDefault( x=>x.Type == ClaimTypes.NameIdentifier).Value);
+            
             return Ok(await _message.DeleteMessage(id,userid));
         }
     }

@@ -7,7 +7,7 @@ namespace backend
     {
         public AutoMapperProfile()
         {
-            CreateMap<UserInfo,UserInfoDto>();
+            CreateMap<User,UserInfoDto>();
         }
         
     }

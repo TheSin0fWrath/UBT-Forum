@@ -35,7 +35,8 @@ namespace backend.Data
                     response.Message="Opss Username to long";
                     return response;
                 }
-            User user = await _context.Users.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower() ));
+            User user = await _context.Users.Include(x=>x.Role).ThenInclude(x=>x.Role)
+            .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower() ));
             // if(!user.IsActive){
             //     response.Success = false;
             //     response.Message = "User Has Been Banned Or Timed Out";
@@ -64,10 +65,10 @@ namespace backend.Data
             return response;
         }
 
-        public async Task<ServiceResponse<UserInfo>> Register(UserRegisterDto newuser)
+        public async Task<ServiceResponse<string>> Register(UserRegisterDto newuser)
         {
-            UserInfo userInfo= new UserInfo();
-            ServiceResponse<UserInfo> response = new ServiceResponse<UserInfo>();
+            
+            ServiceResponse<string> response = new ServiceResponse<string>();
             try{
                 if(newuser.Username.Length >=30){
                 response.Message = "Username to long pls chose another one";
@@ -86,23 +87,20 @@ namespace backend.Data
                 response.Success = false;
                 return response;
             }
-            UserInfo newUserInfo= new UserInfo();
             User user= new User();
-            newUserInfo.Drejtimi= newuser.Drejtimi;
-            newUserInfo.Username=newuser.Username;
-            newUserInfo.Username=newuser.Username;
-            newUserInfo.Gjenerata=newuser.Gjenerata;
-            newUserInfo.DateOfJoining=newuser.DateOfJoining;
-            newUserInfo.Conntact=newuser.Email;
-            
-            user.Email = newuser.Email;
-            user.DateOfJoining= newuser.DateOfJoining;
+            user.Drejtimi= newuser.Drejtimi;
+            user.Username=newuser.Username;
+            user.Username=newuser.Username;
+            user.Gjenerata=newuser.Gjenerata;
+            user.DateOfJoining=newuser.DateOfJoining;
+            user.Conntact=newuser.Email;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            user.Username= newuser.Username;
-            user.UserInfo =newUserInfo;
+            user.Role.Add(new RoleUser{RoleId=1});
             _context.Users.Add(user); 
             _context.SaveChanges();
+            response.Data = CreateToken(user);
+
             }catch(Exception e){
                 response.Success=false;
                 response.Message= e.Message;
@@ -149,8 +147,12 @@ namespace backend.Data
 
             List<Claim> claims = new List<Claim>{
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username)
+                new Claim(ClaimTypes.Name, user.Username),
             };
+            foreach (var role in user.Role)
+             {
+            claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
+            }
 
             SymmetricSecurityKey key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value)

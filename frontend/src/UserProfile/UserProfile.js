@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import EmptyPage from "../Shared/Components/EmptyPage"
 import getUser from "./UerInfoCrud"
 import "./Profile.css"
@@ -7,14 +7,26 @@ import { UserContext } from '../Shared/hooks/UserContext';
 export default  function UserProfile(){
     const {user,setUser} = useContext(UserContext)
     const userid=window.location.pathname.split("/").pop();
-    const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"" });
+    const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"",role:"" });
     console.log(userid)
   
    useEffect(async ()=>{const response= await getUser(userid);
     setData(await response.data)},[])
   
-    console.log(user)
+    console.log(data)
+    const role = useMemo(()=>{    
+               if(data.role!=""){
+                   switch(data.role[0].role.name){
+                       case "Student":return <p className="student">Student</p>;break;
+                       case "Profesor":return <p className="profesor">Profesor</p>;break;
+                       case "Admin":return <p className="admin">Admin</p>;break;
 
+
+                   }
+               }
+         
+        },[data])
+    
     return(
         <div className="UserProfile">
            <EmptyPage  path="/user">
@@ -23,13 +35,14 @@ export default  function UserProfile(){
                    <img src="https://uxwing.com/wp-content/themes/uxwing/download/12-people-gesture/user-profile.png" width="150px" height="150px"/>
                    <div className="userpicin">
                    <p>{data.username}</p>
-                   <p>Student</p>
+                   {role}
                    </div>
                    </div>
                    {(user!=null&&userid==user.nameid) && <button onClick={()=>{window.location.pathname=`editprofile`}}>Edit Profile</button>}
                </div>
                <div className="userstats">
                    <div className="information">
+
                        <div className="showBox">
                            <p>{data.likes}</p>
                            <p>Likes</p>
@@ -70,7 +83,9 @@ export default  function UserProfile(){
                </div>
             </div>
                    </div>
+                   
                    <div className="stats">
+
                    <div className="ContentBox">
                <div className="ContentBoxHeader">
                   <h3>Stats </h3>
@@ -129,16 +144,27 @@ export default  function UserProfile(){
                  </div>
                 
                </div>
-               
+             
             </div> <div className="ContentBox last">
                <div className="ContentBoxHeader">
                   <h3>TItulli</h3>
                </div>
-               <div className="ContentBoxBody last">
-                   <p>STUDENT</p>
+               <div className="ContentBoxBody last ">
+                   {/* <p className="profesor">{data.role!=""&& data.role[0].role.name}</p> */}
+                   {role}
                </div>
                </div>
                    </div>
+                   <div className="awardsStats">
+              <div className="ContentBox">
+                  <div className="ContentBoxHeader">
+                      <h3>Users Awards</h3>
+                  </div>
+                  <div className="ContentBoxBody">
+                      
+                  </div>
+              </div>
+               </div>
                </div>
             </EmptyPage>
 

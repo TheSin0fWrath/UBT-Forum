@@ -1,7 +1,8 @@
 import React from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch,Link, HashRouter } from "react-router-dom";
 import EmptyPage from "../Shared/Components/EmptyPage"
 import Awards from "./Awards"
+import RoleManager from "./RoleManager"
 import "./Admin.css"
 
 export default function AdminPanel(){
@@ -15,16 +16,19 @@ export default function AdminPanel(){
                </div>
                <div className="panel">
                <div className="panelBody">
-                   <Switch>
-                       <Route path="/"> <Awards/></Route>
-                   </Switch>
+                   <HashRouter hashType="noslash">
+                  
+                   <Route  exact path="/rolemanager"> <RoleManager/></Route>
+                  <Route exact path="/awards"> <Awards/></Route>
+                   
+                   </HashRouter>
                </div>
                   <div className="panelNav">
                   <nav>
                 <ul>
-                    <li><a style={{color:"white",fontSize:"14px"}}>Awards</a></li>
-                    <li><a style={{color:"white",fontSize:"14px"}}>Roles</a></li>
-                    <li><a style={{color:"white",fontSize:"14px"}}>Citys</a></li>
+                <li><Link to={{hash:"awards"}} style={{color:"white",fontSize:"14px"}}>Awards</Link></li>
+                    <li><Link to={{hash:"city"}} style={{color:"white",fontSize:"14px"}}>Citys</Link></li>
+                    <li><Link to={{hash:"rolemanager"}} style={{color:"white",fontSize:"14px"}}>Roles</Link></li>
                     
                 </ul>
                 </nav>
