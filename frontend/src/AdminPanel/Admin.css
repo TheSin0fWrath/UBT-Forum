@@ -58,3 +58,17 @@ border-right:1px solid black ;
 .awards .add{
     width: 800px;
 }
+
+.role{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    width: 100%;
+    height: 100%;
+}
+.role .current{
+    width: 300px;
+}
+.role .add{
+    width: 800px;
+}

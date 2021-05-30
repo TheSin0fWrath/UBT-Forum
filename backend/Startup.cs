@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using backend.Data;
 using backend.Services;
+using backend.Services.Sead;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +47,10 @@ namespace backend
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserFeed, UserFeed>();
             services.AddScoped<IMessageServices, MessageServices>();
+            services.AddScoped<IRolesUserService, RoleUserService>();
+            services.AddScoped<IRolesService, RolesService >();
+
+
             services.AddDbContext<DataContext>(x =>x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddControllers();
             services.AddMvc(option =>option.EnableEndpointRouting = false)
