@@ -201,3 +201,11 @@ C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\scopedcss\bu
 C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.RazorTargetAssemblyInfo.cache
 C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.csproj.CopyComplete
 C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.genruntimeconfig.cache
+C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Castle.Core.dll
+C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\bleona\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
