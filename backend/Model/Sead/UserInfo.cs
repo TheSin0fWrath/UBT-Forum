@@ -24,15 +24,11 @@ namespace backend.Model.Sead
         public string DateOfJoining { get; set; }
         public string Conntact { get; set; }
         public string ProfilePic { get; set; }
-        public List<VitiPar> JuridikVP { get; set; }
-        public List<VParReplay> JuridikVPR { get; set; }
-        public List<VitiDyt> JuridikVD { get; set; }
-        public List<VDytReplay> JuridikVDR { get; set; }
-        public List<VitiTret> JuridikVT { get; set; }
-        public List<VTretReplay> JuridikVTR { get; set; }
-   
         
-        
-    
+        public virtual List<ReportedPosts>  ReportedPost { get; set; }
+        public virtual List<ReportedThread> ReportedThreads {get; set; }
+        public virtual List<Like_Thread> Like_Threads {get; set; }
+        public virtual List<Niveli> Nivelis {get; set; }
+        public virtual List<Drejtimet> Drejtime {get; set; }
     }
 }

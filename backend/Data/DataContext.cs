@@ -14,12 +14,11 @@ namespace backend.Data
         public DbSet<Message> ChatBox { get; set; }
         public DbSet<User>  Users{ get; set; }
         public DbSet<UserInfo> UsersInfos{ get; set; }
-        public DbSet<VitiPar> JuridikVP { get; set; }
-        public DbSet<VParReplay> JuridikVPR { get; set; }
-        public DbSet<VitiDyt> JuridikVD { get; set; }
-        public DbSet<VDytReplay> JuridikVDR { get; set; }
-        public DbSet<VitiTret> JuridikVT { get; set; }
-        public DbSet<VTretReplay> JuridikVTR { get; set; }
+        public DbSet<ReportedPosts> ReportedPost { get; set; }
+        public DbSet<ReportedThread> ReportedThreads {get; set; }
+        public DbSet<Like_Thread> Like_Threads {get; set; }
+        public DbSet<Niveli> Nivelis {get; set; }
+        public DbSet<Drejtimet> Drejtime {get; set; }
 
     }
 }
