@@ -1,9 +1,12 @@
 {
   "version": 2,
+
   "dgSpecHash": "RIhTKueBOz99zWDRX6xcDX8fKtvPkxu8nDEL2i0xbVItIwKqZRmElZmbP6wDFE8z/AyaatGK1l0VQXJWRWUEdA==",
+
   "success": true,
-  "projectFilePath": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
+  "projectFilePath": "C:\\Users\\bleona\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
   "expectedPackageFiles": [
+
     "C:\\Users\\Dell\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Dell\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\Dell\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
@@ -141,6 +144,7 @@
     "C:\\Users\\Dell\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Dell\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Dell\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
+
   ],
   "logs": []
 }

@@ -7268,19 +7268,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dell\\.nuget\\packages\\": {}
+    "C:\\Users\\bleona\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
+      "projectUniqueName": "c:\\Users\\bleona\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
       "projectName": "backend",
-      "projectPath": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
-      "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\",
+      "projectPath": "c:\\Users\\bleona\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
+      "packagesPath": "C:\\Users\\bleona\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\bleona\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bleona\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
