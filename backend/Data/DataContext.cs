@@ -13,11 +13,9 @@ namespace backend.Data
 
         }
         public DbSet<Message> ChatBox { get; set; }
-
         public DbSet<User>  Users{ get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<RoleUser> RoleUser { get; set; }    
-
         public DbSet<ReportedPosts> ReportedPost { get; set; }
         public DbSet<ReportedThread> ReportedThreads {get; set; }
         public DbSet<Like_Thread> Like_Threads {get; set; }
