@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bleona\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj": {}
+    "c:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bleona\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj": {
+    "c:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bleona\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
+        "projectUniqueName": "c:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\bleona\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\bleona\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bleona\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\",
+        "projectPath": "c:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\bleona\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -78,15 +78,15 @@
             },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
-              "version": "[6.10.0, )"
+              "version": "[6.10.2, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[5.6.3, )"
+              "version": "[6.1.2, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.10.0, )"
+              "version": "[6.10.2, )"
             }
           },
           "imports": [
