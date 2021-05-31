@@ -1,4 +1,4 @@
-using backend.Model.Juridik;
+using backend.Model;
 using  backend.Model.Sead;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +14,6 @@ namespace backend.Data
         public DbSet<User>  Users{ get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<RoleUser> RoleUser { get; set; }    
-        public DbSet<UserInfo> UsersInfos{ get; set; }
         public DbSet<ReportedPosts> ReportedPost { get; set; }
         public DbSet<ReportedThread> ReportedThreads {get; set; }
         public DbSet<Like_Thread> Like_Threads {get; set; }

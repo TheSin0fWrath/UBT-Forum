@@ -1,3 +1,5 @@
+using backend.Model.Sead;
+
 namespace backend.Model
 {
     public class ReportedPosts
@@ -7,7 +9,7 @@ namespace backend.Model
         public int UserId { get; set; }
         public int PostId { get; set; }
         public int userId { get; set; }
-        public virtual  UserInfo  user{ get; set; }
+        public virtual  User  user{ get; set; }
 
     }
 }
