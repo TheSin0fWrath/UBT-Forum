@@ -1,3 +1,5 @@
+using backend.Model.Sead;
+
 namespace backend.Model
 {
     public class ReportedThread
@@ -6,7 +8,7 @@ namespace backend.Model
         public int UserId { get; set; }
         public string Text { get; set; }
         public int ThreadId { get; set; }
-        public virtual UserInfo Thread {get; set; }
+        public virtual User Thread {get; set; }
        
         
     }
