@@ -8,8 +8,8 @@ namespace backend.Model
         public string Text { get; set; }
         public int Points { get; set; }
         public int? ByAdminId { get; set; }
-        public virtual UserInfo ByAdmin { get; set; }
+        public virtual User ByAdmin { get; set; }
         public int ToUserId { get; set; }
-        public virtual UserInfo ToUser { get; set; }
+        public virtual User ToUser { get; set; }
     }
 }

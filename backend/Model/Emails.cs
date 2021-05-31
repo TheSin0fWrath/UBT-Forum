@@ -7,9 +7,9 @@ namespace backend.Model
         public int EmailId { get; set; }
         public string Title { get; set; }
         public int UserId { get; set; }
-        public virtual UserInfo Userid { get; set; }
+        public virtual User Userid { get; set; }
         public int ToUserId { get; set; }
-        public virtual UserInfo ToUser { get; set; }
+        public virtual User ToUser { get; set; }
         public string Message { get; set; }
     }
 }

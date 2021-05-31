@@ -6,7 +6,7 @@ namespace backend.Model
     {
         public int ThreadId { get; set; }
         public int UserId { get; set; }
-        public virtual UserInfo User { get; set; }
+        public virtual User User { get; set; }
         public string Titulli { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
