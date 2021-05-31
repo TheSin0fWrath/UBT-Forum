@@ -4,13 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Data
 {
-    public class DataContext :DbContext
+    public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options): base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-        
+
+
+
         }
         public DbSet<Message> ChatBox { get; set; }
+
         public DbSet<User>  Users{ get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<RoleUser> RoleUser { get; set; }    
@@ -25,8 +28,9 @@ namespace backend.Data
         public DbSet<ThreadCategory> ThreadCategori { get; set; }
         public DbSet<Category> Categori { get; set; }
         public DbSet<SubCategory> SubCategori { get; set; }
-
-
+        public DbSet<Warnings> Warnings { get; set; }
+        public DbSet<Reputations> Reputations { get; set; }
+        public DbSet<Emails> Emails { get; set; }
 
     }
 }
