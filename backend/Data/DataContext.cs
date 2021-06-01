@@ -22,8 +22,8 @@ namespace backend.Data
         public DbSet<Niveli> Nivelis {get; set; }
         public DbSet<Drejtimet> Drejtime {get; set; }
         public DbSet<Posts> Post { get; set; }
-        public DbSet<Thread> Threads { get; set; }
-        public DbSet<ThreadCategory> ThreadCategori { get; set; }
+       public DbSet<Thread> Threads { get; set; }
+       public DbSet<ThreadCategory> ThreadCategori { get; set; }
         public DbSet<Category> Categori { get; set; }
         public DbSet<SubCategory> SubCategori { get; set; }
 

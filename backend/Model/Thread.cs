@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using backend.Model.Sead;
 
 namespace backend.Model
@@ -8,8 +9,6 @@ namespace backend.Model
         public int UserId { get; set; }
         public virtual User User { get; set; }
         public string Titulli { get; set; }
-        public int Likes { get; set; }
-        public int Dislikes { get; set; }
         public int Text { get; set; }
         public string  Date { get; set; }
         public int NiveliId { get; set; }
@@ -21,6 +20,9 @@ namespace backend.Model
         public int Viti { get; set; }
         public int CategoriaId { get; set; }
         public virtual  ThreadCategory Categoria { get; set; }
+        public List<Like_Thread> Likes { get; set; }
+        
+        
 
 
 
