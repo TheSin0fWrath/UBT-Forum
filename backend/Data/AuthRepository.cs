@@ -88,7 +88,6 @@ namespace backend.Data
                 return response;
             }
             User user= new User();
-            user.Drejtimi= newuser.Drejtimi;
             user.Username=newuser.Username;
             user.Username=newuser.Username;
             user.Gjenerata=newuser.Gjenerata;

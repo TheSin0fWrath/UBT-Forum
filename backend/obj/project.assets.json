@@ -7279,11 +7279,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
+      "projectUniqueName": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\BACKEND\\backend.csproj",
       "projectName": "backend",
-      "projectPath": "c:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
+      "projectPath": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\BACKEND\\backend.csproj",
       "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\",
+      "outputPath": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\BACKEND\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7382,13 +7382,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file c:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
