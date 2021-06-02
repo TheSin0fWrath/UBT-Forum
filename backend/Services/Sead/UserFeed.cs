@@ -54,7 +54,6 @@ namespace backend.Services
             {
 
                 User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-                user.Likes += 1;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
                 if (user == null)
@@ -83,7 +82,6 @@ namespace backend.Services
             {
 
                 User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-                user.Posts += 1;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
                 if (user == null)
@@ -111,7 +109,6 @@ namespace backend.Services
             {
 
                 User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-                user.ReportedPosts += 1;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
                 if (user == null)
@@ -139,7 +136,6 @@ namespace backend.Services
             {
 
                 User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-                user.Threads += 1;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
                 if (user == null)
@@ -168,8 +164,8 @@ namespace backend.Services
             try
             {
 
+
                 User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-                user.WarningLevel += points;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
                 if (user == null)
