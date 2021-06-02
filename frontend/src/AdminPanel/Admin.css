@@ -1,0 +1,74 @@
+.panel{
+    height: 500px;
+}
+.panelNav{
+    background: #1e1e1e;
+    width: 200px;
+    height: 100%;
+}
+.panelBody{
+    width: 80%;
+    height: 100%;
+    float: right;
+}
+/* .panelNav nav{
+    width: 100%;
+    height: 100%;
+    display: flex;
+} */
+.panelNav nav{
+  
+width: 100%;
+height:auto;
+border-right:1px solid black ;
+
+}
+.panelNav nav li a{
+    display: block;
+    padding: 10px 8px;
+    outline: 0;
+    color: #8d8d8d;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #000;
+}
+/* {()=>{if(userid=user.nameid){}}} */
+.panelNav nav li{
+  
+    color: #808080;
+    border-bottom: 1px solid #2d2d2d;
+    font-size: 12px;
+    list-style: none;
+   
+}
+.panelNav nav ul{
+    width: 100%;
+    padding: 0;
+    margin-top: 40px;
+}
+.awards{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    width: 100%;
+    height: 100%;
+}
+.awards .current{
+    width: 300px;
+}
+.awards .add{
+    width: 800px;
+}
+
+.role{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    width: 100%;
+    height: 100%;
+}
+.role .current{
+    width: 300px;
+}
+.role .add{
+    width: 800px;
+}
