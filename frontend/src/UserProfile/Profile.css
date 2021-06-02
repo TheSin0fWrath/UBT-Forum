@@ -1,0 +1,181 @@
+.UserProfile .header{
+    width: 100%;
+    height: 200px;
+       background-color: #003169;
+    background-image: url("../Shared/Images/secondSunSet.jpg");
+    background-blend-mode: darken;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.UserProfile .header button{
+    background-color: rgb(45, 46, 46);
+    margin-right: 20px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    padding: 6px 10px 6px 10px;
+    opacity: 90%;
+}
+.header .userPic{
+    margin-left: 150px; 
+    
+    width: 300px;
+    height: 150px;
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+    justify-content:space-evenly; 
+}
+
+.header .userpicin p:first-of-type{
+   font-size: 20px;
+   color: white;
+   font-weight: 500;
+}
+.header .userpicin p:last-of-type{
+    padding: 5px 15px 5px 15px;
+  
+    border-radius: 2px;
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+ }
+
+.userstats{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+.userstats .information{
+    width: 25%;
+
+    height: 400px;
+}
+.userstats .ContentBoxBody,.userstats .ContentBoxHeader{
+    padding: 0;
+    margin: 0;
+}
+.userstats .ContentBoxBody{
+    background: #252525;
+}
+.userstats .awardsStats{
+    width: 20%;
+    height: 330px;
+    background: #212121;
+}
+.userstats .stats{
+
+    width: 40%;
+
+    height: 500px;
+}
+.showBox{
+    width: 30%;
+    height: 85px;
+    margin-left: 55px;
+    margin-bottom: 20px;
+    float: left;
+    background:#202020;
+}
+.showBox p{
+    margin: 0;
+    padding: 0;
+}
+.showBox p:first-of-type{
+    font-size: 25px;
+    margin-top: 15px;
+    color:#1f65b6 ;
+    font-weight: 600;
+}
+.userstats table td{
+    color: #afafaf  !important;
+    border-top: 1px solid #1b1b1b;
+    border-bottom: 1px solid #1b1b1b;
+    padding:20px 10px 20px 10px;
+    font-size: 15px;
+}
+
+.userstats .statsTable{
+    display: flex;
+    flex-flow:row;
+    justify-content: space-between;
+    align-items: center;
+    background: #252525;
+}
+.userstats tbody:last-of-type{
+    border-right: 1px solid #151515;
+}
+.ContentBox .last{
+    margin-top: 20px;
+    background: #212121;
+}
+.ContentBoxBody.last{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 25px;
+    color: white;
+    margin: 0;
+    height: 100px;
+    margin-bottom: 90px;
+}
+.ContentBoxBody.last p{
+    font-size: 25px;
+    color: white;
+    
+    padding: 5px 15px 5px 15px;
+    border-radius: 2px;
+ 
+}
+.student{
+    background: #15bb47;
+
+}
+.profesor{
+    background: #1541bb;
+
+}
+.admin{
+    background: #d42e10;
+
+}
+.reputationstats{
+    width: 99%;
+    margin: auto;
+    height: 400px;
+    background: #202020;
+}
+.reputationComments ul{
+text-align: left;
+}
+.replist{
+    width: auto;
+    color: white;
+    list-style: none;
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #303030;
+}
+.replist :first-child {
+    color: #0b6bd8;
+    font-weight: 600;
+    font-size: 18px;
+
+ }
+ .replist .posrep{
+    color: rgb(30, 179, 30);
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.replist .negrep{
+    color: rgb(255, 24, 24);
+    font-weight: 700;
+    font-size: 15px;
+}
