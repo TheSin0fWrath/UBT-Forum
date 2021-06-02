@@ -33,6 +33,8 @@ namespace backend.Data
         public DbSet<Warnings> Warnings { get; set; }
         public DbSet<Reputations> Reputations { get; set; }
         public DbSet<Emails> Emails { get; set; }
+        public DbSet<Award> Award { get; set; }
+        public DbSet<AwardUser> AwardUser { get; set; }
 
     }
 }
