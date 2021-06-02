@@ -7,12 +7,10 @@ namespace backend.Model
     public class Like_Thread
     {
         [Key, Column(Order = 0)]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public virtual User User { get; set; }
-        [Key, Column(Order = 1)]
+          [Key, Column(Order = 1)]
         public int ThreadId { get; set; }
         public virtual Thread Thread { get; set; }
-        
-        
     }
 }

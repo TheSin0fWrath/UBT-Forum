@@ -27,7 +27,10 @@ namespace backend.Model.Sead
         public virtual  List<Like_Thread> LikeThread { get; set; }
         public virtual  List<ReportedThread> ReportedThreadS { get; set; }
         public virtual  List<ReportedPosts> ReportedPosts { get; set; }
-
-        
+        [InverseProperty("sentBy")]
+        public  virtual List<Emails> sentEmail { get; set; }
+        [InverseProperty("recivedBy")]
+        public virtual List<Emails> recivedEmail { get; set; }
+        public virtual List<Replays> Replays { get; set; }  
     }
 }

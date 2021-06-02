@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ub7SiAAOfd2wPL3SQcbnhVmLxWQnX9g1Xqp0ku22wlDVOvBz4ku44OKNNvQVnOBWR03RSUmaULUpbWYDdrA1gg==",
+  "dgSpecHash": "yUpek7AIKaFKFgyOxOIF9Q3qSFi6mHKUhjEQMBuAIyK4wzElh235rykfF1PPwpIyFmPiGPVZdVkcEUuon/DtjQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\BACKEND\\backend.csproj",
+  "projectFilePath": "C:\\Users\\Dell\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dell\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Dell\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
