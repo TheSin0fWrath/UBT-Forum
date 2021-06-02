@@ -1,0 +1,37 @@
+.editProfile{
+    height: 500px;
+    display: flex;
+}
+.editProfile nav{
+width: 10%;
+height: 100%;
+background-color: rgb(32, 32, 32);
+border-right:1px solid black ;
+
+}
+.editProfile nav li a{
+    display: block;
+    font-size: 18px;
+    padding: 10px 8px;
+    outline: 0;
+   
+    color: #8d8d8d;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #000;
+}
+/* {()=>{if(userid=user.nameid){}}} */
+.editProfile nav li{
+    background: #1e1e1e;
+    color: #808080;
+    border-bottom: 1px solid #2d2d2d;
+    font-size: 12px;
+    list-style: none;
+   
+}
+.editProfile nav ul{
+    padding: 0;
+    margin-top: 40px;
+}
+.award .current{
+
+}

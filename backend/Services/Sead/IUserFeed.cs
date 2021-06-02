@@ -5,7 +5,7 @@ namespace backend.Services
 {
     public interface IUserFeed
     {
-         Task<ServiceResponse<UserInfo>> getUserFeed(int id);
+         Task<ServiceResponse<UserInfoDto>> getUserFeed(int id);
         Task<ServiceResponse<string>> Like(int id);
         Task<ServiceResponse<string>> Post(int id);
         Task<ServiceResponse<string>> Threads(int id);
