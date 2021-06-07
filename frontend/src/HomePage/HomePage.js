@@ -19,10 +19,12 @@ function HomePage(){
    const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"" });
 
    
-
    useEffect(async()=>{
-      const response= await getUser(1)
-       setData(await response.data);     
+      if(user!=null){
+      const response= await getUser(33)
+      setData(await response.data);     
+
+   }
    },[])
 
   
@@ -66,10 +68,7 @@ return(
                         <Link to="/" >
                         &nbsp;Home</Link>
                      </li>
-                     <li>
-                        <Link to="/Arkitektur" >
-                        &nbsp;Arkitektur</Link>
-                     </li>
+                  
                      <li>
                         <Link to="/CSE" >
                         &nbsp;CSE</Link>
@@ -79,10 +78,7 @@ return(
                   </ul>
                </nav>
                <Route exact path="/" component={Home}/>
-               <Route exact path="/Arkitektur" component={Arkitektur}/>
                <Route exact path="/CSE" component={CSE}/>
-
-           
             </div>
          </div>
          <div className="secondFeed">

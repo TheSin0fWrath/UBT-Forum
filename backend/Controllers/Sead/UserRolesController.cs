@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using backend.Model.Sead;
 using backend.Services.Sead;
@@ -38,8 +39,13 @@ namespace backend.Controllers.Sead
         [HttpPost]
         public async Task<IActionResult> PostUseRoles(RoleUser role)
         {
-
+          
              ServiceResponse<string> response= new ServiceResponse<string> ();
+               if(!ModelState.IsValid){
+                   response.Success=false;
+                response.Message=  ModelState.Select(x => x.Value.Errors.First().ErrorMessage).First();
+                    return BadRequest(response);
+            }
             try{
                 response= await _service.postRolesUser(role);
                
