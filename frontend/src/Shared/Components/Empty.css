@@ -139,6 +139,7 @@ thead{
     color:white;
 }
 thead tr td{
+    padding: 0 0 0 10px;
     text-align: left;
     height: 40px;
     font-size: 14px;

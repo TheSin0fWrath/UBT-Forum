@@ -149,9 +149,9 @@ export default function LoginPage() {
                 }
               >
                 <option value="null">Drejtimi</option>
-                <option value="Arkitektur">Arkitektur</option>
-                <option value="CSE">CSE</option>
-                <option value="Juridik">Juridik</option>
+                <option value="1">Arkitektur</option>
+                <option value="2">CSE</option>
+                <option value="3">Juridik</option>
               </select>
               <select
                 name="Gjenerata"
