@@ -19,18 +19,103 @@ namespace backend.Migrations
                 .HasAnnotation("ProductVersion", "6.0.0-preview.2.21154.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("backend.Model.Juridik.VDytReplay", b =>
+            modelBuilder.Entity("backend.Model.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categori");
+                });
+
+            modelBuilder.Entity("backend.Model.Drejtimet", b =>
+                {
+                    b.Property<int>("DrejtimiId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Drejtimi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DrejtimiId");
+
+                    b.ToTable("Drejtime");
+                });
+
+            modelBuilder.Entity("backend.Model.Emails", b =>
+                {
+                    b.Property<int>("EmailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("recivedById")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("sentById")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmailId");
+
+                    b.HasIndex("recivedById");
+
+                    b.HasIndex("sentById");
+
+                    b.ToTable("Emails");
+                });
+
+            modelBuilder.Entity("backend.Model.Like_Thread", b =>
+                {
+                    b.Property<int>("ThreadId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ThreadId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Like_Threads");
+                });
+
+            modelBuilder.Entity("backend.Model.Niveli", b =>
+                {
+                    b.Property<int>("Niveli_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Niveli_Id");
+
+                    b.ToTable("Nivelis");
+                });
+
+            modelBuilder.Entity("backend.Model.Posts", b =>
+                {
+                    b.Property<int>("PostId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Date")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
@@ -38,33 +123,74 @@ namespace backend.Migrations
                     b.Property<int>("ThreadId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("PostId");
 
                     b.HasIndex("ThreadId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("JuridikVDR");
+                    b.ToTable("Post");
                 });
 
-            modelBuilder.Entity("backend.Model.Juridik.VParReplay", b =>
+            modelBuilder.Entity("backend.Model.Replays", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("ReplayId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Date")
+                    b.Property<int>("EmailId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Likes")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.HasKey("ReplayId");
+
+                    b.HasIndex("EmailId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Replays");
+                });
+
+            modelBuilder.Entity("backend.Model.ReportedPosts", b =>
+                {
+                    b.Property<int>("ReportedId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("userId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReportedId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("ReportedPost");
+                });
+
+            modelBuilder.Entity("backend.Model.ReportedThread", b =>
+                {
+                    b.Property<int>("ReportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
@@ -72,140 +198,44 @@ namespace backend.Migrations
                     b.Property<int>("ThreadId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.HasKey("ReportId");
 
                     b.HasIndex("ThreadId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("JuridikVPR");
+                    b.ToTable("ReportedThreads");
                 });
 
-            modelBuilder.Entity("backend.Model.Juridik.VTretReplay", b =>
+            modelBuilder.Entity("backend.Model.Reputations", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Date")
+                    b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Likes")
+                    b.Property<int>("Reputation")
                         .HasColumnType("int");
 
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ThreadId")
+                    b.Property<int?>("ToUserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
+                    b.Property<int?>("fromUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ThreadId");
+                    b.HasIndex("ToUserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("fromUserId");
 
-                    b.ToTable("JuridikVTR");
-                });
-
-            modelBuilder.Entity("backend.Model.Juridik.VitiDyt", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("JuridikVD");
-                });
-
-            modelBuilder.Entity("backend.Model.Juridik.VitiPar", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("JuridikVP");
-                });
-
-            modelBuilder.Entity("backend.Model.Juridik.VitiTret", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("JuridikVT");
+                    b.ToTable("Reputations");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.Message", b =>
@@ -234,17 +264,25 @@ namespace backend.Migrations
                     b.ToTable("ChatBox");
                 });
 
-            modelBuilder.Entity("backend.Model.Sead.User", b =>
+            modelBuilder.Entity("backend.Model.Sead.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Descritpion")
+                    b.Property<string>("Color")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Date")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Default")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -274,24 +312,18 @@ namespace backend.Migrations
                     b.ToTable("RoleUser");
                 });
 
-            modelBuilder.Entity("backend.Model.Sead.UserInfo", b =>
+            modelBuilder.Entity("backend.Model.Sead.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Conntact")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Credits")
-                        .HasColumnType("int");
-
                     b.Property<string>("DateOfJoining")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Drejtimi")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DrejtimiId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -302,7 +334,7 @@ namespace backend.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Likes")
+                    b.Property<int?>("NiveliId")
                         .HasColumnType("int");
 
                     b.Property<byte[]>("PasswordHash")
@@ -311,43 +343,164 @@ namespace backend.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("Posts")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProfilePic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ReportedPosts")
-                        .HasColumnType("int");
-
                     b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Threads")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WarningLevel")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("DrejtimiId");
+
+                    b.HasIndex("NiveliId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("backend.Model.Juridik.VDytReplay", b =>
+            modelBuilder.Entity("backend.Model.SubCategory", b =>
                 {
-                    b.HasOne("backend.Model.Juridik.VitiDyt", "Thread")
-                        .WithMany("VReplay")
+                    b.Property<int>("SubId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SubId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("SubCategori");
+                });
+
+            modelBuilder.Entity("backend.Model.Thread", b =>
+                {
+                    b.Property<int>("ThreadId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CategoriaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Date")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DrejtimiId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NiveliId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Text")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Titulli")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Viti")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ThreadId");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.HasIndex("DrejtimiId");
+
+                    b.HasIndex("NiveliId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Threads");
+                });
+
+            modelBuilder.Entity("backend.Model.ThreadCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubCategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("SubCategoryId");
+
+                    b.ToTable("ThreadCategori");
+                });
+
+            modelBuilder.Entity("backend.Model.Warnings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ByAdminId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ToUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ByAdminId");
+
+                    b.HasIndex("ToUserId");
+
+                    b.ToTable("Warnings");
+                });
+
+            modelBuilder.Entity("backend.Model.Emails", b =>
+                {
+                    b.HasOne("backend.Model.Sead.User", "recivedBy")
+                        .WithMany("recivedEmail")
+                        .HasForeignKey("recivedById");
+
+                    b.HasOne("backend.Model.Sead.User", "sentBy")
+                        .WithMany("sentEmail")
+                        .HasForeignKey("sentById");
+
+                    b.Navigation("recivedBy");
+
+                    b.Navigation("sentBy");
+                });
+
+            modelBuilder.Entity("backend.Model.Like_Thread", b =>
+                {
+                    b.HasOne("backend.Model.Thread", "Thread")
+                        .WithMany("Likes")
                         .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Model.Sead.UserInfo", "User")
-                        .WithMany("JuridikVDR")
+                    b.HasOne("backend.Model.Sead.User", "User")
+                        .WithMany("LikeThread")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -357,75 +510,89 @@ namespace backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("backend.Model.Juridik.VParReplay", b =>
+            modelBuilder.Entity("backend.Model.Posts", b =>
                 {
-                    b.HasOne("backend.Model.Juridik.VitiPar", "Thread")
-                        .WithMany("VReplay")
+                    b.HasOne("backend.Model.Thread", "Thread")
+                        .WithMany("Posts")
                         .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Model.Sead.UserInfo", "User")
-                        .WithMany("JuridikVPR")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("backend.Model.Sead.User", "User")
+                        .WithMany("Posts")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Thread");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("backend.Model.Juridik.VTretReplay", b =>
+            modelBuilder.Entity("backend.Model.Replays", b =>
                 {
-                    b.HasOne("backend.Model.Juridik.VitiTret", "Thread")
-                        .WithMany("VReplay")
+                    b.HasOne("backend.Model.Emails", "Email")
+                        .WithMany("Replays")
+                        .HasForeignKey("EmailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Model.Sead.User", "User")
+                        .WithMany("Replays")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Email");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("backend.Model.ReportedPosts", b =>
+                {
+                    b.HasOne("backend.Model.Posts", "Post")
+                        .WithMany("Reports")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Model.Sead.User", "user")
+                        .WithMany("ReportedPosts")
+                        .HasForeignKey("userId");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("backend.Model.ReportedThread", b =>
+                {
+                    b.HasOne("backend.Model.Thread", "Thread")
+                        .WithMany("Reports")
                         .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Model.Sead.UserInfo", "User")
-                        .WithMany("JuridikVTR")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("backend.Model.Sead.User", "User")
+                        .WithMany("ReportedThreadS")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Thread");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("backend.Model.Juridik.VitiDyt", b =>
+            modelBuilder.Entity("backend.Model.Reputations", b =>
                 {
-                    b.HasOne("backend.Model.Sead.UserInfo", "User")
-                        .WithMany("JuridikVD")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("backend.Model.Sead.User", "ToUser")
+                        .WithMany()
+                        .HasForeignKey("ToUserId");
 
-                    b.Navigation("User");
-                });
+                    b.HasOne("backend.Model.Sead.User", "fromUser")
+                        .WithMany()
+                        .HasForeignKey("fromUserId");
 
-            modelBuilder.Entity("backend.Model.Juridik.VitiPar", b =>
-                {
-                    b.HasOne("backend.Model.Sead.UserInfo", "User")
-                        .WithMany("JuridikVP")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ToUser");
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("backend.Model.Juridik.VitiTret", b =>
-                {
-                    b.HasOne("backend.Model.Sead.UserInfo", "User")
-                        .WithMany("JuridikVT")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                    b.Navigation("fromUser");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.Message", b =>
@@ -439,11 +606,17 @@ namespace backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("backend.Model.Sead.UserInfo", b =>
+            modelBuilder.Entity("backend.Model.Sead.RoleUser", b =>
                 {
+                    b.HasOne("backend.Model.Sead.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("backend.Model.Sead.User", "User")
-                        .WithOne("UserInfo")
-                        .HasForeignKey("backend.Model.Sead.UserInfo", "UserId")
+                        .WithMany("Role")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -452,41 +625,156 @@ namespace backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("backend.Model.Juridik.VitiDyt", b =>
+            modelBuilder.Entity("backend.Model.Sead.User", b =>
                 {
-                    b.Navigation("VReplay");
+                    b.HasOne("backend.Model.Drejtimet", "Drejtimi")
+                        .WithMany("user")
+                        .HasForeignKey("DrejtimiId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Model.Niveli", "Niveli")
+                        .WithMany("users")
+                        .HasForeignKey("NiveliId");
+
+                    b.Navigation("Drejtimi");
+
+                    b.Navigation("Niveli");
                 });
 
-            modelBuilder.Entity("backend.Model.Juridik.VitiPar", b =>
+            modelBuilder.Entity("backend.Model.SubCategory", b =>
                 {
-                    b.Navigation("VReplay");
+                    b.HasOne("backend.Model.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("backend.Model.Juridik.VitiTret", b =>
+            modelBuilder.Entity("backend.Model.Thread", b =>
                 {
-                    b.Navigation("VReplay");
+                    b.HasOne("backend.Model.ThreadCategory", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId");
+
+                    b.HasOne("backend.Model.Drejtimet", "Drejtimi")
+                        .WithMany("threads")
+                        .HasForeignKey("DrejtimiId");
+
+                    b.HasOne("backend.Model.Niveli", "Niveli")
+                        .WithMany("threads")
+                        .HasForeignKey("NiveliId");
+
+                    b.HasOne("backend.Model.Sead.User", "User")
+                        .WithMany("Threads")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Categoria");
+
+                    b.Navigation("Drejtimi");
+
+                    b.Navigation("Niveli");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("backend.Model.ThreadCategory", b =>
+                {
+                    b.HasOne("backend.Model.Category", "Category")
+                        .WithMany("subCategory")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Model.SubCategory", "SubCategory")
+                        .WithMany()
+                        .HasForeignKey("SubCategoryId");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("SubCategory");
+                });
+
+            modelBuilder.Entity("backend.Model.Warnings", b =>
+                {
+                    b.HasOne("backend.Model.Sead.User", "ByAdmin")
+                        .WithMany("ByAdminWarning")
+                        .HasForeignKey("ByAdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Model.Sead.User", "ToUser")
+                        .WithMany("ToUserWarning")
+                        .HasForeignKey("ToUserId");
+
+                    b.Navigation("ByAdmin");
+
+                    b.Navigation("ToUser");
+                });
+
+            modelBuilder.Entity("backend.Model.Category", b =>
+                {
+                    b.Navigation("subCategory");
+                });
+
+            modelBuilder.Entity("backend.Model.Drejtimet", b =>
+                {
+                    b.Navigation("threads");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("backend.Model.Emails", b =>
+                {
+                    b.Navigation("Replays");
+                });
+
+            modelBuilder.Entity("backend.Model.Niveli", b =>
+                {
+                    b.Navigation("threads");
+
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("backend.Model.Posts", b =>
+                {
+                    b.Navigation("Reports");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.User", b =>
                 {
+                    b.Navigation("ByAdminWarning");
+
+                    b.Navigation("LikeThread");
+
                     b.Navigation("Mesages");
 
+                    b.Navigation("Posts");
+
+                    b.Navigation("Replays");
+
+                    b.Navigation("ReportedPosts");
+
+                    b.Navigation("ReportedThreadS");
+
                     b.Navigation("Role");
+
+                    b.Navigation("Threads");
+
+                    b.Navigation("ToUserWarning");
+
+                    b.Navigation("recivedEmail");
+
+                    b.Navigation("sentEmail");
                 });
 
-            modelBuilder.Entity("backend.Model.Sead.UserInfo", b =>
+            modelBuilder.Entity("backend.Model.Thread", b =>
                 {
-                    b.Navigation("JuridikVD");
+                    b.Navigation("Likes");
 
-                    b.Navigation("JuridikVDR");
+                    b.Navigation("Posts");
 
-                    b.Navigation("JuridikVP");
-
-                    b.Navigation("JuridikVPR");
-
-                    b.Navigation("JuridikVT");
-
-                    b.Navigation("JuridikVTR");
+                    b.Navigation("Reports");
                 });
 #pragma warning restore 612, 618
         }
