@@ -49,7 +49,7 @@ margin-bottom: 20px;
    margin-top: 50px;
    margin-bottom: 20px;
     }
-.Loginpage input{
+.Firs-Input-Text{
 border:none;
 border: 1px solid rgba(0,0,0,.5);
 background-color: rgba(0,0,0,.2);;
@@ -68,18 +68,7 @@ margin-bottom: 20px;
     align-items: center;
     justify-content: space-around;
 }
-.LoginWrap  input[type=submit]{
-    border: 1px solid rgba(0,0,0,.5);
-    background-color: #505050;
-    font-size: 20px;
-    height: 35px;
-    color: white;
-}
 
-.Register input[type=submit]{
-   margin-left: 30%;
-   margin-right: 30%;
-}
 .LoginWrap p{
     color: red;
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -43,6 +44,7 @@ namespace backend.Controllers
          public  async Task<IActionResult> deleteMessage(int id)
         {
             int userid = int.Parse(User.Claims.FirstOrDefault( x=>x.Type == ClaimTypes.NameIdentifier).Value);
+            
             return Ok(await _message.DeleteMessage(id,userid));
         }
     }

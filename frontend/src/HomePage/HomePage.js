@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 // import "../src/HomePage.css"
 
-import Home from './Subjects/Home'
+import {Home,Arkitektur, CSE} from './Subjects/Subjects'
 import {Link, Route}  from "react-router-dom";
 import UbtLog from '../Shared/Images/UbtLogo.png'
 import { Icon, InlineIcon } from '@iconify/react';
-import home from '@iconify-icons/mdi/home';
+
 import likeIcon from '@iconify-icons/topcoat/like';
 import starFill from '@iconify-icons/bi/star-fill';
 import OnlineMembers from './OnlineMembers'
@@ -19,10 +19,12 @@ function HomePage(){
    const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"" });
 
    
-
    useEffect(async()=>{
-      const response= await getUser(1)
-       setData(await response.data);     
+      if(user!=null){
+      const response= await getUser(33)
+      setData(await response.data);     
+
+   }
    },[])
 
   
@@ -64,15 +66,19 @@ return(
                   <ul>
                      <li>
                         <Link to="/" >
-                        <InlineIcon icon={home} height="16px" width="16px"/>
                         &nbsp;Home</Link>
+                     </li>
+                  
+                     <li>
+                        <Link to="/CSE" >
+                        &nbsp;CSE</Link>
                      </li>
    
                         
                   </ul>
                </nav>
                <Route exact path="/" component={Home}/>
-           
+               <Route exact path="/CSE" component={CSE}/>
             </div>
          </div>
          <div className="secondFeed">

@@ -139,6 +139,7 @@ thead{
     color:white;
 }
 thead tr td{
+    padding: 0 0 0 10px;
     text-align: left;
     height: 40px;
     font-size: 14px;
@@ -164,3 +165,25 @@ p{
     color: #A0A0A0;
     font-size: 13px;
 }
+.UbtForumButton{
+    border: none;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: #04438b;
+    color: white;
+    padding: 10px 20px 10px 20px;
+}
+.UbtForumButton:hover{
+    opacity: 70%;
+}
+
+.Firs-Input-Text{
+    border:none;
+    border: 1px solid rgba(0,0,0,.5);
+    background-color: rgba(0,0,0,.2);;
+    padding: 20px 20p 20px 20px;
+    height: 23px;
+    color: white;
+    font-size: 14px;
+    margin-bottom: 20px;
+    }

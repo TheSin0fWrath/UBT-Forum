@@ -75,6 +75,7 @@ export default function LoginPage() {
             <form onSubmit={trylogin}>
               <label htmlFor="Username">Username</label>
               <input
+              className="Firs-Input-Text"
                 type="text"
                 required
                 onChange={(x) =>
@@ -83,6 +84,7 @@ export default function LoginPage() {
               />
               <label htmlFor="Password">Password</label>
               <input
+              className="Firs-Input-Text"
                 type="password"
                 onChange={(x) =>
                   setlogin({ ...login, password: x.target.value })
@@ -90,7 +92,7 @@ export default function LoginPage() {
                 required
               />
               <p>{loginerror}</p>
-              <input type="submit" value="Submit" />
+              <input type="submit"   className="UbtForumButton" value="Submit" />
             </form>
           </div>
           <div className="Register">
@@ -102,6 +104,7 @@ export default function LoginPage() {
             <form onSubmit={tryregister}>
               <label htmlFor="Username">Username</label>
               <input
+              className="Firs-Input-Text"
                 type="text"
                 onChange={(x) =>
                   setregister({ ...register, username: x.target.value })
@@ -109,6 +112,7 @@ export default function LoginPage() {
               />
               <label htmlFor="Password">Password</label>
               <input
+              className="Firs-Input-Text"
                 type="Password"
                 minLength={8}
                 required
@@ -118,6 +122,7 @@ export default function LoginPage() {
               />
               <label htmlFor="Password">Repeat Password</label>
               <input
+              className="Firs-Input-Text"
                 type="Password"
                 minLength={8}
                 required
@@ -127,6 +132,7 @@ export default function LoginPage() {
               />
               <label htmlFor="Email">Email</label>
               <input
+              className="Firs-Input-Text"
                 type="Email"
                 required
                 onChange={(x) =>
@@ -143,9 +149,9 @@ export default function LoginPage() {
                 }
               >
                 <option value="null">Drejtimi</option>
-                <option value="Arkitektur">Arkitektur</option>
-                <option value="CSE">CSE</option>
-                <option value="Juridik">Juridik</option>
+                <option value="1">Arkitektur</option>
+                <option value="2">CSE</option>
+                <option value="3">Juridik</option>
               </select>
               <select
                 name="Gjenerata"
@@ -165,6 +171,7 @@ export default function LoginPage() {
               </select>
               <p>{registererror}</p>
               <input
+              className="UbtForumButton"
                 type="submit"
                 onSubmit={e=>e.preventDefault()}
                 value="Register"

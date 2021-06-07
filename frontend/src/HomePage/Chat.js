@@ -16,7 +16,7 @@ async function send(){
 }
 function checkUser(i){
    if(user!=null){
-     if(user.nameid==i){
+     if(user.nameid==i || user.role=="Admin"){
       return true;
      }
    

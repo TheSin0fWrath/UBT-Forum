@@ -25,17 +25,14 @@ namespace backend.Data
         {
             ServiceResponse<string> response = new ServiceResponse<string>();
             try{
-                if(username==null || password==null){
-                    response.Success=false;
-                    response.Message="You must use a password and username";
-                    return response;
-                }
+               
                 if(username.Length >=30){
                     response.Success=false;
                     response.Message="Opss Username to long";
                     return response;
                 }
-            User user = await _context.Users.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower() ));
+            User user = await _context.Users.Include(x=>x.Role).ThenInclude(x=>x.Role)
+            .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower() ));
             // if(!user.IsActive){
             //     response.Success = false;
             //     response.Message = "User Has Been Banned Or Timed Out";
@@ -64,21 +61,17 @@ namespace backend.Data
             return response;
         }
 
-        public async Task<ServiceResponse<UserInfo>> Register(UserRegisterDto newuser)
+        public async Task<ServiceResponse<string>> Register(UserRegisterDto newuser)
         {
-            UserInfo userInfo= new UserInfo();
-            ServiceResponse<UserInfo> response = new ServiceResponse<UserInfo>();
+            
+            ServiceResponse<string> response = new ServiceResponse<string>();
             try{
                 if(newuser.Username.Length >=30){
                 response.Message = "Username to long pls chose another one";
                 response.Success = false;
                 return response;
                 }
-                 if(newuser.Drejtimi ==null || newuser.Username==null || newuser.Gjenerata==null||newuser.Password==null||newuser.Email==null){
-                response.Message = "Please fill out all thr forms before registring ";
-                response.Success = false;
-                return response;
-                }
+               
             CreatePasswordHash(newuser.Password, out byte[] passwordHash, out byte[] passwordSalt);
             if (await UserExists(newuser.Username,newuser.Email))
             {
@@ -86,23 +79,20 @@ namespace backend.Data
                 response.Success = false;
                 return response;
             }
-            UserInfo newUserInfo= new UserInfo();
+            var role = await _context.Roles.FirstOrDefaultAsync(x=>x.Default==true);
             User user= new User();
-            newUserInfo.Drejtimi= newuser.Drejtimi;
-            newUserInfo.Username=newuser.Username;
-            newUserInfo.Username=newuser.Username;
-            newUserInfo.Gjenerata=newuser.Gjenerata;
-            newUserInfo.DateOfJoining=newuser.DateOfJoining;
-            newUserInfo.Conntact=newuser.Email;
-            
-            user.Email = newuser.Email;
-            user.DateOfJoining= newuser.DateOfJoining;
+            user.Username=newuser.Username;
+            user.DateOfJoining=newuser.DateOfJoining;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            user.Username= newuser.Username;
-            user.UserInfo =newUserInfo;
+            user.DrejtimiId= newuser.Drejtimi;
+            user.Gjenerata= newuser.Gjenerata;
+            user.Email= newuser.Email;
+            user.Role.Add(new RoleUser{RoleId=role.Id});
             _context.Users.Add(user); 
             _context.SaveChanges();
+            response.Data = CreateToken(user);
+
             }catch(Exception e){
                 response.Success=false;
                 response.Message= e.Message;
@@ -146,11 +136,14 @@ namespace backend.Data
         }
         private string CreateToken(User user)
         {
-
             List<Claim> claims = new List<Claim>{
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username)
+                new Claim(ClaimTypes.Name, user.Username),
             };
+            foreach (var role in user.Role)
+             {
+            claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
+            }
 
             SymmetricSecurityKey key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value)
