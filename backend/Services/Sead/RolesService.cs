@@ -54,6 +54,8 @@ namespace backend.Services.Sead
 
         public async Task<ServiceResponse<string>> postRoles(Role role)
         {
+            var date = DateTime.Now;
+            role.Date= date.ToString();
             ServiceResponse<string> response = new ServiceResponse<string>();
             try
             {
@@ -77,8 +79,8 @@ namespace backend.Services.Sead
             try
             {
                  var oldrole = await _db.Roles.FirstOrDefaultAsync(x=>x.Id==role.Id);
+                 oldrole.Color= role.Color;
                  oldrole.Name= role.Name;
-                 oldrole.Descritpion=role.Descritpion;
                 _db.Roles.Update(oldrole);
                 await  _db.SaveChangesAsync();
                 response.Message="Role Updated";

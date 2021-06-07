@@ -24,18 +24,35 @@ namespace backend.Services
             try
             {
 
-                User user = await _context.Users.Include(x=>x.Role).ThenInclude(x=>x.Role).FirstOrDefaultAsync(x => x.Id == id);
-
+                UserInfoDto user = await _context.Users
+                .Include(x=>x.Role)
+                .ThenInclude(x=>x.Role)
+                .Select(x=> new UserInfoDto {
+                    Likes = x.LikeThread.Count,
+                    DateOfJoining= x.DateOfJoining,
+                    ReportedPosts =x.ReportedPosts.Count +x.ReportedThreadS.Count,
+                    Email=x.Email,
+                    Username=x.Username,
+                    IsActive=x.IsActive,
+                    Threads=x.Threads.Count,
+                    Id=x.Id,
+                    Posts=x.Posts.Count,
+                    Gjenerata =x.Gjenerata,
+                    Drejtimi = x.Drejtimi.Drejtimi,
+                    Role = x.Role.First(),
+                    WarningLevel= x.ToUserWarning.Sum(x=>x.Points),
+                    ProfilePic = x.ProfilePic                   
+                    })
+                .FirstOrDefaultAsync(x => x.Id == id);
+                response.Data=user;
+                if (user == null)
+                {
+                    response.Data = null;
+                    response.Success = false;
+                    response.Message = "User Not Found";
+                    return response;
+                }
                 
-
-                if (user == null)
-                {
-                    response.Data = null;
-                    response.Success = false;
-                    response.Message = "User Not Found";
-                    return response;
-                }
-                response.Data = _mapp.Map<UserInfoDto>(user);
             }
             catch (Exception e)
             {
@@ -47,143 +64,6 @@ namespace backend.Services
             return response;
         }
 
-        public async Task<ServiceResponse<string>> Like(int id)
-        {
-            ServiceResponse<string> response = new ServiceResponse<string>();
-            try
-            {
-
-                User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-                if (user == null)
-                {
-                    response.Data = null;
-                    response.Success = false;
-                    response.Message = "User Not Found";
-                    return response;
-                }
-            }
-            catch (Exception e)
-            {
-                response.Data = null;
-                response.Success = false;
-                response.Message = e.Message;
-                return response;
-            }
-            return response;
-        }
-
-
-        public async Task<ServiceResponse<string>> Post(int id)
-        {
-            ServiceResponse<string> response = new ServiceResponse<string>();
-            try
-            {
-
-                User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-                if (user == null)
-                {
-                    response.Data = null;
-                    response.Success = false;
-                    response.Message = "User Not Found";
-                    return response;
-                }
-            }
-            catch (Exception e)
-            {
-                response.Data = null;
-                response.Success = false;
-                response.Message = e.Message;
-                return response;
-            }
-            return response;
-        }
-
-        public async Task<ServiceResponse<string>> ReportedPost(int id)
-        {
-            ServiceResponse<string> response = new ServiceResponse<string>();
-            try
-            {
-
-                User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-                if (user == null)
-                {
-                    response.Data = null;
-                    response.Success = false;
-                    response.Message = "User Not Found";
-                    return response;
-                }
-            }
-            catch (Exception e)
-            {
-                response.Data = null;
-                response.Success = false;
-                response.Message = e.Message;
-                return response;
-            }
-            return response;
-        }
-
-        public async Task<ServiceResponse<string>> Threads(int id)
-        {
-            ServiceResponse<string> response = new ServiceResponse<string>();
-            try
-            {
-
-                User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-                if (user == null)
-                {
-                    response.Data = null;
-                    response.Success = false;
-                    response.Message = "User Not Found";
-                    return response;
-                }
-            }
-            catch (Exception e)
-            {
-                response.Data = null;
-                response.Success = false;
-                response.Message = e.Message;
-                return response;
-            }
-            return response;
-        }
-
-
-
-        public async Task<ServiceResponse<string>> WarningPoints(int id, int points)
-        {
-            ServiceResponse<string> response = new ServiceResponse<string>();
-            try
-            {
-
-
-                User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-                if (user == null)
-                {
-                    response.Data = null;
-                    response.Success = false;
-                    response.Message = "User Not Found";
-                    return response;
-                }
-            }
-            catch (Exception e)
-            {
-                response.Data = null;
-                response.Success = false;
-                response.Message = e.Message;
-                return response;
-            }
-            return response;
-        }
+   
     }
 }

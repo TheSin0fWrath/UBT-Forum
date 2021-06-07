@@ -43,7 +43,6 @@ await fetch(REACT_APP_AUTH+"register",options).then(response => response.json())
 .then(data => {
 response =data;
 });
-console.log(response)
 return await response;
 }
 export { LoginCrud,RegisterCrud};

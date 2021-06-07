@@ -25,11 +25,7 @@ namespace backend.Data
         {
             ServiceResponse<string> response = new ServiceResponse<string>();
             try{
-                if(username==null || password==null){
-                    response.Success=false;
-                    response.Message="You must use a password and username";
-                    return response;
-                }
+               
                 if(username.Length >=30){
                     response.Success=false;
                     response.Message="Opss Username to long";
@@ -75,11 +71,7 @@ namespace backend.Data
                 response.Success = false;
                 return response;
                 }
-                 if(newuser.Drejtimi ==null || newuser.Username==null || newuser.Gjenerata==null||newuser.Password==null||newuser.Email==null){
-                response.Message = "Please fill out all thr forms before registring ";
-                response.Success = false;
-                return response;
-                }
+               
             CreatePasswordHash(newuser.Password, out byte[] passwordHash, out byte[] passwordSalt);
             if (await UserExists(newuser.Username,newuser.Email))
             {
@@ -87,15 +79,16 @@ namespace backend.Data
                 response.Success = false;
                 return response;
             }
+            var role = await _context.Roles.FirstOrDefaultAsync(x=>x.Default==true);
             User user= new User();
             user.Username=newuser.Username;
-            user.Username=newuser.Username;
-            user.Gjenerata=newuser.Gjenerata;
             user.DateOfJoining=newuser.DateOfJoining;
-            user.Conntact=newuser.Email;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            user.Role.Add(new RoleUser{RoleId=1});
+            user.DrejtimiId= newuser.Drejtimi;
+            user.Gjenerata= newuser.Gjenerata;
+            user.Email= newuser.Email;
+            user.Role.Add(new RoleUser{RoleId=role.Id});
             _context.Users.Add(user); 
             _context.SaveChanges();
             response.Data = CreateToken(user);
@@ -143,7 +136,6 @@ namespace backend.Data
         }
         private string CreateToken(User user)
         {
-
             List<Claim> claims = new List<Claim>{
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
