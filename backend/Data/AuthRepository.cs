@@ -88,7 +88,12 @@ namespace backend.Data
             user.DrejtimiId= newuser.Drejtimi;
             user.Gjenerata= newuser.Gjenerata;
             user.Email= newuser.Email;
+
+
             user.Role.Add(new RoleUser{RoleId=role.Id});
+
+
+            
             _context.Users.Add(user); 
             _context.SaveChanges();
             response.Data = CreateToken(user);
