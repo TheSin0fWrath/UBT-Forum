@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.Model.Sead;
+using backend.Model.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
@@ -64,6 +65,6 @@ namespace backend.Services
             return response;
         }
 
-   
+       
     }
 }

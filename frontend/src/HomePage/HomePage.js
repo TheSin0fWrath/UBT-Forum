@@ -20,12 +20,13 @@ function HomePage(){
 
    
    useEffect(async()=>{
-      if(user!=null){
-      const response= await getUser(33)
-      setData(await response.data);     
-
+      if(user!=""){
+         console.log(user)
+      const response= await getUser(user.nameid)
+      setData(await response.data);    
+      console.log(response); 
    }
-   },[])
+   },[user])
 
   
    if (window?.location.pathname=== `/`)
