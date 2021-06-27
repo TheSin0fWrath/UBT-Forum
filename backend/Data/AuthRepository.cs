@@ -4,7 +4,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using backend.Model;
 using  backend.Model.Sead;
+using backend.Model.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -82,11 +84,11 @@ namespace backend.Data
             var role = await _context.Roles.FirstOrDefaultAsync(x=>x.Default==true);
             User user= new User();
             user.Username=newuser.Username;
-            user.DateOfJoining=newuser.DateOfJoining;
+           
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
             user.DrejtimiId= newuser.Drejtimi;
-            user.Gjenerata= newuser.Gjenerata;
+           
             user.Email= newuser.Email;
             user.Role.Add(new RoleUser{RoleId=role.Id});
             _context.Users.Add(user); 
@@ -157,6 +159,21 @@ namespace backend.Data
             JwtSecurityTokenHandler tokenHandler= new JwtSecurityTokenHandler();
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+         public async Task<ServiceResponse<RegisterViewModel>> registerView()
+        {
+            ServiceResponse<RegisterViewModel> response = new ServiceResponse<RegisterViewModel>();
+            try{
+                var drejtimet =await _context.Drejtime.ToListAsync();
+                response.Data= new RegisterViewModel();
+                response.Data.Drejtimet = new List<Drejtimet>(drejtimet);
+            }
+            catch(Exception e){
+                response.Success=false;
+                response.Message = e.Message;
+                return response;
+            }
+            return response;
         }
 
         public async Task<ServiceResponse<string>> changePassword(updatePasswordDto password,int id)
