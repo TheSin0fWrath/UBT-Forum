@@ -13,9 +13,12 @@ namespace backend.Data
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Like_Thread>().HasKey(vf => new { vf.ThreadId, vf.UserId });
-        }
+    {
+        modelBuilder.Entity<Like_Thread>().HasKey(vf=> new {vf.ThreadId, vf.UserId});
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.seed();
+        
+    }
         public DbSet<Message> ChatBox { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

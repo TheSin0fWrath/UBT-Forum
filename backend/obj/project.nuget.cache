@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QemKGOpJDT5pRyrMsWqlyx1E0d+UvwW0uf2riTc7KyRM2ffkvAt4//cjRyL4E/AHs3hk+RfhHipnlwp8A7oNAw==",
+  "dgSpecHash": "5AW6/CeWSjJQi1smPc2lS2PFH12dyoDhaR5JIrYhBnryegRT2Pqlbw3uxCw5DNGynGI/9modld4qlJMbGmMyig==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Era\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
+  "projectFilePath": "c:\\Users\\Era\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Era\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Era\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
@@ -142,5 +142,12 @@
     "C:\\Users\\Era\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Era\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file c:\\Users\\Era\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
