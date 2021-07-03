@@ -43,6 +43,10 @@ namespace backend.Controllers.Bleona
           try{
               
           }
+          catch(Exception e){
+
+          }
+          return Ok();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult>DeleteReportedThread(int id)

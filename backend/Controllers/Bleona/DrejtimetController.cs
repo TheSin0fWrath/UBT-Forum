@@ -74,7 +74,7 @@ namespace backend.Controllers.Bleona
         public async Task<IActionResult> DeleteDrejtimet ( int id){
             ServiceResponse<List<Drejtimet>> Drejtimet = new ServiceResponse<List<Drejtimet>>();
             try{
-                Drejtimet delDrejtimet= await _db.Drejtime.FirstOrDefaultAsync(x=>x.DrejtimiId == id);
+                Drejtimet delDrejtimet= await _db.Drejtime.FirstOrDefaultAsync(x=>x.Id == id);
                 _db.Drejtime.Remove(delDrejtimet);
                 await _db.SaveChangesAsync();
                 Drejtimet.Message="Course has been Deleted";
