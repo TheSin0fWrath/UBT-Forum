@@ -4,20 +4,15 @@ namespace backend.Model.Sead
 {
     public class UserRegisterDto
     {
-         public int Id { get; set; }
-         [Required]
+
+        [Required(ErrorMessage = "Email is required")]
          public string Email { get; set; }
-         [Required]
+         [Required(ErrorMessage = "Username is required")]
         public string Username { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
-        [Required]
-        public string DateOfJoining { get; set; }
-        [Required]
-        public string Gjenerata { get; set; }
-        [Required]
-     
-        public string Drejtimi { get; set; }
+        [Required(ErrorMessage = "Drejtimi is required")]
+        public int Drejtimi { get; set; }
        
     }
 }

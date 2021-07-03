@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import UbtLog from '../Images/UbtLogo.png'
 import importcss from "../hooks/importcss";
 import { UserContext } from '../hooks/UserContext';
@@ -6,11 +6,12 @@ import { UserContext } from '../hooks/UserContext';
 export default function EmptyPage  ({path,children}){
    importcss(`${path}`,"Empty.css");
    const {user,setUser} = useContext(UserContext);
-   console.log(user)
-
+ 
 const adminCheck=useMemo(()=>{
-   if(user!=null &&user.role=="Admin"){
-      return <p onClick={async ()=>{window.location.href="/adminPanel"}}>AdminPanel</p>
+   if(user!=null ){
+      if(user.role=="Admin"){
+         return <p onClick={async ()=>{window.location.href="/adminPanel"}}>AdminPanel</p>
+      }
    }
 },[user])
 return(

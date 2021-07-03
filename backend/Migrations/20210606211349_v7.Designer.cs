@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data;
 
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210606211349_v7")]
+    partial class v7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +38,7 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.Drejtimet", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("DrejtimiId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -44,16 +46,9 @@ namespace backend.Migrations
                     b.Property<string>("Drejtimi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("DrejtimiId");
 
                     b.ToTable("Drejtime");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Drejtimi = "CSE"
-                        });
                 });
 
             modelBuilder.Entity("backend.Model.Emails", b =>
@@ -112,13 +107,6 @@ namespace backend.Migrations
                     b.HasKey("Niveli_Id");
 
                     b.ToTable("Nivelis");
-
-                    b.HasData(
-                        new
-                        {
-                            Niveli_Id = 1,
-                            Name = "Barchelor"
-                        });
                 });
 
             modelBuilder.Entity("backend.Model.Posts", b =>
@@ -147,28 +135,6 @@ namespace backend.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Post");
-                });
-
-            modelBuilder.Entity("backend.Model.Qytetet", b =>
-                {
-                    b.Property<int>("QytetiId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("QytetiName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("QytetiId");
-
-                    b.ToTable("Qytetet");
-
-                    b.HasData(
-                        new
-                        {
-                            QytetiId = 1,
-                            QytetiName = "Ferizaj"
-                        });
                 });
 
             modelBuilder.Entity("backend.Model.Replays", b =>
@@ -324,29 +290,6 @@ namespace backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Color = "#ff0000",
-                            Default = false,
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Color = "#36dd08",
-                            Default = true,
-                            Name = "Student"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Color = "#2283d8",
-                            Default = false,
-                            Name = "Profesor"
-                        });
                 });
 
             modelBuilder.Entity("backend.Model.Sead.RoleUser", b =>
@@ -405,9 +348,6 @@ namespace backend.Migrations
                     b.Property<string>("ProfilePic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("QytetetQytetiId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
@@ -420,8 +360,6 @@ namespace backend.Migrations
                     b.HasIndex("DrejtimiId");
 
                     b.HasIndex("NiveliId");
-
-                    b.HasIndex("QytetetQytetiId");
 
                     b.ToTable("Users");
                 });
@@ -701,10 +639,6 @@ namespace backend.Migrations
                         .WithMany("users")
                         .HasForeignKey("NiveliId");
 
-                    b.HasOne("backend.Model.Qytetet", null)
-                        .WithMany("Users")
-                        .HasForeignKey("QytetetQytetiId");
-
                     b.Navigation("Drejtimi");
 
                     b.Navigation("Niveli");
@@ -807,11 +741,6 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.Posts", b =>
                 {
                     b.Navigation("Reports");
-                });
-
-            modelBuilder.Entity("backend.Model.Qytetet", b =>
-                {
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.User", b =>

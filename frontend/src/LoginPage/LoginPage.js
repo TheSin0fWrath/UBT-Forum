@@ -1,23 +1,31 @@
 import EmptyPage from "../Shared/Components/EmptyPage";
 import Forum from "../Shared/Components/Forum";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./Login.css";
-import {LoginCrud,RegisterCrud} from "./LoginCrud"
+import {LoginCrud,RegisterCrud,getDrejtimet} from "./LoginCrud"
 
 export default function LoginPage() {
   const [loginerror, setloginerror] = useState();
   const [registererror, setreerror] = useState();
   const [login, setlogin] = useState({ username: "", password: "" });
+  const [drejtimet,setDrejtimet] = useState();
+  const [loaded,setLoaded]= useState(false);
   const [register, setregister] = useState({
     username: "",
     password: "",
     repassword: "",
     email: "",
     drejtimi: "",
-    gjenerata: "",
+   
     dateofjoining:""
   });
 
+  useEffect(async ()=>{
+    var drejtimet= await getDrejtimet();
+    setLoaded(true);
+    setDrejtimet(drejtimet);
+    console.log(drejtimet);
+  },[])
 
   async function  trylogin(e) {
     e.preventDefault();
@@ -39,8 +47,8 @@ export default function LoginPage() {
       register.username == "" ||
       register.password == "" ||
       register.email == "" ||
-      register.drejtimi == "Slect" ||
-      register.gjenerata == "Select"
+      register.drejtimi == "Slect" 
+      
     ) {
       setloginerror("Please Fill Both Of The Fields");
     } 
@@ -50,8 +58,8 @@ export default function LoginPage() {
     else if (!register.email.toLowerCase().includes("@ubt-uni.net")) {
       setreerror("You Must Use A UBT Email");
     }
-    else if (register.drejtimi==""||register.gjenerata==""){
-      setreerror("Please Chose Gjenerata and Drejtimi");
+    else if (register.drejtimi==""){
+      setreerror("Please Chose Drejtimin");
 
     }
     else{
@@ -61,7 +69,16 @@ export default function LoginPage() {
    console.log(response.message)
     }
   }
-
+  const renderdrejtimet = useMemo(()=>{
+    if(loaded){
+      return(
+   drejtimet.data.drejtimet.map(x=>{
+     return(
+    <option value={x.id}>{x.drejtimi}</option>
+    ) })
+   )
+  }
+  },[drejtimet])
   return (
     <div class="Loginpage">
       <EmptyPage  path="/Login">
@@ -148,27 +165,12 @@ export default function LoginPage() {
                   setregister({ ...register, drejtimi: x.target.value })
                 }
               >
-                <option value="null">Drejtimi</option>
-                <option value="Arkitektur">Arkitektur</option>
-                <option value="CSE">CSE</option>
-                <option value="Juridik">Juridik</option>
+                 <option value="null">Drejtimi</option>
+               
+             
+               {renderdrejtimet}
               </select>
-              <select
-                name="Gjenerata"
-                id=""
-              
-                onChange={(x) =>
-                  setregister({ ...register, gjenerata: x.target.value })
-                }
-              >
-                <option value="null" >
-                  {" "}
-                  Gjenerata
-                </option>
-                <option value="19/20">19/20</option>
-                <option value="18/19">18/19</option>
-                <option value="17/18">17/18</option>
-              </select>
+            
               <p>{registererror}</p>
               <input
               className="UbtForumButton"

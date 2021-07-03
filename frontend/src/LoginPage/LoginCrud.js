@@ -1,5 +1,20 @@
 const {REACT_APP_AUTH}= process.env;
 
+export async function getDrejtimet(){
+    var options={
+        method:"Get",
+        headers: { "content-type":"application/json"}
+        }
+    var response={
+        message:"",
+        data:"",
+        success:false
+    };
+    var data = await fetch(REACT_APP_AUTH+"register",options).then(res=>res.json());
+  
+    return data;
+}
+
  async function LoginCrud( data){
     var message={
         message:"",
@@ -43,7 +58,6 @@ await fetch(REACT_APP_AUTH+"register",options).then(response => response.json())
 .then(data => {
 response =data;
 });
-console.log(response)
 return await response;
 }
 export { LoginCrud,RegisterCrud};

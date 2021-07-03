@@ -3,25 +3,26 @@ import EmptyPage from "../Shared/Components/EmptyPage"
 import getUser from "./UerInfoCrud"
 import "./Profile.css"
 import { UserContext } from '../Shared/hooks/UserContext';
+import PopUp from "../Shared/Components/PopUp.js"
+
 
 export default  function UserProfile(){
     const {user,setUser} = useContext(UserContext)
     const userid=window.location.pathname.split("/").pop();
     const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"",role:"" });
-    console.log(userid)
-  
+    const [showpopup,setShowpop] = useState(false);
+
    useEffect(async ()=>{const response= await getUser(userid);
     setData(await response.data)},[])
   
-    console.log(data)
-    const role = useMemo(()=>{    
+    const role = useMemo(()=>{   
+        //console.log(data.role.role.color);
                if(data.role!=""){
-                   switch(data.role[0].role.name){
-                       case "Student":return <p className="student">Student</p>;break;
-                       case "Profesor":return <p className="profesor">Profesor</p>;break;
-                       case "Admin":return <p className="admin">Admin</p>;break;
-
-
+                
+                   switch(data.role.role.name){
+                       case "Student":return <p className="student" style={{backgroundColor:data.role.role.color}}>Student</p>;break;
+                       case "Profesor":return <p className="profesor" style={{backgroundColor:data.role.role.color}}>Profesor</p>;break;
+                       case "Admin":return <p className="admin" style={{backgroundColor:data.role.role.color}}>Admin</p>;break;
                    }
                }
          
@@ -38,7 +39,17 @@ export default  function UserProfile(){
                    {role}
                    </div>
                    </div>
+                   <div>
+                   {(user!=null&&user.role=="Admin") && <button onClick={()=>{setShowpop(true)}}>Update User</button>}
                    {(user!=null&&userid==user.nameid) && <button onClick={()=>{window.location.pathname=`editprofile`}}>Edit Profile</button>}
+                   </div>
+                   <PopUp header="User Managment" show={showpopup}>
+                    <form>
+                    <div className="formfoter">
+                        <button className="UbtForumButton" onClick={()=>{setShowpop(false)}}>Cancle</button><br></br>
+                        </div>
+                    </form>
+           </PopUp>
                </div>
                <div className="userstats">
                    <div className="information">
@@ -66,7 +77,7 @@ export default  function UserProfile(){
                            <tr>
                            <td width="5%">Icon</td>
                                <td>Email:</td>
-                               <td>{data.conntact}</td>
+                               <td>{data.email}</td>
                            </tr>
                            <tr>
                            <td width="5%">Icon</td>

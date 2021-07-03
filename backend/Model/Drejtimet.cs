@@ -6,8 +6,8 @@ namespace backend.Model
 {
     public class Drejtimet
     {
-        [Key]
-        public int DrejtimiId{ get; set; }
+        
+        public int Id{ get; set; }
         public string Drejtimi { get; set; }
         public virtual List<User> user { get; set; }
         public virtual List<Thread> threads { get; set; }

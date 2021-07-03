@@ -19,11 +19,10 @@ namespace backend.Controllers
         {
             return Ok(await _userfeed.getUserFeed(id));
         }
-         [HttpPut("likeuser/{id}")]
-        public async Task<IActionResult> LikeUser( int id)
-        {
-            return Ok(await _userfeed.Like(id));
-        }
+        public string Name { get; set; }
+        
+        
+         
 
     }
 }

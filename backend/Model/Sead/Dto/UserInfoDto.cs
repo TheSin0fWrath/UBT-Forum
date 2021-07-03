@@ -12,14 +12,10 @@ namespace backend.Model.Sead
         public int Likes { get; set; }
         public  int Threads  { get; set; }
         public int  WarningLevel { get; set; }
-        public int Credits { get; set; }
         public int ReportedPosts { get; set; }
         public string Gjenerata { get; set; }
         public string Drejtimi { get; set; }
-        public string Conntact { get; set; }
         public string ProfilePic { get; set; }
         public dynamic Role { get; set; }
-        
-        
     }
 }
