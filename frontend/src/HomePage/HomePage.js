@@ -20,7 +20,7 @@ function HomePage(){
 
    
    useEffect(async()=>{
-      if(user!=""){
+      if(user!=""&& user!=null){
          console.log(user)
       const response= await getUser(user.nameid)
       setData(await response.data);    
