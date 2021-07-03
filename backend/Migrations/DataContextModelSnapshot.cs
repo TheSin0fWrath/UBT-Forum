@@ -36,7 +36,7 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.Drejtimet", b =>
                 {
-                    b.Property<int>("DrejtimiId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -44,9 +44,16 @@ namespace backend.Migrations
                     b.Property<string>("Drejtimi")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DrejtimiId");
+                    b.HasKey("Id");
 
                     b.ToTable("Drejtime");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Drejtimi = "CSE"
+                        });
                 });
 
             modelBuilder.Entity("backend.Model.Emails", b =>
@@ -61,6 +68,9 @@ namespace backend.Migrations
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ToUserId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("recivedById")
                         .HasColumnType("int");
@@ -105,6 +115,13 @@ namespace backend.Migrations
                     b.HasKey("Niveli_Id");
 
                     b.ToTable("Nivelis");
+
+                    b.HasData(
+                        new
+                        {
+                            Niveli_Id = 1,
+                            Name = "Barchelor"
+                        });
                 });
 
             modelBuilder.Entity("backend.Model.Posts", b =>
@@ -133,6 +150,28 @@ namespace backend.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Post");
+                });
+
+            modelBuilder.Entity("backend.Model.Qytetet", b =>
+                {
+                    b.Property<int>("QytetiId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("QytetiName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QytetiId");
+
+                    b.ToTable("Qytetet");
+
+                    b.HasData(
+                        new
+                        {
+                            QytetiId = 1,
+                            QytetiName = "Ferizaj"
+                        });
                 });
 
             modelBuilder.Entity("backend.Model.Replays", b =>
@@ -288,6 +327,29 @@ namespace backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Color = "#ff0000",
+                            Default = false,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Color = "#36dd08",
+                            Default = true,
+                            Name = "Student"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Color = "#2283d8",
+                            Default = false,
+                            Name = "Profesor"
+                        });
                 });
 
             modelBuilder.Entity("backend.Model.Sead.RoleUser", b =>
@@ -322,7 +384,7 @@ namespace backend.Migrations
                     b.Property<string>("DateOfJoining")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DrejtimiId")
+                    b.Property<int?>("DrejtimiId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -353,11 +415,16 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("qytetiId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DrejtimiId");
 
                     b.HasIndex("NiveliId");
+
+                    b.HasIndex("qytetiId");
 
                     b.ToTable("Users");
                 });
@@ -467,11 +534,16 @@ namespace backend.Migrations
                     b.Property<int?>("ToUserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("fromUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ByAdminId");
 
                     b.HasIndex("ToUserId");
+
+                    b.HasIndex("fromUserId");
 
                     b.ToTable("Warnings");
                 });
@@ -629,17 +701,21 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Model.Drejtimet", "Drejtimi")
                         .WithMany("user")
-                        .HasForeignKey("DrejtimiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DrejtimiId");
 
                     b.HasOne("backend.Model.Niveli", "Niveli")
                         .WithMany("users")
                         .HasForeignKey("NiveliId");
 
+                    b.HasOne("backend.Model.Qytetet", "qyteti")
+                        .WithMany("Users")
+                        .HasForeignKey("qytetiId");
+
                     b.Navigation("Drejtimi");
 
                     b.Navigation("Niveli");
+
+                    b.Navigation("qyteti");
                 });
 
             modelBuilder.Entity("backend.Model.SubCategory", b =>
@@ -707,9 +783,15 @@ namespace backend.Migrations
                         .WithMany("ToUserWarning")
                         .HasForeignKey("ToUserId");
 
+                    b.HasOne("backend.Model.Sead.User", "fromUser")
+                        .WithMany()
+                        .HasForeignKey("fromUserId");
+
                     b.Navigation("ByAdmin");
 
                     b.Navigation("ToUser");
+
+                    b.Navigation("fromUser");
                 });
 
             modelBuilder.Entity("backend.Model.Category", b =>
@@ -739,6 +821,11 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.Posts", b =>
                 {
                     b.Navigation("Reports");
+                });
+
+            modelBuilder.Entity("backend.Model.Qytetet", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("backend.Model.Sead.User", b =>

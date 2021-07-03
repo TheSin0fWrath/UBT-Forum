@@ -19,6 +19,9 @@ namespace backend.Controllers
         {
             return Ok(await _userfeed.getUserFeed(id));
         }
+        public string Name { get; set; }
+        
+        
          
 
     }

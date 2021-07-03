@@ -26,16 +26,16 @@ function App() {
   
   return (
     <div className="App">
-         <UserContext.Provider value={value}>
-      <Switch>
-        <Route path="/editprofile"><ProfileEdit/></Route>
-      <Route path="/login"> <LoginPage /> </Route>
-       <Route path="/announcments"> <Announcments /> </Route>
-       <Route path="/user"> <UserProfile/>  </Route>
-       <Route path="/reputation"><UserReputation/></Route>
-       <Route path="/adminPanel"><AdminPanel/></Route>
-       <Route path="/"> <HomePage/>  </Route>
-       </Switch>
+      <UserContext.Provider value={value}>
+        <Switch>
+          <Route path="/editprofile"><ProfileEdit/></Route>
+          <Route path="/login"> <LoginPage /> </Route>
+          <Route path="/announcments"> <Announcments /> </Route>
+          <Route path="/user"> <UserProfile/>  </Route>
+          <Route path="/reputation"><UserReputation/></Route>
+          <Route path="/adminPanel"><AdminPanel/></Route>
+          <Route path="/"> <HomePage/>  </Route>
+        </Switch>
        </UserContext.Provider>
     </div>
   )
