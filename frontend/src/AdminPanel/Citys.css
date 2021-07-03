@@ -1,0 +1,68 @@
+.city ul {
+  height: 120px;
+  width: 1500px;
+  font-family: "Book Antiqua";
+  font-size: 20px;
+  text-align: left;
+  color: white;
+  background-position: bottom;
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  padding-left: 15px;
+}
+.city .current .ContentBoxHeader {
+  height: auto;
+  width: 100%;
+  background-color: #003169;
+  text-align: left;
+  color: white;
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.city .current .ContentBoxHeader ul li span {
+  display: inline-block;
+  padding: -2px;
+  background-color: #00000021;
+  color: white;
+  border-width: 2px;
+  border-style: outset;
+  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+  border-image: initial;
+  text-align: center;
+  align-items: flex-start;
+}
+.city .current .ContentBoxHeader ul {
+  height: auto;
+}
+.city .current .ContentBoxHeader ul li span:active {
+  border-style: inset;
+}
+.Current1 h3 {
+  text-align: right;
+  width: min-content;
+  height: 20px;
+  margin-right: 735px;
+}
+.city button {
+  display: inline-block;
+  padding: 5px;
+  background-color: #00000021;
+  color: white;
+}
+.city ul button {
+  height: 34px;
+  width: 50px;
+  margin-top: 40px;
+  font-family: "Book Antiqua";
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  text-decoration: red;
+  margin: 1px;
+  position: relative;
+  vertical-align: bottom;
+}

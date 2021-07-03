@@ -21,8 +21,23 @@ namespace backend.Controllers.Home
             _db = db;
 
         }
+        [HttpGet]
+        public async Task<IActionResult> getEmails()
+        {
+            List<Emails> emails = new List<Emails>();
+            try
+            {
+                emails = await _db.Emails.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+            return Ok(emails);
+        }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> getEmails(int id)
+        public async Task<IActionResult> getEmail(int id)
         {
             List<Emails> users_email;
             try
@@ -45,7 +60,7 @@ namespace backend.Controllers.Home
             try
             {
                 await _db.Emails.AddAsync(eml);
-                await _db.SaveChangesAsync();
+                // await _db.SaveChangesAsync();
                 is_posted = true;
             }
             catch (Exception e)
@@ -56,19 +71,17 @@ namespace backend.Controllers.Home
             return Ok(is_posted);
         }
         [Authorize]
-        [HttpPut]
-        public async Task<IActionResult> updateEml(Emails newkoment)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> updateEmail(int id, Emails newkoment)
         {
             try
             {
-                int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                var oldkoment = await _db.Emails.FirstOrDefaultAsync(x => x.EmailId == newkoment.EmailId);
-                if (oldkoment.ToUserId != id)
-                {
-                    return BadRequest("You cant change your own Email");
-                }
-                oldkoment = newkoment;
-                _db.Update(oldkoment);
+                // int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                var email = await _db.Emails.FirstOrDefaultAsync(x => x.EmailId == id);
+                email.Title = newkoment.Title;
+                email.Message = newkoment.Message;
+                /// add more as needed
+                _db.Update(email);
                 await _db.SaveChangesAsync();
             }
             catch (Exception error)
@@ -76,7 +89,7 @@ namespace backend.Controllers.Home
                 return BadRequest(error);
 
             }
-            return Ok();
+            return Ok("Changed");
         }
         [Authorize]
         [HttpDelete("{id}")]
@@ -86,10 +99,10 @@ namespace backend.Controllers.Home
             {
                 int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 var eml = await _db.Emails.FirstOrDefaultAsync(x => x.EmailId == id);
-                if (eml.ToUserId == id)
+                // if (eml.ToUserId == id)
                 {
 
-                    _db.Emails.Remove(eml);
+                    //  _db.Emails.Remove(eml);
                     await _db.SaveChangesAsync();
 
                 }

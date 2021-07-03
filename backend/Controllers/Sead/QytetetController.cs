@@ -21,6 +21,7 @@ namespace backend.Controllers.Home
             _db = db;
 
         }
+
         [HttpGet]
         public async Task<IActionResult> getQytetet()
         {
@@ -42,12 +43,12 @@ namespace backend.Controllers.Home
         {
             bool is_posted;
             int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-
             try
             {
                 await _db.Qytetet.AddAsync(qyt);
                 await _db.SaveChangesAsync();
                 is_posted = true;
+
             }
             catch (Exception e)
             {
@@ -56,17 +57,17 @@ namespace backend.Controllers.Home
 
             return Ok(is_posted);
         }
+
         [Authorize]
-        [HttpPut]
-        public async Task<IActionResult> updateQytetet(Qytetet newkoment)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> updateQytetet(int id, Qytetet qyt)
         {
             try
             {
-                int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                var oldkoment = await _db.Qytetet.FirstOrDefaultAsync(x => x.QytetiId == newkoment.QytetiId);
-
-                oldkoment = newkoment;
-                _db.Update(oldkoment);
+                // int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                var qyteti = await _db.Qytetet.FirstOrDefaultAsync(x => x.QytetiId == id);
+                qyteti.QytetiName = qyt.QytetiName;
+                _db.Update(qyteti);
                 await _db.SaveChangesAsync();
             }
             catch (Exception error)
@@ -74,7 +75,7 @@ namespace backend.Controllers.Home
                 return BadRequest(error);
 
             }
-            return Ok();
+            return Ok("Changed");
         }
         [Authorize]
         [HttpDelete("{id}")]
@@ -83,10 +84,10 @@ namespace backend.Controllers.Home
             try
             {
                 int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                var qyt = await _db.Replays.FirstOrDefaultAsync(x => x.EmailId == id);
+                var qyt = await _db.Qytetet.FirstOrDefaultAsync(x => x.QytetiId == id);
 
 
-                _db.Replays.Remove(qyt);
+                _db.Qytetet.Remove(qyt);
                 await _db.SaveChangesAsync();
 
             }
@@ -95,7 +96,7 @@ namespace backend.Controllers.Home
                 return BadRequest(error);
             }
 
-            return Ok();
+            return Ok("Deleted");
         }
 
     }

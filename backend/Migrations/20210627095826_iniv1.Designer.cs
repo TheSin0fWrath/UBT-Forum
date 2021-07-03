@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data;
 
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210627095826_iniv1")]
+    partial class iniv1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -335,7 +337,7 @@ namespace backend.Migrations
                     b.Property<string>("DateOfJoining")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DrejtimiId")
+                    b.Property<int>("DrejtimiId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -347,7 +349,7 @@ namespace backend.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("NiveliId")
+                    b.Property<int>("NiveliId")
                         .HasColumnType("int");
 
                     b.Property<byte[]>("PasswordHash")
@@ -362,7 +364,7 @@ namespace backend.Migrations
                     b.Property<int?>("QytetetQytetiId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
@@ -652,11 +654,15 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Model.Drejtimet", "Drejtimi")
                         .WithMany("user")
-                        .HasForeignKey("DrejtimiId");
+                        .HasForeignKey("DrejtimiId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("backend.Model.Niveli", "Niveli")
                         .WithMany("users")
-                        .HasForeignKey("NiveliId");
+                        .HasForeignKey("NiveliId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("backend.Model.Qytetet", null)
                         .WithMany("Users")

@@ -35,26 +35,26 @@ namespace backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-           services.AddCors(options =>
-    {
-        options.AddPolicy("CorsPolicy",
-            builder => builder.AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
-    });
+
+            services.AddCors(options =>
+     {
+         options.AddPolicy("CorsPolicy",
+             builder => builder.AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader());
+     });
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserFeed, UserFeed>();
             services.AddScoped<IMessageServices, MessageServices>();
             services.AddScoped<IRolesUserService, RoleUserService>();
-            services.AddScoped<IRolesService, RolesService >();
+            services.AddScoped<IRolesService, RolesService>();
 
 
-            services.AddDbContext<DataContext>(x =>x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddControllers();
 
-            services.AddMvc(option =>option.EnableEndpointRouting = false)
+            services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 

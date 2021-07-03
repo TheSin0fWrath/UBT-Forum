@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using backend.Data;
 using backend.Model;
+using backend.Model.Sead.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,13 +22,45 @@ namespace backend.Controllers.Home
             _db = db;
 
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> getReputations(int id)
+        [HttpGet]
+        public async Task<IActionResult> getReputations()
         {
-            List<Reputations> users_reputation;
+            List<Reputations> reputations = new List<Reputations>();
             try
             {
-                users_reputation = await _db.Reputations.Where(x => x.ToUserId == id).ToListAsync();
+                reputations = await _db.Reputations.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+            return Ok(reputations);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> getReputation(int id)
+        {
+            List<ReputationDto> users_reputation;
+            try
+            //prit ni sekond
+            {
+                users_reputation = await _db.Reputations.
+               Include(x => x.fromUser).Where(x => x.ToUserId == id)
+               .Select(x => new ReputationDto
+               {
+                   touser = x.ToUserId,
+                   id = x.Id,
+                   fromuser = x.fromUserId,
+                   username = x.fromUser.Username,
+                   points = x.Reputation,
+                   message = x.Message
+
+               }).ToListAsync();
+
+                // users_reputation = await _db.Reputations.Include(x => x.fromUser)
+                // .Include(x=>x.fromUser.Select(u=>u.username))
+
+                // .Where(x => x.ToUserId == id).ToListAsync();
             }
             catch (Exception e)
             {
@@ -41,9 +74,9 @@ namespace backend.Controllers.Home
         {
             bool is_posted;
             int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-            rep.fromUserId = id;
             try
             {
+                rep.fromUserId = id;
                 await _db.Reputations.AddAsync(rep);
                 await _db.SaveChangesAsync();
                 is_posted = true;
@@ -56,19 +89,19 @@ namespace backend.Controllers.Home
             return Ok(is_posted);
         }
         [Authorize]
-        [HttpPut]
-        public async Task<IActionResult> updateRep(Reputations newkoment)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> updateReputation(int id, Reputations newkoment)
         {
             try
             {
-                int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                var oldkoment = await _db.Reputations.FirstOrDefaultAsync(x => x.Id == newkoment.Id);
-                if (oldkoment.fromUserId != id)
-                {
-                    return BadRequest("You cant change your own reputation");
-                }
-                oldkoment = newkoment;
-                _db.Update(oldkoment);
+                // int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                var Reputations = await _db.Reputations.FirstOrDefaultAsync(x => x.Id == id);
+                Reputations.Message = newkoment.Message;
+                Reputations.fromUserId = newkoment.fromUserId;
+                Reputations.ToUserId = newkoment.ToUserId;
+                Reputations.Reputation = newkoment.Reputation;
+                /// add more as needed
+                _db.Update(Reputations);
                 await _db.SaveChangesAsync();
             }
             catch (Exception error)
@@ -76,8 +109,9 @@ namespace backend.Controllers.Home
                 return BadRequest(error);
 
             }
-            return Ok();
+            return Ok("Changed");
         }
+
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> deleterep(int id)
@@ -86,7 +120,6 @@ namespace backend.Controllers.Home
             {
                 int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 var rep = await _db.Reputations.FirstOrDefaultAsync(x => x.Id == id);
-                if (rep.fromUserId == id)
                 {
 
                     _db.Reputations.Remove(rep);
@@ -99,7 +132,7 @@ namespace backend.Controllers.Home
                 return BadRequest(error);
             }
 
-            return Ok();
+            return Ok("Deleted");
         }
 
     }

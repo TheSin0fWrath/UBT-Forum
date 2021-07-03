@@ -21,13 +21,28 @@ namespace backend.Controllers.Home
             _db = db;
 
         }
+        [HttpGet]
+        public async Task<IActionResult> getReplays()
+        {
+            List<Replays> replays = new List<Replays>();
+            try
+            {
+                replays = await _db.Replays.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+            return Ok(replays);
+        }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> getReplays(int id)
+        public async Task<IActionResult> getReplay(int id)
         {
             List<Replays> users_replay;
             try
             {
-                users_replay = await _db.Replays.Where(x => x.EmailId == id).ToListAsync();
+                users_replay = await _db.Replays.Where(x => x.UserId == id).ToListAsync();
             }
             catch (Exception e)
             {
@@ -42,7 +57,6 @@ namespace backend.Controllers.Home
         {
             bool is_posted;
             int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-            rel.UserId = id;
             try
             {
                 await _db.Replays.AddAsync(rel);
@@ -56,20 +70,19 @@ namespace backend.Controllers.Home
 
             return Ok(is_posted);
         }
+
         [Authorize]
-        [HttpPut]
-        public async Task<IActionResult> updateRels(Replays newkoment)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> updateRels(int id, Replays newkoment)
         {
             try
             {
-                int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                var oldkoment = await _db.Replays.FirstOrDefaultAsync(x => x.ReplayId == newkoment.ReplayId);
-                if (oldkoment.UserId != id)
-                {
-                    return BadRequest("You cant change your own replay");
-                }
-                oldkoment = newkoment;
-                _db.Update(oldkoment);
+                // int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                var replay = await _db.Replays.FirstOrDefaultAsync(x => x.ReplayId == id);
+                replay.Message = newkoment.Message;
+                replay.EmailId = newkoment.ReplayId;
+                /// add more as needed
+                _db.Update(replay);
                 await _db.SaveChangesAsync();
             }
             catch (Exception error)
@@ -77,7 +90,7 @@ namespace backend.Controllers.Home
                 return BadRequest(error);
 
             }
-            return Ok();
+            return Ok("Changed");
         }
         [Authorize]
         [HttpDelete("{id}")]
@@ -87,12 +100,10 @@ namespace backend.Controllers.Home
             {
                 int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 var rel = await _db.Replays.FirstOrDefaultAsync(x => x.ReplayId == id);
-                if (rel.UserId == id)
+                if (rel.UserId == userid)
                 {
-
                     _db.Replays.Remove(rel);
                     await _db.SaveChangesAsync();
-
                 }
             }
             catch (Exception error)
@@ -100,7 +111,7 @@ namespace backend.Controllers.Home
                 return BadRequest(error);
             }
 
-            return Ok();
+            return Ok("Deleted");
         }
 
     }

@@ -21,8 +21,23 @@ namespace backend.Controllers.Home
             _db = db;
 
         }
+        [HttpGet]
+        public async Task<IActionResult> getWarnings()
+        {
+            List<Warnings> Warnings = new List<Warnings>();
+            try
+            {
+                Warnings = await _db.Warnings.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+            return Ok(Warnings);
+        }
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> getWarnings(int id)
+        public async Task<IActionResult> getWarning(int id)
         {
             List<Warnings> users_warning;
             try
@@ -41,7 +56,6 @@ namespace backend.Controllers.Home
         {
             bool is_posted;
             int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-            wrn.fromUserId = id;
             try
             {
                 await _db.Warnings.AddAsync(wrn);
@@ -56,19 +70,19 @@ namespace backend.Controllers.Home
             return Ok(is_posted);
         }
         [Authorize]
-        [HttpPut]
-        public async Task<IActionResult> updateWrn(Warnings newcoment)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> updateWarning(int id, Warnings newkoment)
         {
             try
             {
-                int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                var oldcoment = await _db.Warnings.FirstOrDefaultAsync(x => x.Id == newcoment.Id);
-                if (oldcoment.fromUserId != id)
-                {
-                    return BadRequest("You cant change your own Warning");
-                }
-                oldcoment = newcoment;
-                _db.Update(oldcoment);
+                // int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                var warning = await _db.Warnings.FirstOrDefaultAsync(x => x.Id == id);
+                warning.Text = newkoment.Text;
+                warning.Points = newkoment.Points;
+                // warning.fromUserId = newkoment.ToUserId;
+                // warning.ByAdminId = newkoment.ByAdminId;
+                /// add more as needed
+                _db.Update(warning);
                 await _db.SaveChangesAsync();
             }
             catch (Exception error)
@@ -76,7 +90,7 @@ namespace backend.Controllers.Home
                 return BadRequest(error);
 
             }
-            return Ok();
+            return Ok("Changed");
         }
         [Authorize]
         [HttpDelete("{id}")]
@@ -86,7 +100,7 @@ namespace backend.Controllers.Home
             {
                 int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 var wrn = await _db.Warnings.FirstOrDefaultAsync(x => x.Id == id);
-                if (wrn.fromUserId == id)
+                if (wrn.fromUserId == userid)
                 {
 
                     _db.Warnings.Remove(wrn);
@@ -99,7 +113,7 @@ namespace backend.Controllers.Home
                 return BadRequest(error);
             }
 
-            return Ok();
+            return Ok("Deleted");
         }
 
     }

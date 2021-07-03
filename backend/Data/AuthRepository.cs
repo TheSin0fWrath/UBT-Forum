@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using  backend.Model.Sead;
+using backend.Model.Sead;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -24,42 +24,47 @@ namespace backend.Data
         public async Task<ServiceResponse<string>> Login(string username, string password)
         {
             ServiceResponse<string> response = new ServiceResponse<string>();
-            try{
-                if(username==null || password==null){
-                    response.Success=false;
-                    response.Message="You must use a password and username";
+            try
+            {
+                if (username == null || password == null)
+                {
+                    response.Success = false;
+                    response.Message = "You must use a password and username";
                     return response;
                 }
-                if(username.Length >=30){
-                    response.Success=false;
-                    response.Message="Opss Username to long";
+                if (username.Length >= 30)
+                {
+                    response.Success = false;
+                    response.Message = "Opss Username to long";
                     return response;
                 }
-            User user = await _context.Users.Include(x=>x.Role).ThenInclude(x=>x.Role)
-            .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower() ));
-            // if(!user.IsActive){
-            //     response.Success = false;
-            //     response.Message = "User Has Been Banned Or Timed Out";
-            //     return response;
-            // }
-            
-            if (user == null)
-            {
-                response.Success = false;
-                response.Message = "Username Or Password Is Invalid";
-                return response;
+                User user = await _context.Users.Include(x => x.Role).ThenInclude(x => x.Role)
+                .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));
+                // if(!user.IsActive){
+                //     response.Success = false;
+                //     response.Message = "User Has Been Banned Or Timed Out";
+                //     return response;
+                // }
+
+                if (user == null)
+                {
+                    response.Success = false;
+                    response.Message = "Username Or Password Is Invalid";
+                    return response;
+                }
+                else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                {
+                    response.Success = false;
+                    response.Message = "Wrong Password";
+                    return response;
+                }
+                response.Data = CreateToken(user);
             }
-             else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            catch (Exception e)
             {
+                response.Data = null;
                 response.Success = false;
-                response.Message = "Wrong Password";
-                return response;
-            }
-            response.Data = CreateToken(user);
-            }catch(Exception e){
-                response.Data=null;
-                response.Success=false;
-                response.Message=e.Message;
+                response.Message = e.Message;
                 return response;
             }
             return response;
@@ -67,49 +72,54 @@ namespace backend.Data
 
         public async Task<ServiceResponse<string>> Register(UserRegisterDto newuser)
         {
-            
-            ServiceResponse<string> response = new ServiceResponse<string>();
-            try{
-                if(newuser.Username.Length >=30){
-                response.Message = "Username to long pls chose another one";
-                response.Success = false;
-                return response;
-                }
-                 if(newuser.Drejtimi ==null || newuser.Username==null || newuser.Gjenerata==null||newuser.Password==null||newuser.Email==null){
-                response.Message = "Please fill out all thr forms before registring ";
-                response.Success = false;
-                return response;
-                }
-            CreatePasswordHash(newuser.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            if (await UserExists(newuser.Username,newuser.Email))
-            {
-                response.Message = "User Already Exists. Pls Chose Another Username";
-                response.Success = false;
-                return response;
-            }
-            User user= new User();
-            user.Username=newuser.Username;
-            user.Username=newuser.Username;
-            user.Gjenerata=newuser.Gjenerata;
-            user.DateOfJoining=newuser.DateOfJoining;
-            user.Conntact=newuser.Email;
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
-            user.Role.Add(new RoleUser{RoleId=1});
-            _context.Users.Add(user); 
-            _context.SaveChanges();
-            response.Data = CreateToken(user);
 
-            }catch(Exception e){
-                response.Success=false;
-                response.Message= e.Message;
+            ServiceResponse<string> response = new ServiceResponse<string>();
+            try
+            {
+                if (newuser.Username.Length >= 30)
+                {
+                    response.Message = "Username to long pls chose another one";
+                    response.Success = false;
+                    return response;
+                }
+                if (newuser.Drejtimi == null || newuser.Username == null || newuser.Gjenerata == null || newuser.Password == null || newuser.Email == null)
+                {
+                    response.Message = "Please fill out all thr forms before registring ";
+                    response.Success = false;
+                    return response;
+                }
+                CreatePasswordHash(newuser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                if (await UserExists(newuser.Username, newuser.Email))
+                {
+                    response.Message = "User Already Exists. Pls Chose Another Username";
+                    response.Success = false;
+                    return response;
+                }
+                User user = new User();
+                user.Username = newuser.Username;
+                // user.Username=newuser.Username;
+                //user.Gjenerata=newuser.Gjenerata;
+                user.DateOfJoining = newuser.DateOfJoining;
+                // user.Conntact=newuser.Email;
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+                //user.Role.Add(new RoleUser{RoleId=1});
+                _context.Users.Add(user);
+                _context.SaveChanges();
+                response.Data = CreateToken(user);
+
             }
-            response.Message="Your Account Has Been Created You Can Now Log In";
+            catch (Exception e)
+            {
+                response.Success = false;
+                response.Message = e.Message;
+            }
+            response.Message = "Your Account Has Been Created You Can Now Log In";
             return response;
 
         }
 
-        public async Task<bool> UserExists(string username,string email)
+        public async Task<bool> UserExists(string username, string email)
         {
             if (await _context.Users.AnyAsync(x => x.Username.ToLower() == username.ToLower()) || await _context.Users.AnyAsync(x => x.Email.ToLower() == email.ToLower()))
             {
@@ -149,45 +159,49 @@ namespace backend.Data
                 new Claim(ClaimTypes.Name, user.Username),
             };
             foreach (var role in user.Role)
-             {
-            claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
             }
 
             SymmetricSecurityKey key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value)
             );
             SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor{
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+            {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(1),
-                SigningCredentials =creds
+                SigningCredentials = creds
             };
-            JwtSecurityTokenHandler tokenHandler= new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<ServiceResponse<string>> changePassword(updatePasswordDto password,int id)
+        public async Task<ServiceResponse<string>> changePassword(updatePasswordDto password, int id)
         {
             ServiceResponse<string> response = new ServiceResponse<string>();
-           try{
-            User user = await _context.Users.FirstOrDefaultAsync(x=>x.Id==id);
-             if (!VerifyPasswordHash(password.CurrentPassword, user.PasswordHash, user.PasswordSalt))
+            try
             {
-                response.Success = false;
-                response.Message = "Wrong Password";
-                return response;
+                User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+                if (!VerifyPasswordHash(password.CurrentPassword, user.PasswordHash, user.PasswordSalt))
+                {
+                    response.Success = false;
+                    response.Message = "Wrong Password";
+                    return response;
+                }
+                CreatePasswordHash(password.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+                response.Message = "Password Updated";
             }
-             CreatePasswordHash(password.Password, out byte[] passwordHash, out byte[] passwordSalt);
-             user.PasswordHash =passwordHash;
-             user.PasswordSalt = passwordSalt;
-             _context.Update(user);
-             await _context.SaveChangesAsync();
-             response.Message="Password Updated";
-             }catch(Exception e){
-                 response.Message=e.Message;
-                 response.Success=false;
-             }
+            catch (Exception e)
+            {
+                response.Message = e.Message;
+                response.Success = false;
+            }
             return response;
         }
     }
