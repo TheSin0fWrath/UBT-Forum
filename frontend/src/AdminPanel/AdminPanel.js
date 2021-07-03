@@ -4,6 +4,8 @@ import EmptyPage from "../Shared/Components/EmptyPage"
 import Awards from "./Awards"
 import RoleManager from "./RoleManager"
 import "./Admin.css"
+import Niveli from "./Niveli"
+
 
 export default function AdminPanel(){
 
@@ -20,6 +22,7 @@ export default function AdminPanel(){
                   
                    <Route  exact path="/rolemanager"> <RoleManager/></Route>
                   <Route exact path="/awards"> <Awards/></Route>
+                  <Route exact path="/Niveli"> <Niveli/></Route>
                    
                    </HashRouter>
                </div>

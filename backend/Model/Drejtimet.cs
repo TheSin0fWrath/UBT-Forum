@@ -12,7 +12,5 @@ namespace backend.Model
         public virtual List<User> user { get; set; }
         public virtual List<Thread> threads { get; set; }
         
-        
-        
     }
 }

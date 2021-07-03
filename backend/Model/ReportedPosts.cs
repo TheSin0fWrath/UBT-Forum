@@ -5,6 +5,7 @@ namespace backend.Model
 {
     public class ReportedPosts
     {
+        public static string Message { get; internal set; }
         [Key]
         public int ReportedId { get; set; }
         public string Text { get; set; }
