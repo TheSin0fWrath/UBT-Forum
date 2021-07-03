@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data;
 
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210626123941_awardfix")]
+    partial class awardfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,21 +114,6 @@ namespace backend.Migrations
                     b.HasIndex("sentById");
 
                     b.ToTable("Emails");
-                });
-
-            modelBuilder.Entity("backend.Model.Gjenerata", b =>
-                {
-                    b.Property<int>("GjenerataId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("GjenerataText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("GjenerataId");
-
-                    b.ToTable("Gjeneratat");
                 });
 
             modelBuilder.Entity("backend.Model.Like_Thread", b =>
@@ -375,6 +362,9 @@ namespace backend.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Gjenerata")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -393,15 +383,9 @@ namespace backend.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SpecializimiId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("gjenerataId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -409,26 +393,7 @@ namespace backend.Migrations
 
                     b.HasIndex("NiveliId");
 
-                    b.HasIndex("SpecializimiId");
-
-                    b.HasIndex("gjenerataId");
-
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("backend.Model.Specializimi", b =>
-                {
-                    b.Property<int>("SpecializimiId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("SpecializimiText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SpecializimiId");
-
-                    b.ToTable("Specializime");
                 });
 
             modelBuilder.Entity("backend.Model.SubCategory", b =>
@@ -727,21 +692,9 @@ namespace backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Model.Specializimi", null)
-                        .WithMany("Users")
-                        .HasForeignKey("SpecializimiId");
-
-                    b.HasOne("backend.Model.Gjenerata", "gjenerata")
-                        .WithMany("Users")
-                        .HasForeignKey("gjenerataId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Drejtimi");
 
                     b.Navigation("Niveli");
-
-                    b.Navigation("gjenerata");
                 });
 
             modelBuilder.Entity("backend.Model.SubCategory", b =>
@@ -836,11 +789,6 @@ namespace backend.Migrations
                     b.Navigation("Replays");
                 });
 
-            modelBuilder.Entity("backend.Model.Gjenerata", b =>
-                {
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("backend.Model.Niveli", b =>
                 {
                     b.Navigation("threads");
@@ -870,11 +818,6 @@ namespace backend.Migrations
                     b.Navigation("recivedEmail");
 
                     b.Navigation("sentEmail");
-                });
-
-            modelBuilder.Entity("backend.Model.Specializimi", b =>
-                {
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("backend.Model.Thread", b =>

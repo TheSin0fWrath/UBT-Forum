@@ -141,7 +141,6 @@ C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Microsoft.AspN
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
-C:\Users\TINACOM\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.csprojAssemblyReference.cache
 C:\Users\TINACOM\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\TINACOM\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.AssemblyInfoInputs.cache
 C:\Users\TINACOM\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.AssemblyInfo.cs
@@ -217,3 +216,4 @@ C:\Users\TINACOM\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\scopedcss\b
 C:\Users\TINACOM\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.RazorTargetAssemblyInfo.cache
 C:\Users\TINACOM\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.csproj.CopyComplete
 C:\Users\TINACOM\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.genruntimeconfig.cache
+C:\Users\TINACOM\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.csproj.AssemblyReference.cache

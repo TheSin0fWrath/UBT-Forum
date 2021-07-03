@@ -90,7 +90,6 @@ namespace backend.Data
             User user= new User();
             user.Username=newuser.Username;
             user.Username=newuser.Username;
-            user.Gjenerata=newuser.Gjenerata;
             user.DateOfJoining=newuser.DateOfJoining;
             user.Conntact=newuser.Email;
             user.PasswordHash = passwordHash;

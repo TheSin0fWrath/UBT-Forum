@@ -14,7 +14,8 @@ namespace backend.Model.Sead
         public string Email { get; set; }
         public string DateOfJoining { get; set; }
         public bool IsActive { get; set; }=true;
-        public string Gjenerata { get; set; }
+        public int gjenerataId { get; set; }
+        public Gjenerata gjenerata { get; set; }
         public string Conntact { get; set; }
         public string ProfilePic { get; set; }
         public int NiveliId { get; set; }

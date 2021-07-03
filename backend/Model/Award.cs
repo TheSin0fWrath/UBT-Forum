@@ -8,7 +8,7 @@ namespace backend.Model
         public int Id { get; set; }
         
         public string AwardText { get; set; }
-        public List<AwardUser> Awards { get; set; }
+        public List<AwardUser> awardUsers { get; set; }
         
     }
 }
