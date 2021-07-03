@@ -6,12 +6,8 @@ import { UserContext } from '../hooks/UserContext';
 export default function EmptyPage  ({path,children}){
    importcss(`${path}`,"Empty.css");
    const {user,setUser} = useContext(UserContext);
-<<<<<<< HEAD
    console.log(user,'user');
 
-=======
- 
->>>>>>> 5df4f7f2b0e2d41c072e45a8c8c559417cbd3de3
 const adminCheck=useMemo(()=>{
    if(user!=null ){
       if(user.role=="Admin"){

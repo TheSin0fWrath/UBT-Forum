@@ -16,7 +16,7 @@ namespace backend.Model.Sead
         public bool IsActive { get; set; } = true;
         public string Gjenerata { get; set; }
         public string ProfilePic { get; set; }
-        public int qytetiId { get; set; }
+        public int? qytetiId { get; set; }
         public Qytetet qyteti { get; set; }
         public int? NiveliId { get; set; }
         public virtual Niveli Niveli { get; set; }

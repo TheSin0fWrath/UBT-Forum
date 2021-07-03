@@ -3,8 +3,6 @@ import PopUp from "../Shared/Components/PopUp.js"
 import {addRole,getRoles,deleteRole,updateRole} from "./AdminCrud";
 
 export default function RoleManager(){
-<<<<<<< HEAD
-=======
     const [showPop,setShowPop]= useState(false);
     const [role,setRole]= useState({name:null,color:null});
     const [replayMessage,setReplay] =useState();
@@ -66,7 +64,6 @@ export default function RoleManager(){
         </tr>
         
        ) })},[data]);
->>>>>>> 5df4f7f2b0e2d41c072e45a8c8c559417cbd3de3
     
     return(
         
