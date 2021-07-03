@@ -7280,11 +7280,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Era\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
+      "projectUniqueName": "C:\\Users\\Era\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
       "projectName": "backend",
-      "projectPath": "c:\\Users\\Era\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
+      "projectPath": "C:\\Users\\Era\\Documents\\GitHub\\UBT-Forum\\backend\\backend.csproj",
       "packagesPath": "C:\\Users\\Era\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Era\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\",
+      "outputPath": "C:\\Users\\Era\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
@@ -7387,13 +7387,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file c:\\Users\\Era\\Documents\\GitHub\\UBT-Forum\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

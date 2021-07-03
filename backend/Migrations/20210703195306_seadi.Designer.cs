@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data;
 
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210703195306_seadi")]
+    partial class seadi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -408,6 +410,9 @@ namespace backend.Migrations
                     b.Property<string>("ProfilePic")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("QytetetQytetiId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
@@ -415,16 +420,13 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("qytetiId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DrejtimiId");
 
                     b.HasIndex("NiveliId");
 
-                    b.HasIndex("qytetiId");
+                    b.HasIndex("QytetetQytetiId");
 
                     b.ToTable("Users");
                 });
@@ -707,17 +709,13 @@ namespace backend.Migrations
                         .WithMany("users")
                         .HasForeignKey("NiveliId");
 
-                    b.HasOne("backend.Model.Qytetet", "qyteti")
+                    b.HasOne("backend.Model.Qytetet", null)
                         .WithMany("Users")
-                        .HasForeignKey("qytetiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QytetetQytetiId");
 
                     b.Navigation("Drejtimi");
 
                     b.Navigation("Niveli");
-
-                    b.Navigation("qyteti");
                 });
 
             modelBuilder.Entity("backend.Model.SubCategory", b =>
