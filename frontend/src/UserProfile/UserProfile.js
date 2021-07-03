@@ -11,21 +11,39 @@ export default  function UserProfile(){
     const userid=window.location.pathname.split("/").pop();
     const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"",role:"" });
     const [showpopup,setShowpop] = useState(false);
+    const[confirmroledelete, setconfirmdelete]= useState(true);
+    const [deleterole,setdeleterole]=useState();
 
    useEffect(async ()=>{const response= await getUser(userid);
     setData(await response.data)},[])
-  
+
     const role = useMemo(()=>{   
         //console.log(data.role.role.color);
-               if(data.role!=""){
-                
-                   switch(data.role.role.name){
-                       case "Student":return <p className="student" style={{backgroundColor:data.role.role.color}}>Student</p>;break;
-                       case "Profesor":return <p className="profesor" style={{backgroundColor:data.role.role.color}}>Profesor</p>;break;
-                       case "Admin":return <p className="admin" style={{backgroundColor:data.role.role.color}}>Admin</p>;break;
+               if(data.role!==""){
+             
+
+                   switch(data.role[0].role.name){
+                       case "Student":return <p className="student" style={{backgroundColor:data.role[0].role.color}}>Student</p>;break;
+                       case "Profesor":return <p className="profesor" style={{backgroundColor:data.role[0].role.color}}>Profesor</p>;break;
+                       case "Admin":return <p className="admin" style={{backgroundColor:data.role[0].role.color}}>Admin</p>;break;
                    }
                }
          
+        },[data])
+        const allroles = useMemo(()=>{
+
+            if(data.role !==""){
+               
+               return  data.role.map((role)=>{
+                   console.log(role.role.name)
+                    return (<p  key={role.id} className="popuprole" style={{backgroundColor:role.role.color}}>{role.role.name} <span onClick={(e)=>{
+                        setconfirmdelete(!confirmroledelete)
+                        setdeleterole(role.role.id)
+
+                    }}>X</span></p>)
+                
+                })
+            }
         },[data])
     
     return(
@@ -40,18 +58,49 @@ export default  function UserProfile(){
                    </div>
                    </div>
                    <div>
-                   {(user!=null&&user.role=="Admin") && <button onClick={()=>{setShowpop(true)}}>Update User</button>}
-                   {(user!=null&&userid==user.nameid) && <button onClick={()=>{window.location.pathname=`editprofile`}}>Edit Profile</button>}
+                   {(user!=null&&user.role=="Admin") && <button  className="UbtForumButton" onClick={()=>{setShowpop(true)}}>Update User</button>}
+                   {(user!=null&&userid==user.nameid) && <button className="UbtForumButton" onClick={()=>{window.location.pathname=`editprofile`}}>Edit Profile</button>}
                    </div>
                    <PopUp header="User Managment" show={showpopup}>
                     <form>
+                        <div className="useralloles">
+                            <p
+                            style={{
+                                color:"white",
+                                marginLeft:10,
+                                fontSize:14
+                            }}
+                            >User roles: </p>
+                        {allroles}
+                        
+                        </div>
+                        {confirmroledelete?<></>:<div className="confirmroledelete">
+                        <p>Are you sure you want to delete this role ?</p>
+                        <button className="UbtForumButton" onClick={(e)=>{
+                            e.preventDefault()
+                            
+
+                        }}>YES</button>
+                        <button  className="UbtForumButton" onClick={e=>{
+                            e.preventDefault()
+                            setconfirmdelete(!confirmroledelete)
+
+                        }}>NO</button>
+
+                    </div>}
+                        
                     <div className="formfoter">
+                        
                         <button className="UbtForumButton" onClick={()=>{setShowpop(false)}}>Cancle</button><br></br>
                         </div>
                     </form>
+                 
            </PopUp>
+           
                </div>
+               
                <div className="userstats">
+                   
                    <div className="information">
 
                        <div className="showBox">
