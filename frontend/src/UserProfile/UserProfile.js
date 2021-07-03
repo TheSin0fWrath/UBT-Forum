@@ -40,7 +40,7 @@ export default  function UserProfile(){
                    </div>
                    </div>
                    <div>
-                   {(user!=null&user.role=="Admin") && <button onClick={()=>{setShowpop(true)}}>Update User</button>}
+                   {(user!=null&&user.role=="Admin") && <button onClick={()=>{setShowpop(true)}}>Update User</button>}
                    {(user!=null&&userid==user.nameid) && <button onClick={()=>{window.location.pathname=`editprofile`}}>Edit Profile</button>}
                    </div>
                    <PopUp header="User Managment" show={showpopup}>
