@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data;
 
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210605165957_v3")]
+    partial class v3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,9 +63,6 @@ namespace backend.Migrations
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ToUserId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("recivedById")
                         .HasColumnType("int");
@@ -136,21 +135,6 @@ namespace backend.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Post");
-                });
-
-            modelBuilder.Entity("backend.Model.Qytetet", b =>
-                {
-                    b.Property<int>("QytetiId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("QytetiName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("QytetiId");
-
-                    b.ToTable("Qytetet");
                 });
 
             modelBuilder.Entity("backend.Model.Replays", b =>
@@ -289,18 +273,10 @@ namespace backend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Color")
-                        .IsRequired()
+                    b.Property<string>("Descritpion")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Default")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -337,10 +313,13 @@ namespace backend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Conntact")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DateOfJoining")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DrejtimiId")
+                    b.Property<int>("DrejtimiId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -364,10 +343,7 @@ namespace backend.Migrations
                     b.Property<string>("ProfilePic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("QytetetQytetiId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RoleId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
@@ -379,8 +355,6 @@ namespace backend.Migrations
                     b.HasIndex("DrejtimiId");
 
                     b.HasIndex("NiveliId");
-
-                    b.HasIndex("QytetetQytetiId");
 
                     b.ToTable("Users");
                 });
@@ -490,16 +464,11 @@ namespace backend.Migrations
                     b.Property<int?>("ToUserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("fromUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ByAdminId");
 
                     b.HasIndex("ToUserId");
-
-                    b.HasIndex("fromUserId");
 
                     b.ToTable("Warnings");
                 });
@@ -547,7 +516,7 @@ namespace backend.Migrations
                         .IsRequired();
 
                     b.HasOne("backend.Model.Sead.User", "User")
-                        .WithMany("Posts")
+                        .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Thread");
@@ -657,18 +626,13 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Model.Drejtimet", "Drejtimi")
                         .WithMany("user")
-                        .HasForeignKey("DrejtimiId");
+                        .HasForeignKey("DrejtimiId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("backend.Model.Niveli", "Niveli")
                         .WithMany("users")
                         .HasForeignKey("NiveliId");
-<<<<<<< HEAD
-
-                    b.HasOne("backend.Model.Qytetet", null)
-                        .WithMany("Users")
-                        .HasForeignKey("QytetetQytetiId");
-=======
->>>>>>> 5df4f7f2b0e2d41c072e45a8c8c559417cbd3de3
 
                     b.Navigation("Drejtimi");
 
@@ -699,7 +663,7 @@ namespace backend.Migrations
                         .HasForeignKey("NiveliId");
 
                     b.HasOne("backend.Model.Sead.User", "User")
-                        .WithMany("Threads")
+                        .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Categoria");
@@ -731,24 +695,18 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Model.Warnings", b =>
                 {
                     b.HasOne("backend.Model.Sead.User", "ByAdmin")
-                        .WithMany("ByAdminWarning")
+                        .WithMany()
                         .HasForeignKey("ByAdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("backend.Model.Sead.User", "ToUser")
-                        .WithMany("ToUserWarning")
-                        .HasForeignKey("ToUserId");
-
-                    b.HasOne("backend.Model.Sead.User", "fromUser")
                         .WithMany()
-                        .HasForeignKey("fromUserId");
+                        .HasForeignKey("ToUserId");
 
                     b.Navigation("ByAdmin");
 
                     b.Navigation("ToUser");
-
-                    b.Navigation("fromUser");
                 });
 
             modelBuilder.Entity("backend.Model.Category", b =>
@@ -780,20 +738,11 @@ namespace backend.Migrations
                     b.Navigation("Reports");
                 });
 
-            modelBuilder.Entity("backend.Model.Qytetet", b =>
-                {
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("backend.Model.Sead.User", b =>
                 {
-                    b.Navigation("ByAdminWarning");
-
                     b.Navigation("LikeThread");
 
                     b.Navigation("Mesages");
-
-                    b.Navigation("Posts");
 
                     b.Navigation("Replays");
 
@@ -802,10 +751,6 @@ namespace backend.Migrations
                     b.Navigation("ReportedThreadS");
 
                     b.Navigation("Role");
-
-                    b.Navigation("Threads");
-
-                    b.Navigation("ToUserWarning");
 
                     b.Navigation("recivedEmail");
 

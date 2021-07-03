@@ -24,6 +24,7 @@ namespace backend.Data
         public async Task<ServiceResponse<string>> Login(string username, string password)
         {
             ServiceResponse<string> response = new ServiceResponse<string>();
+<<<<<<< HEAD
             try
             {
                 if (username == null || password == null)
@@ -36,6 +37,13 @@ namespace backend.Data
                 {
                     response.Success = false;
                     response.Message = "Opss Username to long";
+=======
+            try{
+               
+                if(username.Length >=30){
+                    response.Success=false;
+                    response.Message="Opss Username to long";
+>>>>>>> 5df4f7f2b0e2d41c072e45a8c8c559417cbd3de3
                     return response;
                 }
                 User user = await _context.Users.Include(x => x.Role).ThenInclude(x => x.Role)
@@ -82,6 +90,7 @@ namespace backend.Data
                     response.Success = false;
                     return response;
                 }
+<<<<<<< HEAD
                 if (newuser.Drejtimi == null || newuser.Username == null || newuser.Gjenerata == null || newuser.Password == null || newuser.Email == null)
                 {
                     response.Message = "Please fill out all thr forms before registring ";
@@ -110,11 +119,43 @@ namespace backend.Data
 
             }
             catch (Exception e)
+=======
+               
+            CreatePasswordHash(newuser.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            if (await UserExists(newuser.Username,newuser.Email))
+>>>>>>> 5df4f7f2b0e2d41c072e45a8c8c559417cbd3de3
             {
                 response.Success = false;
                 response.Message = e.Message;
             }
+<<<<<<< HEAD
             response.Message = "Your Account Has Been Created You Can Now Log In";
+=======
+            var role = await _context.Roles.FirstOrDefaultAsync(x=>x.Default==true);
+            User user= new User();
+            user.Username=newuser.Username;
+            user.DateOfJoining=newuser.DateOfJoining;
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+            user.DrejtimiId= newuser.Drejtimi;
+            user.Gjenerata= newuser.Gjenerata;
+            user.Email= newuser.Email;
+
+
+            user.Role.Add(new RoleUser{RoleId=role.Id});
+
+
+            
+            _context.Users.Add(user); 
+            _context.SaveChanges();
+            response.Data = CreateToken(user);
+
+            }catch(Exception e){
+                response.Success=false;
+                response.Message= e.Message;
+            }
+            response.Message="Your Account Has Been Created You Can Now Log In";
+>>>>>>> 5df4f7f2b0e2d41c072e45a8c8c559417cbd3de3
             return response;
 
         }
@@ -153,7 +194,6 @@ namespace backend.Data
         }
         private string CreateToken(User user)
         {
-
             List<Claim> claims = new List<Claim>{
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
