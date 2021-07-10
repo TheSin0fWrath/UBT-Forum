@@ -40,7 +40,7 @@ namespace backend.Services
                     Posts=x.Posts.Count,
                     Gjenerata =x.Gjenerata,
                     Drejtimi = x.Drejtimi.Drejtimi,
-                    Role = x.Role,
+                    Role = x.Role.Select(x=>x.Role).ToList(),
                     WarningLevel= x.ToUserWarning.Sum(x=>x.Points),
                     ProfilePic = x.ProfilePic                   
                     })
