@@ -13,38 +13,179 @@ import Chat from "./Chat";
 import "./HomePage.css"
 import { UserContext } from '../Shared/hooks/UserContext';
 import getUser from "../UserProfile/UerInfoCrud"
-
+import EmptyPage from '../Shared/Components/EmptyPage';
 function HomePage(){
    const {user,setUser} = useContext(UserContext)
    const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"" });
-
+  const [busy,setbusy]=useState(false);
    
    useEffect(async()=>{
-      if(user!=""&& user!=null){
+      if(user!=null && user!==""){
          console.log(user)
       const response= await getUser(user.nameid)
-      setData(await response.data);    
-      console.log(response); 
+      setData(await response.data);  
+     setbusy(true);
    }
    },[user])
 
-  
    if (window?.location.pathname=== `/`)
   require(`../HomePage/HomePage.css`)
 
 return(
-<div className="IndexPage" >
-   <div className="MainNavBar">
-     
-      {user?(<nav> <p onClick={async ()=>{window.localStorage.removeItem("token");window.location.reload()}}>SignOut</p> <a href={`/user/${user.nameid}`}>MyProfile</a></nav>):(  <nav> <a href="/login">SignUp</a></nav>)}
-   </div>
-   <div className="backgroundImage">
-      <a href="/"> <img src={UbtLog} height="150px" width="150px"/></a>
-   </div>
-   <div className="mainWrapper">
-      <div className="toplinecss"> UBT</div>
-      <div className="secondWrapper">
-         <div className="thirdWrapper">
+
+ <EmptyPage secondfeed={   <div className="secondFeed">
+ {busy?(<div className="userstats">
+    <div className="ContentBox">
+       <div className="ContentBoxHeader">
+          <h3>Welcome Back {user.name} </h3>
+       </div>
+       <div className="ContentBoxBody">
+          <ul>
+             <li>
+                <a>
+                   <span>
+                      <InlineIcon icon={likeIcon} />
+                   </span>
+                   &nbsp;&nbsp;&nbsp;Likes <span>{data.likes}</span>
+                </a>
+             </li>
+             <li>
+                <a>
+                   <span>
+                      <InlineIcon icon={starFill} />
+                   </span>
+                   &nbsp;&nbsp;&nbsp;Reputation <span>{data.reputation}</span>
+                </a>
+             </li>
+             <li>
+                <a>
+                   <span>
+                      <InlineIcon icon={likeIcon} />
+                   </span>
+                   &nbsp;&nbsp;&nbsp;Likes <span>{data.likes}</span>
+                </a>
+             </li>
+             <li>
+                <a>
+                   <span>
+                      <InlineIcon icon={likeIcon} />
+                   </span>
+                   &nbsp;&nbsp;&nbsp;Likes <span>{data.likes}</span>
+                </a>
+             </li>
+          </ul>
+       </div>
+    </div>
+ </div>):(null)}
+ <div className="announcments">
+    <div className="ContentBoxHeader">
+       <h3>Announcements </h3>
+    </div>
+    <div className="ContentBoxBody">
+       <ul>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+       </ul>
+    </div>
+ </div>
+ <div className="LatestActivities">
+    <div className="ContentBoxHeader">
+       <h3>LatestActivities </h3>
+    </div>
+    <div className="ContentBoxBody">
+       <ul>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+       </ul>
+    </div>
+ </div>
+ <div className="LastTopics">
+    <div className="ContentBoxHeader">
+       <h3>LastTopics </h3>
+    </div>
+    <div className="ContentBoxBody">
+       <ul>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+          <li>
+             <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
+             <p>By Jason, 2 hours ago</p>
+          </li>
+       </ul>
+    </div>
+ </div>
+</div>
+}>
+   
+      
+      
+         
             <div className="ContentBox">
                <div className="ContentBoxHeader">
                   <h3>Welcome </h3>
@@ -81,159 +222,12 @@ return(
                <Route exact path="/" component={Home}/>
                <Route exact path="/CSE" component={CSE}/>
             </div>
-         </div>
-         <div className="secondFeed">
-            {user?(<div className="userstats">
-               <div className="ContentBox">
-                  <div className="ContentBoxHeader">
-                     <h3>Welcome Back {user.name} </h3>
-                  </div>
-                  <div className="ContentBoxBody">
-                     <ul>
-                        <li>
-                           <a>
-                              <span>
-                                 <InlineIcon icon={likeIcon} />
-                              </span>
-                              &nbsp;&nbsp;&nbsp;Likes <span>{data.likes}</span>
-                           </a>
-                        </li>
-                        <li>
-                           <a>
-                              <span>
-                                 <InlineIcon icon={starFill} />
-                              </span>
-                              &nbsp;&nbsp;&nbsp;Reputation <span>{data.reputation}</span>
-                           </a>
-                        </li>
-                        <li>
-                           <a>
-                              <span>
-                                 <InlineIcon icon={likeIcon} />
-                              </span>
-                              &nbsp;&nbsp;&nbsp;Likes <span>{data.likes}</span>
-                           </a>
-                        </li>
-                        <li>
-                           <a>
-                              <span>
-                                 <InlineIcon icon={likeIcon} />
-                              </span>
-                              &nbsp;&nbsp;&nbsp;Likes <span>{data.likes}</span>
-                           </a>
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-            </div>):(null)}
-            <div className="announcments">
-               <div className="ContentBoxHeader">
-                  <h3>Announcements </h3>
-               </div>
-               <div className="ContentBoxBody">
-                  <ul>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-            <div className="LatestActivities">
-               <div className="ContentBoxHeader">
-                  <h3>LatestActivities </h3>
-               </div>
-               <div className="ContentBoxBody">
-                  <ul>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-            <div className="LastTopics">
-               <div className="ContentBoxHeader">
-                  <h3>LastTopics </h3>
-               </div>
-               <div className="ContentBoxBody">
-                  <ul>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                     <li>
-                        <p><span>Icon</span>&nbsp;&nbsp;&nbsp;Title Goes here <span>5</span></p>
-                        <p>By Jason, 2 hours ago</p>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-         </div>
-      </div>
+      
+      
       <OnlineMembers/>
-   </div>
-</div>
+   
+      </EmptyPage>
+ 
 )
 }
 export default HomePage;

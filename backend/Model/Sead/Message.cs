@@ -11,8 +11,6 @@ namespace backend.Model.Sead
         
         public string Time { get; set; }
         public int UserId { get; set; }
-        
-        
          public User User { get; set; }
         
         

@@ -56,3 +56,29 @@ console.log(window.localStorage.getItem("token"))
       });   
       
   }
+
+
+  export async function  updateMessage(id, text){
+
+
+  const credintials ={text:text,id:id};
+  const dbData={
+      message :"",
+      success:false,
+  data:""};
+console.log(window.localStorage.getItem("token"))
+  const options ={
+      method : "Put",
+      headers:{
+          "content-type":"application/json",
+          "Authorization":`Bearer ${window.localStorage.getItem("token")}`
+        },
+      body: JSON.stringify(credintials)};
+      await fetch(REACT_APP_API+"chatBox", options).then(response => response.json()).then(data => {
+          dbData.message =data.message;
+          dbData.success = data.success;
+          dbData.data = data.data;
+        
+      });   
+      
+  }

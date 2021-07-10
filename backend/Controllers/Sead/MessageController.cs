@@ -47,5 +47,14 @@ namespace backend.Controllers
             
             return Ok(await _message.DeleteMessage(id,userid));
         }
+        [Authorize]
+        [HttpPut]
+        public  async Task<IActionResult> updateMessage(Message message)
+        {
+            int userid = int.Parse(User.Claims.FirstOrDefault( x=>x.Type == ClaimTypes.NameIdentifier).Value);
+            message.UserId= userid;
+            
+            return Ok(await _message.updateMesage(message));
+        }
     }
 }

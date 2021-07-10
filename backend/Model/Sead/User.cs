@@ -18,11 +18,10 @@ namespace backend.Model.Sead
         public string ProfilePic { get; set; }
         public int? NiveliId { get; set; }
         public virtual Niveli Niveli { get; set; }
-        public int DrejtimiId { get; set; }
+        public int? DrejtimiId { get; set; }
         public virtual Drejtimet Drejtimi { get; set; }
         public virtual List<Message> Mesages { get; set; }
-        public virtual int RoleId { get; set; }
-        public virtual List<RoleUser> Role { get; set; }=new List<RoleUser>();
+          public virtual List<RoleUser> Role { get; set; }=new List<RoleUser>();
         public virtual List<Thread> Threads { get; set; }      
         public virtual List<Posts> Posts { get; set; }  
         [InverseProperty("ByAdmin")]

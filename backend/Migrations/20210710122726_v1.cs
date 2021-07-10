@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backend.Migrations
 {
-    public partial class test4 : Migration
+    public partial class v1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,13 +24,13 @@ namespace backend.Migrations
                 name: "Drejtime",
                 columns: table => new
                 {
-                    DrejtimiId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Drejtimi = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Drejtime", x => x.DrejtimiId);
+                    table.PrimaryKey("PK_Drejtime", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -47,13 +47,28 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Qytetet",
+                columns: table => new
+                {
+                    QytetiId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QytetiName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Qytetet", x => x.QytetiId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descritpion = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Default = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,11 +108,10 @@ namespace backend.Migrations
                     DateOfJoining = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Gjenerata = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Conntact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProfilePic = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NiveliId = table.Column<int>(type: "int", nullable: false),
-                    DrejtimiId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    NiveliId = table.Column<int>(type: "int", nullable: true),
+                    DrejtimiId = table.Column<int>(type: "int", nullable: true),
+                    QytetetQytetiId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -106,14 +120,20 @@ namespace backend.Migrations
                         name: "FK_Users_Drejtime_DrejtimiId",
                         column: x => x.DrejtimiId,
                         principalTable: "Drejtime",
-                        principalColumn: "DrejtimiId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Users_Nivelis_NiveliId",
                         column: x => x.NiveliId,
                         principalTable: "Nivelis",
                         principalColumn: "Niveli_Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Users_Qytetet_QytetetQytetiId",
+                        column: x => x.QytetetQytetiId,
+                        principalTable: "Qytetet",
+                        principalColumn: "QytetiId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -296,7 +316,7 @@ namespace backend.Migrations
                         name: "FK_Threads_Drejtime_DrejtimiId",
                         column: x => x.DrejtimiId,
                         principalTable: "Drejtime",
-                        principalColumn: "DrejtimiId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Threads_Nivelis_NiveliId",
@@ -451,6 +471,31 @@ namespace backend.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Drejtime",
+                columns: new[] { "Id", "Drejtimi" },
+                values: new object[] { 1, "CSE" });
+
+            migrationBuilder.InsertData(
+                table: "Nivelis",
+                columns: new[] { "Niveli_Id", "Name" },
+                values: new object[] { 1, "Barchelor" });
+
+            migrationBuilder.InsertData(
+                table: "Qytetet",
+                columns: new[] { "QytetiId", "QytetiName" },
+                values: new object[] { 1, "Ferizaj" });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Color", "Date", "Default", "Name" },
+                values: new object[,]
+                {
+                    { 1, "#ff0000", null, false, "Admin" },
+                    { 2, "#36dd08", null, true, "Student" },
+                    { 3, "#2283d8", null, false, "Profesor" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ChatBox_UserId",
                 table: "ChatBox",
@@ -577,6 +622,11 @@ namespace backend.Migrations
                 column: "NiveliId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_QytetetQytetiId",
+                table: "Users",
+                column: "QytetetQytetiId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Warnings_ByAdminId",
                 table: "Warnings",
                 column: "ByAdminId");
@@ -639,6 +689,9 @@ namespace backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Nivelis");
+
+            migrationBuilder.DropTable(
+                name: "Qytetet");
 
             migrationBuilder.DropTable(
                 name: "Categori");

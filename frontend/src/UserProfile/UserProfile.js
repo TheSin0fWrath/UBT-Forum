@@ -11,21 +11,18 @@ export default  function UserProfile(){
     const userid=window.location.pathname.split("/").pop();
     const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"",role:"" });
     const [showpopup,setShowpop] = useState(false);
-    const[confirmroledelete, setconfirmdelete]= useState(true);
-    const [deleterole,setdeleterole]=useState();
-
+    const [busy,setbusy]= useState(true);
    useEffect(async ()=>{const response= await getUser(userid);
     setData(await response.data)},[])
 
     const role = useMemo(()=>{   
         //console.log(data.role.role.color);
-               if(data.role!==""){
-             
-
-                   switch(data.role[0].role.name){
-                       case "Student":return <p className="student" style={{backgroundColor:data.role[0].role.color}}>Student</p>;break;
-                       case "Profesor":return <p className="profesor" style={{backgroundColor:data.role[0].role.color}}>Profesor</p>;break;
-                       case "Admin":return <p className="admin" style={{backgroundColor:data.role[0].role.color}}>Admin</p>;break;
+               if(data.role!=""){
+               
+                   switch(data.role.role.name){
+                       case "Student":return <p className="student" style={{backgroundColor:data.role.role.color}}>Student</p>;break;
+                       case "Profesor":return <p className="profesor" style={{backgroundColor:data.role.role.color}}>Profesor</p>;break;
+                       case "Admin":return <p className="admin" style={{backgroundColor:data.role.role.color}}>Admin</p>;break;
                    }
                }
          
@@ -58,8 +55,8 @@ export default  function UserProfile(){
                    </div>
                    </div>
                    <div>
-                   {(user!=null&&user.role=="Admin") && <button  className="UbtForumButton" onClick={()=>{setShowpop(true)}}>Update User</button>}
-                   {(user!=null&&userid==user.nameid) && <button className="UbtForumButton" onClick={()=>{window.location.pathname=`editprofile`}}>Edit Profile</button>}
+                   {(user!=null&&user!=""&&user.role.includes("Admin")) && <button onClick={()=>{setShowpop(true)}}>Update User</button>}
+                   {(user!=null&&userid==user.nameid) && <button onClick={()=>{window.location.pathname=`editprofile`}}>Edit Profile</button>}
                    </div>
                    <PopUp header="User Managment" show={showpopup}>
                     <form>

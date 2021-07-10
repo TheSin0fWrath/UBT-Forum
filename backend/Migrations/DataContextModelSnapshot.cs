@@ -381,7 +381,7 @@ namespace backend.Migrations
                     b.Property<string>("DateOfJoining")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DrejtimiId")
+                    b.Property<int?>("DrejtimiId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -406,9 +406,6 @@ namespace backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("QytetetQytetiId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
@@ -693,9 +690,7 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Model.Drejtimet", "Drejtimi")
                         .WithMany("user")
-                        .HasForeignKey("DrejtimiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DrejtimiId");
 
                     b.HasOne("backend.Model.Niveli", "Niveli")
                         .WithMany("users")

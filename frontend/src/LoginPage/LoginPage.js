@@ -16,7 +16,6 @@ export default function LoginPage() {
     repassword: "",
     email: "",
     drejtimi: "",
-   
     dateofjoining:""
   });
 

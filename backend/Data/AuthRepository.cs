@@ -35,11 +35,7 @@ namespace backend.Data
                 }
             User user = await _context.Users.Include(x=>x.Role).ThenInclude(x=>x.Role)
             .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower() ));
-            // if(!user.IsActive){
-            //     response.Success = false;
-            //     response.Message = "User Has Been Banned Or Timed Out";
-            //     return response;
-            // }
+         
             
             if (user == null)
             {
@@ -47,12 +43,18 @@ namespace backend.Data
                 response.Message = "Username Or Password Is Invalid";
                 return response;
             }
-             else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                  else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
                 response.Message = "Wrong Password";
                 return response;
             }
+               else if(!user.IsActive){
+                response.Success = false;
+                response.Message = "User Has Been Banned Or Timed Out";
+                return response;
+            }
+       
             response.Data = CreateToken(user);
             }catch(Exception e){
                 response.Data=null;
@@ -84,11 +86,12 @@ namespace backend.Data
             var role = await _context.Roles.FirstOrDefaultAsync(x=>x.Default==true);
             User user= new User();
             user.Username=newuser.Username;
-           
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
             user.DrejtimiId= newuser.Drejtimi;
-           
+            DateTime dateTime = DateTime.Today;
+            
+           user.DateOfJoining= dateTime.ToString("dd/MM/yyyy");
             user.Email= newuser.Email;
 
 
@@ -118,7 +121,7 @@ namespace backend.Data
             return false;
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {

@@ -75,9 +75,27 @@ namespace backend.Services
             return response;
         }
 
-        public Task<ServiceResponse<Message>> updateMesage(Message nMessage)
+        public async Task<ServiceResponse<Message>> updateMesage(Message nMessage)
         {
-            throw new System.NotImplementedException();
+            ServiceResponse<Message> response = new ServiceResponse<Message>();
+            try{
+            Message oldmessage=await _db.ChatBox.FirstOrDefaultAsync(x =>x.Id==nMessage.Id);
+            if (oldmessage.UserId != nMessage.UserId){
+                response.Message="Not Your Message To Update";
+                response.Success=false;
+                return response;
+            }
+            oldmessage.Text= nMessage.Text;
+            
+             _db.ChatBox.Update(oldmessage);
+             await _db.SaveChangesAsync();
+            response.Message="Chat Update";
+             }catch(Exception e){
+                response.Message=e.Message;
+                response.Success=false;
+                return response;
+            }
+            return response;
         }
         
     }
