@@ -3,13 +3,14 @@ import UbtLog from '../Images/UbtLogo.png'
 import importcss from "../hooks/importcss";
 import { UserContext } from '../hooks/UserContext';
 
-export default function EmptyPage  ({path,children}){
+export default function EmptyPage  ({path,secondfeed,children}){
    importcss(`${path}`,"Empty.css");
    const {user,setUser} = useContext(UserContext);
  
 const adminCheck=useMemo(()=>{
-   if(user!=null ){
-      if(user.role=="Admin"){
+   if(user!=null && user!="" ){
+      console.log(user.role)
+      if(user.role.includes("Admin")){
          return <p onClick={async ()=>{window.location.href="/adminPanel"}}>AdminPanel</p>
       }
    }
@@ -32,10 +33,12 @@ return(
    <div className="mainWrapper">
       <div className="toplinecss"> UBT</div>
       <div className="secondWrapper">
+      
          <div className="thirdWrapper">
         
          {children}
          </div>
+         {secondfeed}
       </div>
    </div>
 </div>

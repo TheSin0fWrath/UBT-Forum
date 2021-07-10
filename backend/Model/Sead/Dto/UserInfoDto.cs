@@ -9,6 +9,7 @@ namespace backend.Model.Sead
         public string DateOfJoining { get; set; }
         public bool IsActive { get; set; }
         public int  Posts { get; set; }
+        public int Reputation { get; set; }
         public int Likes { get; set; }
         public  int Threads  { get; set; }
         public int  WarningLevel { get; set; }

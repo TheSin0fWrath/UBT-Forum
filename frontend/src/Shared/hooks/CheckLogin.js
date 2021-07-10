@@ -10,16 +10,11 @@ export async  function CheckLogin (){
             "content-type":"application/json",
             "Authorization":`Bearer ${window.localStorage.getItem("token")}`
           }};
-    await fetch(REACT_APP_AUTH+"checklogin", options).then(response =>{dbresponse=response.statusText});
+    await fetch(REACT_APP_AUTH+"checklogin", options).then(response =>{dbresponse=response.statusText})
+    
     if (await dbresponse ==="OK"){
         var token =  window.localStorage.getItem("token");
-        console.log(dbresponse)
-        
           id= jwt_decode(token)
-       
-      
-   
-        
     }
   return (id);
 }

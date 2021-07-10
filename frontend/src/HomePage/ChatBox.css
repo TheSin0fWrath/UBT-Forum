@@ -16,19 +16,22 @@
   font-size: 11px;
 }
 
-.CBox td:nth-last-of-type(5) {
+.CBox td:nth-last-of-type(6) {
   width: 5px;
 }
 
-.CBox td:nth-last-of-type(4) {
+.CBox td:nth-last-of-type(5) {
   width: 10%;
 }
 
+.CBox td:nth-last-of-type(4) {
+  width: 69%;
+}
 .CBox td:nth-last-of-type(3) {
-  width: 76%;
+  width: 5x;
 }
 .CBox td:nth-last-of-type(2) {
-  width: 5x;
+  width: 60px;
 }
 .CBox td:nth-last-of-type(1) {
   width: 60px;
@@ -77,8 +80,8 @@
   align-items: center;
 }
 .updateMessageForm input {
-width: 90% ;
-color:white;
+width: 90% !important;
+color:white !important;
 background-color:#302f2f !important;
 
 }
@@ -88,6 +91,12 @@ background-color:#302f2f !important;
   color:white;
   background-color:#302f2f !important;
   
+  }
+  .updatemessagebuttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
   }
 
 /*# sourceMappingURL=ChatBox.css.map */
