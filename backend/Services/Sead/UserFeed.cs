@@ -40,11 +40,12 @@ namespace backend.Services
                     Posts=x.Posts.Count,
                     Gjenerata =x.Gjenerata,
                     Drejtimi = x.Drejtimi.Drejtimi,
-                    Role = x.Role.Select(x=>x.Role).ToList(),
+                    Role = x.Role.OrderByDescending(X=>X.Id).ToList(),
                     WarningLevel= x.ToUserWarning.Sum(x=>x.Points),
                     ProfilePic = x.ProfilePic                   
                     })
                 .FirstOrDefaultAsync(x => x.Id == id);
+                user.allRoles = await _context.Roles.Where(x=>x.roleUser.All(y=>y.UserId!=id)).ToListAsync();
                 response.Data=user;
                 if (user == null)
                 {

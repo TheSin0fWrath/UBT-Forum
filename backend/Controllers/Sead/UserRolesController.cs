@@ -79,13 +79,15 @@ namespace backend.Controllers.Sead
             }
             return Ok(response);
         }
-        [HttpDelete("{userid}/{roleid}")]
-        public async Task<IActionResult> DelteUseRoles(int userid,int roleid)
+
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DelteUseRoles(int id)
         {
            
              ServiceResponse<string> response= new ServiceResponse<string> ();
             try{
-                response= await _service.deleteRolesUser(userid);
+                response= await _service.deleteRolesUser(id);
                
                 if(!response.Success){
                     return BadRequest(response);

@@ -1,5 +1,5 @@
 
-export default  async function getUser(id){
+export   async function getUser(id){
     var returndata;
     const options={
         method : "Get",
@@ -15,20 +15,20 @@ export default  async function getUser(id){
       
 }
 
-export function deleterole(roleid,userid){
+export async function deleterole(id){
+    var response;
     const options={
         method : "Delete",
         headers:{
             "content-type":"application/json",
             "Authorization":`Bearer ${window.localStorage.getItem("token")}`
         }};
-    fetch("http://localhost:5000/deleterole"+roleid+"/"+userid).then(x=>x.json())
-    .then(data=>console.log(data))
-    .catch(e=>{
-        console.log(e)
-    });
+    await fetch("http://localhost:5000/api/v1/userole/"+id,options).then(x=>x.json())
+    .then(data=>{response=data});
+    return await response;
+
 }
-export function addrole(roleid,userid){
+export async function addrole(roleid,userid){
 
     const options={
         method : "Post",
@@ -37,11 +37,11 @@ export function addrole(roleid,userid){
             "Authorization":`Bearer ${window.localStorage.getItem("token")}`
         },
         body: JSON.stringify({
-            User:userid,
+            UserId:userid,
             RoleId:roleid
         })
     };
-    fetch("http://localhost:5000/api/addrole").then(x=>x.json())
+    await fetch("http://localhost:5000/api/v1/userole",options).then(x=>x.json())
     .then(data=>console.log(data))
     .catch(e=>{
         console.log(e)

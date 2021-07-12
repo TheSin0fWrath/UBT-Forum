@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import EmptyPage from "../Shared/Components/EmptyPage"
-import getUser from "./UerInfoCrud"
+import {getUser,deleterole,addrole} from "./UerInfoCrud"
 import "./Profile.css"
 import { UserContext } from '../Shared/hooks/UserContext';
 import PopUp from "../Shared/Components/PopUp.js"
@@ -9,23 +9,26 @@ import PopUp from "../Shared/Components/PopUp.js"
 export default  function UserProfile(){
     const {user,setUser} = useContext(UserContext)
     const userid=window.location.pathname.split("/").pop();
-    const [data,setData]=useState({username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"",role:"" });
+    const [data,setData]=useState({allroles:"",username:"",likes:"",reputation:"",dateOfJoining:"",conntact:"",gjenerata:"",posts:"",threads:"",warningLevel:"",role:"" });
     const [showpopup,setShowpop] = useState(false);
     const[confirmroledelete, setconfirmdelete]= useState(true);
-    const [deleterole,setdeleterole]=useState();
+    const [delrole,setdeleterole]=useState();
+    const [updaterole,setupdateRole]=useState({name:"",id:""});
+    const[refreshrole,setrefreshrole] =useState(false);
 
     const [busy,setbusy]= useState(true);
    useEffect(async ()=>{const response= await getUser(userid);
-    setData(await response.data)},[])
+    setData(await response.data)
+
+},[refreshrole])
 
     const role = useMemo(()=>{   
-        //console.log(data.role.role.color);
                if(data.role!=""){
-             
-                   switch(data.role[0].name){
-                       case "Student":return <p className="student" style={{backgroundColor:data.role[0].color}}>Student</p>;break;
-                       case "Profesor":return <p className="profesor" style={{backgroundColor:data.role[0].color}}>Profesor</p>;break;
-                       case "Admin":return <p className="admin" style={{backgroundColor:data.role[0].color}}>Admin</p>;break;
+        
+                   switch(data.role[0].role.name){
+                       case "Student":return <p className="student" style={{backgroundColor:data.role[0].role.color}}>Student</p>;break;
+                       case "Profesor":return <p className="profesor" style={{backgroundColor:data.role.[0].role.color}}>Profesor</p>;break;
+                       case "Admin":return <p className="admin" style={{backgroundColor:data.role[0].role.color}}>Admin</p>;break;
                    }
                }
          
@@ -33,17 +36,17 @@ export default  function UserProfile(){
         const allroles = useMemo(()=>{
 
             if(data.role !==""){
-        
                return  data.role.map((role)=>{
-                 
-                    return (<p  key={role.id} className="popuprole" style={{backgroundColor:role.color}}>{role.name} <span onClick={(e)=>{
+                    return (<p  key={role.id} className="popuprole" style={{backgroundColor:role.role.color}}>{role.role.name} <span onClick={(e)=>{
                         setconfirmdelete(!confirmroledelete)
                         setdeleterole(role.id)
+                        console.log(role)
                     }}>X</span></p>)
                 
                 })
             }
         },[data])
+
     
     return(
         <div className="UserProfile">
@@ -75,19 +78,50 @@ export default  function UserProfile(){
                         </div>
                         {confirmroledelete?<></>:<div className="confirmroledelete">
                         <p>Are you sure you want to delete this role ?</p>
-                        <button className="UbtForumButton" onClick={(e)=>{
-                            e.preventDefault()
-                            
-
+                        <button className="UbtForumButton" onClick={async (e)=>{
+                            e.preventDefault();
+                            var response = await deleterole(delrole);
+                            setconfirmdelete(!confirmroledelete)
+                            setrefreshrole(!refreshrole)
+                            console.log(response)
                         }}>YES</button>
-                        <button  className="UbtForumButton" onClick={e=>{
+                        <button  className="UbtForumButton" onClick={async e=>{
                             e.preventDefault()
+                          
                             setconfirmdelete(!confirmroledelete)
 
                         }}>NO</button>
-
                     </div>}
-                        
+                        <div className="addrole">
+                            <select  onChange={
+                                (x)=>{
+                                    setupdateRole({...updaterole, id:x.target.value})
+                                  
+                                }
+
+                            }>
+                                <option selected>Select Role</option>
+                              {(data.allroles!=="") && data.allRoles.map(role=>{
+                              return(<option value={role.id}>{role.name}</option>)
+                            })
+                              }
+                              
+                       
+                            </select>
+                            <button className="UbtForumButton" 
+                            onClick={
+                                async (x)=>{
+                                    x.preventDefault();
+                                    var response = await addrole(updaterole.id,userid)
+                                    console.log(response)
+                                  
+                                       setrefreshrole(!refreshrole)
+                                   
+                                }
+
+                            }
+                            > Add Role</button>
+                        </div>
                     <div className="formfoter">
                         
                         <button className="UbtForumButton" onClick={()=>{setShowpop(false)}}>Cancle</button><br></br>
