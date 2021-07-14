@@ -1,5 +1,5 @@
 
-export default  async function getUser(id){
+export   async function getUser(id){
     var returndata;
     const options={
         method : "Get",
@@ -13,4 +13,37 @@ export default  async function getUser(id){
 
         return await returndata;
       
+}
+
+export async function deleterole(id){
+    var response;
+    const options={
+        method : "Delete",
+        headers:{
+            "content-type":"application/json",
+            "Authorization":`Bearer ${window.localStorage.getItem("token")}`
+        }};
+    await fetch("http://localhost:5000/api/v1/userole/"+id,options).then(x=>x.json())
+    .then(data=>{response=data});
+    return await response;
+
+}
+export async function addrole(roleid,userid){
+
+    const options={
+        method : "Post",
+        headers:{
+            "content-type":"application/json",
+            "Authorization":`Bearer ${window.localStorage.getItem("token")}`
+        },
+        body: JSON.stringify({
+            UserId:userid,
+            RoleId:roleid
+        })
+    };
+    await fetch("http://localhost:5000/api/v1/userole",options).then(x=>x.json())
+    .then(data=>console.log(data))
+    .catch(e=>{
+        console.log(e)
+    });
 }

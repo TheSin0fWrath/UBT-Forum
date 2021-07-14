@@ -12,7 +12,7 @@ import OnlineMembers from './OnlineMembers'
 import Chat from "./Chat";
 import "./HomePage.css"
 import { UserContext } from '../Shared/hooks/UserContext';
-import getUser from "../UserProfile/UerInfoCrud"
+import {getUser} from "../UserProfile/UerInfoCrud"
 import EmptyPage from '../Shared/Components/EmptyPage';
 function HomePage(){
    const {user,setUser} = useContext(UserContext)

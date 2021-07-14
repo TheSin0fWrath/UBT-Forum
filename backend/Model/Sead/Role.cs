@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace backend.Model.Sead
@@ -12,6 +13,10 @@ namespace backend.Model.Sead
 
         public string Color { get; set; } 
         public bool Default { get; set; }
+
+        public virtual List<RoleUser> roleUser { get; set; }
+        
+        
         
          
     }

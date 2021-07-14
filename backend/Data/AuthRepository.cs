@@ -93,7 +93,12 @@ namespace backend.Data
             
            user.DateOfJoining= dateTime.ToString("dd/MM/yyyy");
             user.Email= newuser.Email;
+
+
             user.Role.Add(new RoleUser{RoleId=role.Id});
+
+
+            
             _context.Users.Add(user); 
             _context.SaveChanges();
             response.Data = CreateToken(user);
