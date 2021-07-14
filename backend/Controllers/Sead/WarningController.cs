@@ -100,7 +100,7 @@ namespace backend.Controllers.Home
             {
                 int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 var wrn = await _db.Warnings.FirstOrDefaultAsync(x => x.Id == id);
-                if (wrn.fromUserId == userid)
+                if (wrn.ByAdminId == userid)
                 {
 
                     _db.Warnings.Remove(wrn);
