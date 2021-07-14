@@ -14,7 +14,5 @@ namespace backend.Model
         public virtual User recivedBy { get; set; }
         public string Message { get; set; }
         public virtual List<Replays> Replays { get; set; }
-        
-      
-    }
+        public int ToUserId { get; internal set; }    }
 }
