@@ -10,7 +10,7 @@ namespace backend.Model
         public int QytetiId { get; set; }
         public string QytetiName { get; set; }
         public virtual List<User> Users { get; set; }
-        // a ke pas tabel qyteti? ti ke pas me ba a? po de 
-
+        
+        
     }
 }
