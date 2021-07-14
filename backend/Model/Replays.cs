@@ -10,11 +10,11 @@ namespace backend.Model
         public int ReplayId { get; set; }
         public string Message { get; set; }
         public int UserId { get; set; }
-         [ForeignKey("UserId")]
+        [ForeignKey("UserId")]
         public virtual User User { get; set; }
         public int EmailId { get; set; }
         public virtual Emails Email { get; set; }
-        
-        
+
+
     }
 }

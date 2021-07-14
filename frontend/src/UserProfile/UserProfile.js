@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { Route, Switch,Link, HashRouter } from "react-router-dom";
 import EmptyPage from "../Shared/Components/EmptyPage"
 import {getUser,deleterole,addrole} from "./UerInfoCrud"
 import "./Profile.css"
@@ -199,7 +200,7 @@ export default  function UserProfile(){
                            </tr>
                            <tr>
                            <td>Icon</td>
-                               <td>Reputation:</td>
+                               <td><a href={`http://localhost:3000/reputation/${userid}`}>Reputation:</a></td>
                                <td>{data.reputation}</td>
                            </tr>
                            <tr>
