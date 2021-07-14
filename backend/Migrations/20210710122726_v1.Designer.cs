@@ -10,8 +10,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210703200139_seadi6")]
-    partial class seadi6
+    [Migration("20210710122726_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,9 +70,6 @@ namespace backend.Migrations
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ToUserId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("recivedById")
                         .HasColumnType("int");
@@ -410,15 +407,12 @@ namespace backend.Migrations
                     b.Property<string>("ProfilePic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int?>("QytetetQytetiId")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("qytetiId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -426,7 +420,7 @@ namespace backend.Migrations
 
                     b.HasIndex("NiveliId");
 
-                    b.HasIndex("qytetiId");
+                    b.HasIndex("QytetetQytetiId");
 
                     b.ToTable("Users");
                 });
@@ -536,16 +530,11 @@ namespace backend.Migrations
                     b.Property<int?>("ToUserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("fromUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ByAdminId");
 
                     b.HasIndex("ToUserId");
-
-                    b.HasIndex("fromUserId");
 
                     b.ToTable("Warnings");
                 });
@@ -709,17 +698,13 @@ namespace backend.Migrations
                         .WithMany("users")
                         .HasForeignKey("NiveliId");
 
-                    b.HasOne("backend.Model.Qytetet", "qyteti")
+                    b.HasOne("backend.Model.Qytetet", null)
                         .WithMany("Users")
-                        .HasForeignKey("qytetiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QytetetQytetiId");
 
                     b.Navigation("Drejtimi");
 
                     b.Navigation("Niveli");
-
-                    b.Navigation("qyteti");
                 });
 
             modelBuilder.Entity("backend.Model.SubCategory", b =>
@@ -787,15 +772,9 @@ namespace backend.Migrations
                         .WithMany("ToUserWarning")
                         .HasForeignKey("ToUserId");
 
-                    b.HasOne("backend.Model.Sead.User", "fromUser")
-                        .WithMany()
-                        .HasForeignKey("fromUserId");
-
                     b.Navigation("ByAdmin");
 
                     b.Navigation("ToUser");
-
-                    b.Navigation("fromUser");
                 });
 
             modelBuilder.Entity("backend.Model.Category", b =>

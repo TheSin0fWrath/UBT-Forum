@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace backend.Model.Sead
 {
     public class UserInfoDto
@@ -9,6 +11,7 @@ namespace backend.Model.Sead
         public string DateOfJoining { get; set; }
         public bool IsActive { get; set; }
         public int  Posts { get; set; }
+        public int Reputation { get; set; }
         public int Likes { get; set; }
         public  int Threads  { get; set; }
         public int  WarningLevel { get; set; }
@@ -16,6 +19,9 @@ namespace backend.Model.Sead
         public string Gjenerata { get; set; }
         public string Drejtimi { get; set; }
         public string ProfilePic { get; set; }
-        public dynamic Role { get; set; }
+        public List<RoleUser> Role { get; set; }
+        public List<Role> allRoles { get; set; }
+        
+        
     }
 }

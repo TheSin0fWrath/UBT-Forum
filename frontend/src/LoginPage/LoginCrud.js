@@ -58,7 +58,14 @@ await fetch(REACT_APP_AUTH+"register",options).then(response => response.json())
 .then(data => {
 response =data;
 });
-console.log(response,'Registered');
+
+if (response.success===true){
+    localStorage.setItem('token', response.data)
+    window.location.href = '/';
+
+}
+else{
 return await response;
+}
 }
 export { LoginCrud,RegisterCrud};

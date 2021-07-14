@@ -2,7 +2,7 @@
 
 namespace backend.Migrations
 {
-    public partial class seada1 : Migration
+    public partial class some : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
