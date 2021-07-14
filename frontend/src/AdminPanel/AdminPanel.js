@@ -39,6 +39,10 @@ return(
                      <Link to={"/adminPanel/rolemanager"} style={{color:"white",fontSize:"14px"}}>
                      Roles</Link>
                   </li>
+                  <li>
+                     <Link to={"/adminPanel/citys"} style={{color:"white",fontSize:"14px"}}>
+                     Citys</Link>
+                  </li>
                </ul>
             </nav>
          </div>

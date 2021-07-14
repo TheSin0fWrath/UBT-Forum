@@ -76,11 +76,9 @@ namespace backend.Controllers.Home
         {
             try
             {
-                // int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 var email = await _db.Emails.FirstOrDefaultAsync(x => x.EmailId == id);
                 email.Title = newkoment.Title;
                 email.Message = newkoment.Message;
-                /// add more as needed
                 _db.Update(email);
                 await _db.SaveChangesAsync();
             }
@@ -99,10 +97,7 @@ namespace backend.Controllers.Home
             {
                 int userid = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 var eml = await _db.Emails.FirstOrDefaultAsync(x => x.EmailId == id);
-                // if (eml.ToUserId == id)
                 {
-
-                    //  _db.Emails.Remove(eml);
                     await _db.SaveChangesAsync();
 
                 }
