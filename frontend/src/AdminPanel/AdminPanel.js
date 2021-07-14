@@ -4,7 +4,7 @@ import EmptyPage from "../Shared/Components/EmptyPage"
 import Awards from "./Awards"
 import RoleManager from "./RoleManager";
 import "./Admin.css"
-import Contry from "./Contry";
+import CitysList from "./Citys";
 
 export default function AdminPanel(){
 
@@ -20,7 +20,7 @@ export default function AdminPanel(){
                    
                    <Route  exact path="/adminPanel/rolemanager" component={RoleManager}/>
                   <Route exact path="/adminPanel/awards"  component={Awards}/> 
-                  <Route exact path="/adminPanel/contry"  component={Contry}/> 
+                  <Route exact path="/adminPanel/City"  component={CitysList}/> 
 
                  
                </div>
@@ -31,7 +31,7 @@ export default function AdminPanel(){
                 <li>
                     <Link to={"/adminPanel/awards"}  style={{color:"white",fontSize:"14px"}}>Awards</Link></li>
                     <li><Link to={"/adminPanel/rolemanager"} style={{color:"white",fontSize:"14px"}}>Roles</Link>
-                    <li><Link to={"/adminPanel/contry"} style={{color:"white",fontSize:"14px"}}>contry</Link></li>
+                    <li><Link to={"/adminPanel/City"} style={{color:"white",fontSize:"14px"}}>City</Link></li>
 
                     </li>
                    
