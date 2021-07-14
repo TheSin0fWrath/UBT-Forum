@@ -69,6 +69,9 @@ namespace backend.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ToUserId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("recivedById")
                         .HasColumnType("int");
 
@@ -381,7 +384,7 @@ namespace backend.Migrations
                     b.Property<string>("DateOfJoining")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DrejtimiId")
+                    b.Property<int?>("DrejtimiId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -405,9 +408,6 @@ namespace backend.Migrations
                     b.Property<string>("ProfilePic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("QytetetQytetiId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
@@ -415,13 +415,16 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("qytetiId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DrejtimiId");
 
                     b.HasIndex("NiveliId");
 
-                    b.HasIndex("QytetetQytetiId");
+                    b.HasIndex("qytetiId");
 
                     b.ToTable("Users");
                 });
@@ -531,11 +534,16 @@ namespace backend.Migrations
                     b.Property<int?>("ToUserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("fromUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ByAdminId");
 
                     b.HasIndex("ToUserId");
+
+                    b.HasIndex("fromUserId");
 
                     b.ToTable("Warnings");
                 });
@@ -693,21 +701,21 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Model.Drejtimet", "Drejtimi")
                         .WithMany("user")
-                        .HasForeignKey("DrejtimiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DrejtimiId");
 
                     b.HasOne("backend.Model.Niveli", "Niveli")
                         .WithMany("users")
                         .HasForeignKey("NiveliId");
 
-                    b.HasOne("backend.Model.Qytetet", null)
+                    b.HasOne("backend.Model.Qytetet", "qyteti")
                         .WithMany("Users")
-                        .HasForeignKey("QytetetQytetiId");
+                        .HasForeignKey("qytetiId");
 
                     b.Navigation("Drejtimi");
 
                     b.Navigation("Niveli");
+
+                    b.Navigation("qyteti");
                 });
 
             modelBuilder.Entity("backend.Model.SubCategory", b =>
@@ -775,9 +783,15 @@ namespace backend.Migrations
                         .WithMany("ToUserWarning")
                         .HasForeignKey("ToUserId");
 
+                    b.HasOne("backend.Model.Sead.User", "fromUser")
+                        .WithMany()
+                        .HasForeignKey("fromUserId");
+
                     b.Navigation("ByAdmin");
 
                     b.Navigation("ToUser");
+
+                    b.Navigation("fromUser");
                 });
 
             modelBuilder.Entity("backend.Model.Category", b =>
