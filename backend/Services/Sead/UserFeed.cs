@@ -37,6 +37,7 @@ namespace backend.Services
                     IsActive=x.IsActive,
                     Threads=x.Threads.Count,
                     Id=x.Id,
+                    Reputation =x.toRep.Sum(x=>x.Reputation),
                     Posts=x.Posts.Count,
                     Gjenerata =x.Gjenerata,
                     Drejtimi = x.Drejtimi.Drejtimi,

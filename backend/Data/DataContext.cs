@@ -17,7 +17,9 @@ namespace backend.Data
         modelBuilder.Entity<Like_Thread>().HasKey(vf=> new {vf.ThreadId, vf.UserId});
         base.OnModelCreating(modelBuilder);
         modelBuilder.seed();
-        
+        modelBuilder.Entity<Reputations>().HasOne(x=>x.fromUser).WithMany(x=>x.fromRep).HasForeignKey(x=>x.fromUserId);
+        modelBuilder.Entity<Reputations>().HasOne(x=>x.ToUser).WithMany(x=>x.toRep).HasForeignKey(x=>x.ToUserId);
+
     }
         public DbSet<Message> ChatBox { get; set; }
         public DbSet<User>  Users{ get; set; }
