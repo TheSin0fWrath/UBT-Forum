@@ -199,7 +199,7 @@ export default  function UserProfile(){
                            </tr>
                            <tr>
                            <td>Icon</td>
-                               <td onClick={()=>window.location.href="/reputation/2"}>Reputation:</td>
+                               <td onClick={()=>window.location.href=`/reputation/${userid}`}>Reputation:</td>
                                <td>{data.reputation}</td>
                            </tr>
                            <tr>
