@@ -21,9 +21,7 @@ export default function UserReputation() {
 
 
     React.useEffect(async () => {
-
         async function fetchMyUser() {
-
             let response = await fetch(fetchURL);
             response = await response.json();
             setRepId(response.data);

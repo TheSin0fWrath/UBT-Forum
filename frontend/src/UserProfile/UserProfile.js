@@ -204,7 +204,7 @@ export default  function UserProfile(){
                            </tr>
                            <tr>
                            <td>Icon</td>
-                               <td>Warning:</td>
+                               <td onClick={()=>window.location.href=`/warning/${userid}`}>Warning:</td>
                                <td>{data.warningLevel}</td>
                            </tr>
                        </tbody>

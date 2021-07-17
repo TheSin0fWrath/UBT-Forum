@@ -12,6 +12,8 @@ import EmptyPage from "./Shared/Components/EmptyPage"
 import ProfileEdit from "./UserSettings/ProfileEdit"
 import UserReputation from "./UserProfile/UserReputation"
 import AdminPanel from "./AdminPanel/AdminPanel"
+import WarningPage from "./UserWarning/Warningpage"
+
 function App() {
   
   
@@ -34,6 +36,8 @@ function App() {
        <Route path="/user"> <UserProfile/>  </Route>
        <Route path="/reputation"><UserReputation/></Route>
        <Route path="/adminPanel"><AdminPanel/></Route>
+       <Route path="/warning"> <WarningPage/>  </Route>
+
        <Route path="/"> <HomePage/>  </Route>
        </Switch>
        </UserContext.Provider>
