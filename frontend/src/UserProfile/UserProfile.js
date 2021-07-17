@@ -19,12 +19,12 @@ export default  function UserProfile(){
     const [busy,setbusy]= useState(true);
    useEffect(async ()=>{const response= await getUser(userid);
     setData(await response.data)
-
 },[refreshrole])
 
     const role = useMemo(()=>{   
                if(data.role!=""){
-        
+                console.log(data)
+
                    switch(data.role[0].role.name){
                        case "Student":return <p className="student" style={{backgroundColor:data.role[0].role.color}}>Student</p>;break;
                        case "Profesor":return <p className="profesor" style={{backgroundColor:data.role.[0].role.color}}>Profesor</p>;break;
@@ -141,7 +141,7 @@ export default  function UserProfile(){
                            <p>Likes</p>
                        </div>
                        <div className="showBox">
-                       <p>{data.reputation}</p>
+                       <p >{data.reputation}</p>
                            <p>Reputation</p>
                        </div>
                    <div className="ContentBox">
@@ -199,7 +199,7 @@ export default  function UserProfile(){
                            </tr>
                            <tr>
                            <td>Icon</td>
-                               <td>Reputation:</td>
+                               <td onClick={()=>window.location.href=`/reputation/${userid}`}>Reputation:</td>
                                <td>{data.reputation}</td>
                            </tr>
                            <tr>

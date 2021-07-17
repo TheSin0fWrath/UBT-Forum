@@ -36,5 +36,8 @@ namespace backend.Model.Sead
         [InverseProperty("recivedBy")]
         public virtual List<Emails> recivedEmail { get; set; }
         public virtual List<Replays> Replays { get; set; }  
+
+        public virtual List<Reputations> fromRep { get; set; }
+        public virtual List<Reputations> toRep { get; set; }
     }
 }

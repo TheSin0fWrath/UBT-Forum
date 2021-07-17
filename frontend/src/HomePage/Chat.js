@@ -51,7 +51,7 @@ function Chat() {
 					<td key={d.text + index++}>{d.text}</td>
 					{
        
-         (checkUser(d.userId))&&
+         (checkUser(d.userId))?
            (<>
              	<td	onClick={async () => {setPop(true);setedit({ ...edit, message: d.text, id: d.id });	}}style={{ cursor: "pointer" }}key={"update"}	>
             Update
@@ -61,11 +61,8 @@ function Chat() {
           </td>
           </>
           )
+		  : <><td></td><td></td></>
           }
-
-   
-  
-
 					<td key={d.time + index++}>{clacdate(d.time)}</td>
 				</tr>
 			);
