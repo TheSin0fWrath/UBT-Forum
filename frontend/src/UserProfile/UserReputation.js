@@ -6,8 +6,9 @@ import RepPage from "../Shared/Components/RepPage";
 import { CheckLogin } from "../Shared/hooks/CheckLogin";
 import getUser from "./UerInfoCrud";
 const userid = window.location.pathname.split("/").pop();
-const fetchURL = 'http://localhost:5000/user/getuser/' + userid;
-const getRepListApi = () => fetch("http://localhost:5000/api/reputation/" + userid).then(response => response.json());
+const {REACT_APP_BASIC}= process.env;
+const fetchURL = REACT_APP_BASIC+'user/getuser/' + userid;
+const getRepListApi = () => fetch( REACT_APP_BASIC+"reputation/" + userid).then(response => response.json());
 
 export default function UserReputation() {
     const [isBusy, setBusy] = React.useState(true);
@@ -62,7 +63,7 @@ export default function UserReputation() {
         };
         window.location.reload()
 
-        fetch("http://localhost:5000/api/reputation", requestOptions).then(response => response.json()).then();
+        fetch( REACT_APP_BASIC+"api/reputation", requestOptions).then(response => response.json()).then();
     }
     function deleteRep(e) {
         let id = e.target.id;
@@ -71,7 +72,7 @@ export default function UserReputation() {
             headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${window.localStorage.getItem("token")}` },
             body: JSON.stringify({})
         };
-        fetch('http://localhost:5000/api/reputation/' + id, requestOptions);
+        fetch( REACT_APP_BASIC+'api/reputation/' + id, requestOptions);
     }
     function editRep(e) {
         let id = e.target.id;
@@ -85,7 +86,7 @@ export default function UserReputation() {
                 ToUserId: userid
             })
         };
-        fetch('http://localhost:5000/api/reputation/' + id, requestOptions);
+        fetch( REACT_APP_BASIC+'api/reputation/' + id, requestOptions);
         // console.log(e.target.id);
     }
     

@@ -1,3 +1,4 @@
+const {REACT_APP_BASIC}= process.env;
 
 export   async function getUser(id){
     var returndata;
@@ -7,7 +8,7 @@ export   async function getUser(id){
             "content-type":"application/json"
            
         }};
-        await fetch(`http://localhost:5000/user/getuser/${id}`, options).then(response => response.json()).then(data => 
+        await fetch(REACT_APP_BASIC+`user/getuser/${id}`, options).then(response => response.json()).then(data => 
         {returndata=data}
         );   
 
@@ -23,7 +24,7 @@ export async function deleterole(id){
             "content-type":"application/json",
             "Authorization":`Bearer ${window.localStorage.getItem("token")}`
         }};
-    await fetch("http://localhost:5000/api/v1/userole/"+id,options).then(x=>x.json())
+    await fetch(REACT_APP_BASIC+"api/v1/userole/"+id,options).then(x=>x.json())
     .then(data=>{response=data});
     return await response;
 
@@ -41,7 +42,7 @@ export async function addrole(roleid,userid){
             RoleId:roleid
         })
     };
-    await fetch("http://localhost:5000/api/v1/userole",options).then(x=>x.json())
+    await fetch(REACT_APP_BASIC+"api/v1/userole",options).then(x=>x.json())
     .then(data=>console.log(data))
     .catch(e=>{
         console.log(e)

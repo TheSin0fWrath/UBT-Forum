@@ -12,6 +12,8 @@ const [deletepop,setdeletepop] = useState(false);
 const[isBusy,setbusy]=useState(true);
 const userid=window.location.pathname.split("/").pop();
 warning.ToUserId= userid;
+const {REACT_APP_BASIC}= process.env;
+
 
 //popupcontrolls
  const openeditpop=(warn)=>{
@@ -35,7 +37,7 @@ setDeleteId(id);
             "Authorization":`Bearer ${window.localStorage.getItem("token")}`
           },
         body: JSON.stringify(warning)};
-     let replay = fetch("http://localhost:5000/api/warning",options).then(response =>response.json());
+     let replay = fetch( REACT_APP_BASIC+"api/warning",options).then(response =>response.json());
      setbusy(true);
  }
 //Get
@@ -49,7 +51,7 @@ useEffect(()=>{
         'Accept': 'application/json',
             "Authorization":`Bearer ${window.localStorage.getItem("token")}`
           }};
- let response = await fetch("http://localhost:5000/api/warning/"+userid,options).then(x=>x.json());
+ let response = await fetch(REACT_APP_BASIC+"api/warning/"+userid,options).then(x=>x.json());
  setData(response);
  setbusy(false);
     }
@@ -65,7 +67,7 @@ const deletewarning =async ()=>{
         'Accept': 'application/json',
             "Authorization":`Bearer ${window.localStorage.getItem("token")}`
           }};
-     let replay = fetch("http://localhost:5000/api/warning/"+deleteId,options).then(response =>response.json());
+     let replay = fetch(REACT_APP_BASIC+"api/warning/"+deleteId,options).then(response =>response.json());
      setdeletepop(false)
      setbusy(true);
      
@@ -80,7 +82,7 @@ const updateWarning=async ()=>{
             "Authorization":`Bearer ${window.localStorage.getItem("token")}`
           },
         body: JSON.stringify(updatewarning)};
-     let replay = fetch("http://localhost:5000/api/warning",options).then(response =>response.json());
+     let replay = fetch(REACT_APP_BASIC+"api/warning",options).then(response =>response.json());
      seteditpop(false)
      setbusy(true);
     }

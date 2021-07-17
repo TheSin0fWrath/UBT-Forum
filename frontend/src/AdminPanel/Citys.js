@@ -1,6 +1,9 @@
 import React from "react";
 import "./Citys.css";
-const fetchURL = 'http://localhost:5000/api/qytetet/';
+const {REACT_APP_LOCAL}= process.env;
+
+
+const fetchURL = REACT_APP_LOCAL+'qytetet/';
 const getItems = () => fetch(fetchURL).then(res => res.json());
 
 function CitysList () {
@@ -29,7 +32,7 @@ function CitysList () {
             headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${window.localStorage.getItem("token")}`},
             body: JSON.stringify({ QytetiName: cityEdit })
         };
-        fetch('http://localhost:5000/api/qytetet/'+id, requestOptions);
+        fetch(fetchURL+id, requestOptions);
         // console.log(e.target.id);
     }
     function deleteCity(e) {
@@ -39,7 +42,7 @@ function CitysList () {
             headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${window.localStorage.getItem("token")}`},
             body: JSON.stringify({})
         };
-        fetch('http://localhost:5000/api/qytetet/'+id, requestOptions);
+        fetch(fetchURL+id, requestOptions);
     }
     return(
         <div className="city">
