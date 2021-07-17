@@ -56,6 +56,8 @@ namespace backend.Controllers.Home
         {
             bool is_posted;
             int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            wrn.ByAdminId= id;
+            
             try
             {
                 await _db.Warnings.AddAsync(wrn);
@@ -70,13 +72,13 @@ namespace backend.Controllers.Home
             return Ok(is_posted);
         }
         [Authorize]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> updateWarning(int id, Warnings newkoment)
+        [HttpPut]
+        public async Task<IActionResult> updateWarning(Warnings newkoment)
         {
             try
             {
                 // int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                var warning = await _db.Warnings.FirstOrDefaultAsync(x => x.Id == id);
+                var warning = await _db.Warnings.FirstOrDefaultAsync(x => x.Id == newkoment.Id);
                 warning.Text = newkoment.Text;
                 warning.Points = newkoment.Points;
                 // warning.fromUserId = newkoment.ToUserId;
