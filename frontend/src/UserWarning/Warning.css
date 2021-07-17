@@ -1,0 +1,98 @@
+.Warning {
+  height: auto;
+}
+.Warning .thirdWrapper {
+  width: 100%;
+  height: auto;
+}
+.Warning .OtherSettings {
+  width: 500px;
+  height: 60px;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+}
+.AddWarning {
+  margin: auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 100px;
+}
+.AddWarning textarea {
+  background-color: #393939;
+  width: 500px;
+  height: 300px;
+  border: 1px solid black;
+  color: white;
+}
+.AddWarning h3 {
+  color: white;
+}
+.AddWarning input[type="number"] {
+  color: white;
+  background-color: #393939;
+  border: 1px solid black;
+  width: 70%;
+  height: 30px;
+}
+.UbtForumButton {
+  border: none;
+  font-size: 16px;
+  border-radius: 10px;
+  background-color: #04438b;
+  color: white;
+  padding: 10px 20px 10px 20px;
+}
+.WarningsOfUser {
+  margin-top: 20px;
+}
+.WaningBox {
+  width: 100%;
+  height: auto;
+}
+/* .warning .popup:last-of-type {
+  height: 169px;
+} */
+/* .Warning .popupbody {
+  height: 169px;
+  color: red;
+} */
+.popupfooter {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.WaningBox p {
+  display: block;
+  background-color: #393939;
+  border: 1px solid black;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  height: 70px;
+  text-align: left;
+}
+.editWarning {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.editWarning button {
+  margin-left: 15px;
+}
+.WaningBox {
+  display: block;
+  padding: 10px;
+  color: red;
+  text-align: left;
+}
+.UserWarningHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
