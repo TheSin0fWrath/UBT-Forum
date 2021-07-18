@@ -7,8 +7,8 @@ import { CheckLogin } from "../Shared/hooks/CheckLogin";
 import getUser from "./UerInfoCrud";
 const userid = window.location.pathname.split("/").pop();
 const {REACT_APP_BASIC}= process.env;
-const fetchURL = REACT_APP_BASIC+'user/getuser/' + userid;
-const getRepListApi = () => fetch( REACT_APP_BASIC+"reputation/" + userid).then(response => response.json());
+const fetchURL = REACT_APP_BASIC+'api/user/getuser/' + userid;
+const getRepListApi = () => fetch( REACT_APP_BASIC+"api/reputation/" + userid).then(response => response.json());
 
 export default function UserReputation() {
     const [isBusy, setBusy] = React.useState(true);
