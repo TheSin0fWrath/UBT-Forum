@@ -13,19 +13,19 @@ using Microsoft.EntityFrameworkCore;
 namespace backend.Controllers.Home
 {
     [ApiController]
-    [Route("api/reputation")]
+    [Route("api/reputation")] //api per backend
     public class ReputationController : ControllerBase
     {
         private readonly DataContext _db;
         public ReputationController(DataContext db)
         {
-            _db = db;
+            _db = db; // ta lidh me databaz
 
         }
         [HttpGet]
         public async Task<IActionResult> getReputations()
         {
-            List<Reputations> reputations = new List<Reputations>();
+            List<Reputations> reputations = new List<Reputations>(); //
             try
             {
                 reputations = await _db.Reputations.ToListAsync();
@@ -40,7 +40,7 @@ namespace backend.Controllers.Home
         [HttpGet("{id}")]
         public async Task<IActionResult> getReputation(int id)
         {
-            List<ReputationDto> users_reputation;
+            List<ReputationDto> users_reputation = new List<ReputationDto>();
             try
             //prit ni sekond
             {
@@ -57,10 +57,7 @@ namespace backend.Controllers.Home
 
                }).ToListAsync();
 
-                // users_reputation = await _db.Reputations.Include(x => x.fromUser)
-                // .Include(x=>x.fromUser.Select(u=>u.username))
 
-                // .Where(x => x.ToUserId == id).ToListAsync();
             }
             catch (Exception e)
             {
@@ -72,10 +69,11 @@ namespace backend.Controllers.Home
         [HttpPost]
         public async Task<IActionResult> postReputation(Reputations rep)
         {
-            bool is_posted;
+            bool is_posted = false;
             int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
             try
             {
+
                 rep.fromUserId = id;
                 await _db.Reputations.AddAsync(rep);
                 await _db.SaveChangesAsync();
@@ -89,13 +87,13 @@ namespace backend.Controllers.Home
             return Ok(is_posted);
         }
         [Authorize]
-        [HttpPut("{id}")]
+        [HttpPut("{id}")]//1
         public async Task<IActionResult> updateReputation(int id, Reputations newkoment)
         {
             try
             {
                 // int id = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
-                var Reputations = await _db.Reputations.FirstOrDefaultAsync(x => x.Id == id);
+                var Reputations = await _db.Reputations.FirstOrDefaultAsync(x => x.Id == id);// 1 = 
                 Reputations.Message = newkoment.Message;
                 Reputations.fromUserId = newkoment.fromUserId;
                 Reputations.ToUserId = newkoment.ToUserId;
