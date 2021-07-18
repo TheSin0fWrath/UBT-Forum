@@ -17,7 +17,6 @@ export default function UserReputation() {
     const [getRepList, setGetRepList] = React.useState([]);
     const { user, setUser } = useContext(UserContext);
     const [currentUser, setCurrentUser] = React.useState([]);
-    const [hasgiverep,sethasgivenrep]= React.useState(false);
 
 
     React.useEffect(async () => {
@@ -31,24 +30,7 @@ export default function UserReputation() {
 
         getRepListApi().then(res => setGetRepList(res));
     }, []);
-    React.useEffect(()=>{
-        if(!isBusy){
-            var hasrepted=false;
-            for(var i=0;i<getRepList.length;i++){
-                if( getRepList[i].fromuser=user.nameid){
-                    hasrepted=true;
-                }
-                           }
-            if(user.nameid==userid){
-                hasrepted=true;
-
-            }
-            if(hasrepted){
-                sethasgivenrep(true)
-            }
-        }
-
-    },[isBusy])
+  
     function addRep() {
         const requestOptions = {
             method: 'POST',
@@ -60,9 +42,8 @@ export default function UserReputation() {
                 ToUserId: userid
             })
         };
-        window.location.reload()
-
         fetch("http://localhost:5000/api/reputation", requestOptions).then(response => response.json()).then();
+                window.location.reload()
     }
     function deleteRep(e) {
         let id = e.target.id;
@@ -71,7 +52,10 @@ export default function UserReputation() {
             headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${window.localStorage.getItem("token")}` },
             body: JSON.stringify({})
         };
+        
         fetch('http://localhost:5000/api/reputation/' + id, requestOptions);
+                window.location.reload()
+
     }
     function editRep(e) {
         let id = e.target.id;
@@ -86,6 +70,8 @@ export default function UserReputation() {
             })
         };
         fetch('http://localhost:5000/api/reputation/' + id, requestOptions);
+                window.location.reload()
+
         // console.log(e.target.id);
     }
     
@@ -148,7 +134,7 @@ export default function UserReputation() {
                     <div className="ContentBoxHeader">
                         <h3>Reputation for {isBusy ? ('null') : (<p>{repId.username}</p>)} </h3>
                     </div>
-                    {(hasgiverep)?<></>:
+                    
                     <div className="submitRep">
                         <select onChange={event => setGetRepDetails({
                             ...getRepDetails,
@@ -164,7 +150,7 @@ export default function UserReputation() {
                         })} type="text" placeholder="Write a comment" />
                         <button onClick={addRep}>Rate</button>
                     </div>
-               } </div>
+               </div>
                 <div className="reputationstats">
                     <h1>Total Reputation</h1>
 
