@@ -22,20 +22,18 @@ export default  function UserProfile(){
 },[refreshrole])
 
     const role = useMemo(()=>{   
-               if(data.role!=""){
-                console.log(data)
 
-                   switch(data.role[0].role.name){
-                       case "Student":return <p className="student" style={{backgroundColor:data.role[0].role.color}}>Student</p>;break;
-                       case "Profesor":return <p className="profesor" style={{backgroundColor:data.role.[0].role.color}}>Profesor</p>;break;
-                       case "Admin":return <p className="admin" style={{backgroundColor:data.role[0].role.color}}>Admin</p>;break;
-                   }
+               if(data.role!=""){
+                console.log(data.role[0].role.color)
+                 return <p className="student" style={{backgroundColor:data.role[0].role.color}}>{data.role[0].role.name}</p>
+               
                }
          
         },[data])
         const allroles = useMemo(()=>{
 
             if(data.role !==""){
+               
                return  data.role.map((role)=>{
                     return (<p  key={role.id} className="popuprole" style={{backgroundColor:role.role.color}}>{role.role.name} <span onClick={(e)=>{
                         setconfirmdelete(!confirmroledelete)
