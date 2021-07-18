@@ -43,9 +43,9 @@ export default function UserReputation() {
                 ToUserId: userid
             })
         };
+        fetch( REACT_APP_BASIC+"api/reputation", requestOptions).then(response => response.json()).then();
         window.location.reload()
 
-        fetch( REACT_APP_BASIC+"api/reputation", requestOptions).then(response => response.json()).then();
     }
     function deleteRep(e) {
         let id = e.target.id;
