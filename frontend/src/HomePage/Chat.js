@@ -43,27 +43,27 @@ function Chat() {
 		return post.map((d) => {
 			var index = 1;
 			return (
-				<tr>
-					<td>@</td>
-					<td key={d.username + index++}>
+				<tr className="message">
+					<td style={{width:5}}>@</td>
+					<td style={{width:"10%"}} key={d.username + index++}>
 						<a href={`/user/${d.userId}`}>{d.username}</a>
 					</td>
-					<td key={d.text + index++}>{d.text}</td>
+					<td style={{width:"69%"}} key={d.text + index++}>{d.text}</td>
 					{
        
          (checkUser(d.userId))?
            (<>
-             	<td	onClick={async () => {setPop(true);setedit({ ...edit, message: d.text, id: d.id });	}}style={{ cursor: "pointer" }}key={"update"}	>
+             	<td 	onClick={async () => {setPop(true);setedit({ ...edit, message: d.text, id: d.id });	}}style={{ cursor: "pointer", width:"5px" }}key={"update"}	>
             Update
           </td>
-          	<td	onClick={async () => {setdeletepop(true);setedit({ ...edit, id: d.id });	}}style={{ cursor: "pointer" }}key={"update"}	>
+          	<td	  onClick={async () => {setdeletepop(true);setedit({ ...edit, id: d.id });	}}style={{ cursor: "pointer", width:"60px"  }}key={"update"}	>
             Delete
           </td>
           </>
           )
-		  : <><td></td><td></td></>
+		  : <><td style={{width:"5px"}}></td><td style={{width:"60px"}}></td></>
           }
-					<td key={d.time + index++}>{clacdate(d.time)}</td>
+					<td  style={{width:"60px"}}key={d.time + index++}>{clacdate(d.time)}</td>
 				</tr>
 			);
 		});
