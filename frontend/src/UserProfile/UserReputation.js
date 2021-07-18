@@ -31,7 +31,6 @@ export default function UserReputation() {
 
         getRepListApi().then(res => setGetRepList(res));
     }, []);
-  
     function addRep() {
         const requestOptions = {
             method: 'POST',
@@ -77,7 +76,7 @@ export default function UserReputation() {
 
         if (rep.points > 0) {
             
-            if (user.nameid == rep.fromuser) {
+            if (user !=null && user.nameid == rep.fromuser) {
 
                 return (
                     <li key={rep.id} className="replist">
@@ -97,7 +96,7 @@ export default function UserReputation() {
         }
 
         else {
-            if (user.nameid == rep.fromuser) {
+            if (user !=null &&  user.nameid == rep.fromuser) {
                 return (
                     <li key={rep.id} className="replist">
                         <li>{rep.username}
@@ -147,7 +146,7 @@ export default function UserReputation() {
                         })} type="text" placeholder="Write a comment" />
                         <button onClick={addRep}>Rate</button>
                     </div>
-               </div>
+                </div>
                 <div className="reputationstats">
                     <h1>Total Reputation</h1>
 
