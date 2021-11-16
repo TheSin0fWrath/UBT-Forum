@@ -4,7 +4,7 @@ import {addRole,getRoles,deleteRole,updateRole} from "./AdminCrud";
 
 export default function RoleManager(){
     const [showPop,setShowPop]= useState(false);
-    const [role,setRole]= useState({name:null,color:null});
+    const [role,setRole]= useState({name:null,color:null,abc:null});
     const [replayMessage,setReplay] =useState();
     const[showUpdatePop,setUpdatePop] =useState(false);
    const [data,setData]= useState([]);
@@ -81,6 +81,10 @@ export default function RoleManager(){
                         <input onChange={x=>setRole({...role,name:x.target.value})} className="Firs-Input-Text" type="text" required/> </label>
                         <label  style={{color:"white"}}>Role Color  {'\u00A0'}       
                         <input onChange={x=>setRole({...role,color:x.target.value})}  type="color" required/> </label>
+                        <label style={{color:"white"}}>Role Name  {'\u00A0'}  
+                        <input onChange={x=>setRole({...role,abc:x.target.value})} className="Firs-Input-Text" type="text" required/> </label>
+                     
+                       <label></label>
                         <p style={{color:"red"}}>{replayMessage}</p>
                         <div className="formfoter">
                         <input className="UbtForumButton"  type="submit"value="Submit"/><br></br>
@@ -90,7 +94,7 @@ export default function RoleManager(){
            </PopUp>
                     {!showUpdatePop?<></>:<PopUp header="Role Managment" show={true}>
     <form onSubmit={upRoleCrud}>
-        <label style={{color:"white"}}>Role Name  {'\u00A0'}  
+        <label style={{color:"white"}}>Role ASS  {'\u00A0'}  
         <input onChange={x=>setRole({...role,name:x.target.value})} defaultValue={role.name} className="Firs-Input-Text" type="text" required/> </label>
         <label  style={{color:"white"}}>Role Color  {'\u00A0'}       
         <input onChange={x=>setRole({...role,color:x.target.value})} defaultValue={role.color} type="color" required/> </label>

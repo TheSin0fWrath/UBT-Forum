@@ -13,6 +13,7 @@ namespace backend.Model.Sead
 
         public string Color { get; set; } 
         public bool Default { get; set; }
+        public string ABC { get; set; }
 
         public virtual List<RoleUser> roleUser { get; set; }
         

@@ -115,7 +115,6 @@ C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\staticwebasset
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\staticwebassets\backend.StaticWebAssets.xml
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\scopedcss\bundle\backend.styles.css
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.RazorTargetAssemblyInfo.cache
-C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.csproj.CopyComplete
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.dll
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\ref\backend.dll
 C:\Users\Dell\Documents\GitHub\UBT-Forum\backend\obj\Debug\net5.0\backend.pdb
